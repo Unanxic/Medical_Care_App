@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,14 +39,15 @@ fun WelcomeScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
     ) {
-//        Image(
-//            painter = painterResource(id = R.drawable.rectangle_22),
-//            contentDescription = null,
-//            contentScale = ContentScale.FillHeight,
-//            modifier = Modifier.fillMaxSize()
-//        )
+        Image(
+            painter = painterResource(id = R.drawable.ic_rainbow),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .fillMaxSize()
+                .align(Alignment.TopCenter)
+        )
         Column(
             modifier = Modifier
                 .fillMaxSize(),
@@ -97,7 +99,7 @@ fun WelcomeScreen() {
                             isFilled = true,
                             fontSize = 20.sp,
                             contentColorChoice = SmokyBlack,
-                            fillColorChoice = LightTeaGreen
+                            fillColorChoice = LightTeaGreen,
                         )
                         ButtonComponent(
                             onClick = { /* todo */ },
@@ -111,7 +113,7 @@ fun WelcomeScreen() {
                             text = "Log in",
                             isFilled = true,
                             fontSize = 20.sp,
-                            fillColorChoice = LightOlivine
+                            fillColorChoice = LightOlivine,
                         )
                     }
                 }

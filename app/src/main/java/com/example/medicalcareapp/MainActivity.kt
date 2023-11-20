@@ -9,14 +9,14 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import com.example.medicalcareapp.screens.WelcomeScreen
-import com.example.medicalcareapp.ui.theme.OZDraughtMasterAndroidTheme
+import com.example.medicalcareapp.ui.theme.MedicalAppAndroidTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            OZDraughtMasterAndroidTheme {
+            MedicalAppAndroidTheme {
                 Surface(
                     // .imePadding() moved to specific screens in order to keep the background images stationary see LoginScreen
                     modifier = Modifier
