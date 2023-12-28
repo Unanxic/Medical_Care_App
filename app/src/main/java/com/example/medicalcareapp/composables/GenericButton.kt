@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -39,6 +40,7 @@ fun ButtonComponent(
     disabledContentColor: Color = TeaGreen,
     backgroundColorChoice: Color = TeaGreen,
     fillColorChoice: Color = Axolotl,
+    cornerRadius: Int = 50,
     onClick: () -> Unit
 ) {
     val contentColor =
@@ -54,8 +56,8 @@ fun ButtonComponent(
     }
     Column(
         modifier = modifier
-            .border(1.dp, borderColor, CircleShape)
-            .background(backgroundColor, CircleShape)
+            .border(1.dp, borderColor, RoundedCornerShape(cornerRadius.dp))
+            .background(backgroundColor, RoundedCornerShape(cornerRadius.dp))
             .padding(12.dp)
             .fillMaxSize()
             .setNoRippleClickable { if (!isDisabled) onClick() },
