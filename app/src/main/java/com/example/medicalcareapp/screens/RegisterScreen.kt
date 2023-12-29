@@ -37,17 +37,19 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
 import com.example.medicalcareapp.composables.GenericTextField
 import com.example.medicalcareapp.extesions.setNoRippleClickable
+import com.example.medicalcareapp.navigation.Screens
 import com.example.medicalcareapp.ui.theme.DarkJungleGreen
 import com.example.medicalcareapp.ui.theme.Honeydew
 import com.example.medicalcareapp.ui.theme.LightOlivine
 import com.example.medicalcareapp.ui.theme.LilacPurple
 
 @Composable
-fun RegisterScreen() {
+fun RegisterScreen(navController: NavController) {
     var username by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -68,7 +70,10 @@ fun RegisterScreen() {
             contentDescription = null,
             modifier = Modifier
                 .padding(16.dp)
-                .size(25.dp),
+                .size(25.dp)
+                .setNoRippleClickable {
+                    navController.popBackStack(Screens.Welcome.route, inclusive = false)
+                },
             tint = DarkJungleGreen
         )
         Column(
@@ -185,7 +190,7 @@ fun RegisterScreen() {
                             .fillMaxSize()
                     ) {
                         Spacer(modifier = Modifier.weight(1f))
-                        LoginLink()
+                        LoginLink(navController = navController)
                         Spacer(modifier = Modifier.height(16.dp))
                     }
                 }
@@ -196,7 +201,7 @@ fun RegisterScreen() {
 
 
 @Composable
-fun LoginLink() {
+fun LoginLink(navController: NavController) {
     Box(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -218,7 +223,7 @@ fun LoginLink() {
                 color = LilacPurple,
                 fontSize = 16.sp,
                 modifier = Modifier.setNoRippleClickable {
-                    //todo
+                    navController.navigate(Screens.Login.route)
                 }
             )
         }

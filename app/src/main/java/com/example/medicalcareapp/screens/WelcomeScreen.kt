@@ -22,11 +22,12 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
+import com.example.medicalcareapp.navigation.Screens
 import com.example.medicalcareapp.ui.theme.DarkJungleGreen
 import com.example.medicalcareapp.ui.theme.Honeydew
 import com.example.medicalcareapp.ui.theme.LightOlivine
@@ -34,7 +35,7 @@ import com.example.medicalcareapp.ui.theme.LightTeaGreen
 import com.example.medicalcareapp.ui.theme.SmokyBlack
 
 @Composable
-fun WelcomeScreen() {
+fun WelcomeScreen(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -86,7 +87,7 @@ fun WelcomeScreen() {
                         horizontalArrangement = Arrangement.SpaceEvenly
                     ) {
                         ButtonComponent(
-                            onClick = { /* todo */ },
+                            onClick = { navController.navigate(Screens.Register.route) },
                             modifier = Modifier
                                 .height(50.dp)
                                 .width(131.dp)
@@ -101,7 +102,7 @@ fun WelcomeScreen() {
                             fillColorChoice = LightTeaGreen,
                         )
                         ButtonComponent(
-                            onClick = { /* todo */ },
+                            onClick = { navController.navigate(Screens.Login.route) },
                             modifier = Modifier
                                 .height(50.dp)
                                 .width(131.dp)
@@ -119,10 +120,4 @@ fun WelcomeScreen() {
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun Preview() {
-    WelcomeScreen()
 }

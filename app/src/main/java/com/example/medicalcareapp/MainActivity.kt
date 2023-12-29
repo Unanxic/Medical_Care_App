@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
-import com.example.medicalcareapp.screens.WelcomeScreen
+import com.example.medicalcareapp.navigation.MainNavController
 import com.example.medicalcareapp.ui.theme.MedicalAppAndroidTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize()
                         .systemBarsPadding()
                 ) {
-                    WelcomeScreen()
+                    MainNavController()
                 }
             }
         }

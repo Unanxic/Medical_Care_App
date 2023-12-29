@@ -2,7 +2,6 @@ package com.example.medicalcareapp.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,7 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -31,33 +29,28 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
 import com.example.medicalcareapp.composables.GenericTextField
 import com.example.medicalcareapp.extesions.setNoRippleClickable
-import com.example.medicalcareapp.ui.theme.Axolotl
+import com.example.medicalcareapp.navigation.Screens
 import com.example.medicalcareapp.ui.theme.DarkJungleGreen
 import com.example.medicalcareapp.ui.theme.Honeydew
 import com.example.medicalcareapp.ui.theme.LightOlivine
-import com.example.medicalcareapp.ui.theme.LightTeaGreen
 import com.example.medicalcareapp.ui.theme.LilacPurple
-import com.example.medicalcareapp.ui.theme.SmokyBlack
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(navController: NavController) {
 
     var usernameOrEmail by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -78,7 +71,10 @@ fun LoginScreen() {
             contentDescription = null,
             modifier = Modifier
                 .padding(16.dp)
-                .size(25.dp),
+                .size(25.dp)
+                .setNoRippleClickable {
+                    navController.popBackStack(Screens.Welcome.route, inclusive = false)
+                },
             tint = DarkJungleGreen
         )
         Column(
@@ -180,7 +176,7 @@ fun LoginScreen() {
                             .fillMaxSize()
                     ) {
                         Spacer(modifier = Modifier.weight(1f))
-                        RegisterLink()
+                        RegisterLink(navController = navController)
                         Spacer(modifier = Modifier.height(16.dp))
                     }
                 }
@@ -190,7 +186,7 @@ fun LoginScreen() {
 }
 
 @Composable
-fun RegisterLink() {
+fun RegisterLink(navController: NavController) {
     Box(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -212,15 +208,9 @@ fun RegisterLink() {
                 color = LilacPurple,
                 fontSize = 16.sp,
                 modifier = Modifier.setNoRippleClickable {
-                    //todo
+                    navController.navigate(Screens.Register.route)
                 }
             )
         }
     }
-}
-
-@Preview
-@Composable
-fun LoginPreview() {
-    LoginScreen()
 }
