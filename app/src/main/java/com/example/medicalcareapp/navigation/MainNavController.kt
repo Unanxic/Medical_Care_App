@@ -15,6 +15,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.medicalcareapp.screens.LoginScreen
 import com.example.medicalcareapp.screens.RegisterScreen
+import com.example.medicalcareapp.screens.SplashScreen
 import com.example.medicalcareapp.screens.WelcomeScreen
 
 
@@ -30,7 +31,7 @@ fun MainNavController(
             modifier = Modifier
                 .fillMaxSize(),
             navController = navController,
-            startDestination = Screens.Welcome.route,
+            startDestination = Screens.Splash.route,
             enterTransition = {
                 slideIntoContainer(
                     towards = AnimatedContentTransitionScope.SlideDirection.Companion.Left,
@@ -56,6 +57,10 @@ fun MainNavController(
                 )
             }
         ) {
+            composable(Screens.Splash.route) {
+                currentScreen = Screens.Splash
+                SplashScreen(navController = navController)
+            }
             composable(Screens.Welcome.route) {
                 currentScreen = Screens.Welcome
                 WelcomeScreen(navController = navController)
