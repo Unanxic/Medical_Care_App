@@ -15,4 +15,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "Medical Care App"
 include(":app")
- 
+include(":data")
+include(":data")
+include(":data")
+include(":domain")

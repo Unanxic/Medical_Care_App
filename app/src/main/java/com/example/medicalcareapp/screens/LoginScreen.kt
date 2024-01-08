@@ -127,7 +127,7 @@ fun LoginScreen(navController: NavController) {
                     Spacer(Modifier.height(49.dp))
                     Column {
                         Text(
-                            text = stringResource(R.string.email_or_username),
+                            text = stringResource(R.string.email),
                             color = DarkJungleGreen,
                             fontSize = 16.sp,
                         )
