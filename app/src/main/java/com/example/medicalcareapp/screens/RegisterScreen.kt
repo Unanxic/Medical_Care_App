@@ -50,8 +50,8 @@ import com.example.medicalcareapp.ui.theme.LilacPurple
 
 @Composable
 fun RegisterScreen(navController: NavController) {
-    var username by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
+    var confirmPassword by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     Box(
         modifier = Modifier
@@ -126,21 +126,6 @@ fun RegisterScreen(navController: NavController) {
                     Spacer(Modifier.height(49.dp))
                     Column {
                         Text(
-                            text = "Name",
-                            color = DarkJungleGreen,
-                            fontSize = 16.sp,
-                        )
-                        GenericTextField(
-                            value = username,
-                            title = "",
-                            updateText = {
-                                username = it
-                            },
-                        )
-                    }
-                    Spacer(Modifier.height(20.dp))
-                    Column {
-                        Text(
                             text = "Email",
                             color = DarkJungleGreen,
                             fontSize = 16.sp,
@@ -165,6 +150,21 @@ fun RegisterScreen(navController: NavController) {
                             title = "",
                             updateText = {
                                 password = it
+                            },
+                        )
+                    }
+                    Spacer(Modifier.height(20.dp))
+                    Column {
+                        Text(
+                            text = "Confirm password",
+                            color = DarkJungleGreen,
+                            fontSize = 16.sp,
+                        )
+                        GenericTextField(
+                            value = confirmPassword,
+                            title = "",
+                            updateText = {
+                                confirmPassword = it
                             },
                             keyboardType = KeyboardType.Password,
                             showTrailingIcon = true,
