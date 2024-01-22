@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.medicalcareapp"
-        minSdk = 28
+        minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -53,6 +53,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":data"))
+    implementation(project(":domain"))
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)

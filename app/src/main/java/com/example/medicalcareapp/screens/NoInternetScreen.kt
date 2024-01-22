@@ -1,5 +1,6 @@
 package com.example.medicalcareapp.screens
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -20,13 +21,30 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.data.extensions.ContextExtensions
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
+import com.example.medicalcareapp.event_manager.AppEvents
+import com.example.medicalcareapp.event_manager.EventManager
 import com.example.medicalcareapp.ui.theme.Honeydew
 import com.example.medicalcareapp.ui.theme.Olivine
+import org.koin.compose.koinInject
 
 @Composable
-fun NoInternetScreen() {
+fun NoInternetScreen(
+    eventManager: EventManager = koinInject(),
+) {
+    val contextExtensions: ContextExtensions = koinInject()
+
+    val onTryAgain = {
+        if (contextExtensions.isInternetAvailable()) {
+            eventManager.emitEvent(AppEvents.TryAgain)
+        }
+    }
+    BackHandler {
+        onTryAgain()
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -84,9 +102,9 @@ fun NoInternetScreen() {
                 Column(
                     modifier = Modifier.fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally
-                ){
+                ) {
                     ButtonComponent(
-                        onClick = { /* todo */ },
+                        onClick = { onTryAgain() },
                         modifier = Modifier
                             .padding(top = 15.dp)
                             .height(50.dp)

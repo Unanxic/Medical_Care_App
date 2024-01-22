@@ -5,6 +5,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -13,18 +14,38 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.medicalcareapp.event_manager.AppEvents
+import com.example.medicalcareapp.event_manager.EventManager
 import com.example.medicalcareapp.screens.LoginScreen
+import com.example.medicalcareapp.screens.NoInternetScreen
 import com.example.medicalcareapp.screens.RegisterScreen
 import com.example.medicalcareapp.screens.SplashScreen
 import com.example.medicalcareapp.screens.WelcomeScreen
+import org.koin.compose.koinInject
 
 
 @Composable
 fun MainNavController(
+    eventManager: EventManager = koinInject()
 ) {
     val navController = rememberNavController()
     var currentScreen by remember { mutableStateOf<Screens>(Screens.Welcome) }
+    var showNoInternetScreen by remember { mutableStateOf(false) }
 
+    LaunchedEffect(eventManager.currentAppEvent) {
+        eventManager.currentAppEvent.collect { event ->
+            when (event) {
+                is AppEvents.ShowNoInternetScreen ->
+                    showNoInternetScreen = true
+
+                is AppEvents.HideNoInternetScreen ->
+                    showNoInternetScreen = false
+
+                else -> {
+                }
+            }
+        }
+    }
 
     Box(Modifier.fillMaxSize()) {
         NavHost(
@@ -73,6 +94,9 @@ fun MainNavController(
                 currentScreen = Screens.Register
                 RegisterScreen(navController = navController)
             }
+        }
+        if (showNoInternetScreen) {
+            NoInternetScreen()
         }
     }
 }

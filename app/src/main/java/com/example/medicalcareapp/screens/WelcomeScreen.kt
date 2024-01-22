@@ -27,15 +27,20 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
+import com.example.medicalcareapp.event_manager.EventManager
 import com.example.medicalcareapp.navigation.Screens
 import com.example.medicalcareapp.ui.theme.DarkJungleGreen
 import com.example.medicalcareapp.ui.theme.Honeydew
 import com.example.medicalcareapp.ui.theme.LightOlivine
 import com.example.medicalcareapp.ui.theme.LightTeaGreen
 import com.example.medicalcareapp.ui.theme.SmokyBlack
+import org.koin.compose.koinInject
 
 @Composable
-fun WelcomeScreen(navController: NavController) {
+fun WelcomeScreen(
+    navController: NavController,
+    eventManager: EventManager = koinInject()
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()

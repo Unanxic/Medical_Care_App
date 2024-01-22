@@ -5,6 +5,17 @@ plugins {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+dependencies{
+    implementation(libs.gson)
+
+    implementation(libs.koin.core)
+    implementation(libs.retrofit)
+    implementation(libs.jetbrains.kotlinx.coroutines.core)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockk)
+    testImplementation(libs.turbine)
+    testImplementation(libs.junit)
 }
