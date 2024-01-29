@@ -7,4 +7,6 @@ sealed class Screens(
     object Welcome: Screens("welcome")
     object Login: Screens("login")
     object Register : Screens("register")
+
+    object Home: Screens("home")
 }

@@ -26,13 +26,15 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.extesions.coloredShadow
 import com.example.medicalcareapp.managers.CurrentHomeScreen
 import com.example.medicalcareapp.managers.HomeScreenManager
+import com.example.medicalcareapp.ui.theme.HookersGreen
 import com.example.medicalcareapp.ui.theme.Nyanza
-import com.example.medicalcareapp.ui.theme.SoldierGreen
+import kotlinx.coroutines.Dispatchers
 import org.koin.compose.koinInject
 
 @Composable
@@ -45,7 +47,7 @@ fun BottomBar(
     Surface(
         modifier = Modifier.coloredShadow(
             color = Color.Black,
-            shadowRadius = 5.dp,
+            shadowRadius = 10.dp,
             onlyTopShadow = true,
             alpha = 0.3f,
             rectangleShapeShadow = true
@@ -55,7 +57,7 @@ fun BottomBar(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(76.5.dp)
+                .height(60.dp)
         ) {
             Row(
                 modifier = Modifier
@@ -64,13 +66,23 @@ fun BottomBar(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 ImageComponent(
+                    painter = painterResource(id = R.drawable.chart_line),
+                    contentDescription = "medication icon",
+                    onClick = {
+                        homeScreenManager.emitCurrentScreen(CurrentHomeScreen.HISTORY)
+                    },
+                    colorFilter = if (currentScreen == CurrentHomeScreen.HISTORY) ColorFilter.tint(
+                        HookersGreen
+                    ) else null
+                )
+                ImageComponent(
                     painter = painterResource(id = R.drawable.medicines),
                     contentDescription = "medication icon",
                     onClick = {
-                        homeScreenManager.emitCurrentScreen(CurrentHomeScreen.TREATMENT)
+                        homeScreenManager.emitCurrentScreen(CurrentHomeScreen.ALLERGIES)
                     },
-                    colorFilter = if (currentScreen == CurrentHomeScreen.TREATMENT) ColorFilter.tint(
-                        SoldierGreen
+                    colorFilter = if (currentScreen == CurrentHomeScreen.ALLERGIES) ColorFilter.tint(
+                        HookersGreen
                     ) else null
                 )
                 ImageComponent(
@@ -80,7 +92,7 @@ fun BottomBar(
                         homeScreenManager.emitCurrentScreen(CurrentHomeScreen.CONTACTS)
                     },
                     colorFilter = if (currentScreen == CurrentHomeScreen.CONTACTS) ColorFilter.tint(
-                        SoldierGreen
+                        HookersGreen
                     ) else null
                 )
                 ImageComponent(
@@ -90,7 +102,7 @@ fun BottomBar(
                         homeScreenManager.emitCurrentScreen(CurrentHomeScreen.ACCOUNT)
                     },
                     colorFilter = if (currentScreen == CurrentHomeScreen.ACCOUNT) ColorFilter.tint(
-                        SoldierGreen
+                        HookersGreen
                     ) else null
                 )
             }
@@ -142,4 +154,12 @@ fun ImageComponent(
             }
     )
 }
+
+@Composable
+@Preview
+fun BottomBarPreview() {
+    val homeScreenManager = HomeScreenManager(Dispatchers.IO)
+    BottomBar(homeScreenManager = homeScreenManager)
+}
+
 

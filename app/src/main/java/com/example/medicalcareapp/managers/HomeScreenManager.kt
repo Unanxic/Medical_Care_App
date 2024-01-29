@@ -1,5 +1,7 @@
 package com.example.medicalcareapp.managers
 
+import com.example.medicalcareapp.composables.top_bar.TopBarConfigs
+import com.example.medicalcareapp.composables.top_bar.TopBarLayouts
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -11,7 +13,8 @@ import kotlinx.coroutines.launch
 
 enum class CurrentHomeScreen {
     NONE,
-    TREATMENT,
+    HISTORY,
+    ALLERGIES,
     CONTACTS,
     ACCOUNT,
 }
@@ -23,11 +26,11 @@ class HomeScreenManager(private val ioDispatcher: CoroutineDispatcher) {
     private val _lastSelectedScreen = MutableStateFlow<CurrentHomeScreen?>(null)
     val lastSelectedScreen = _lastSelectedScreen.asStateFlow()
 
-//    private val _topBarConfigs = MutableStateFlow(TopBarConfigs(topBarLayout = TopBarLayouts.MENU_LOGO_MESSAGES))
-//    val topBarConfigs = _topBarConfigs.asStateFlow()
+    private val _topBarConfigs = MutableStateFlow(TopBarConfigs(topBarLayout = TopBarLayouts.MEDICAL_HISTORY_TEXT))
+    val topBarConfigs = _topBarConfigs.asStateFlow()
 
     init {
-        emitCurrentScreen(CurrentHomeScreen.TREATMENT)
+        emitCurrentScreen(CurrentHomeScreen.HISTORY)
     }
 
     fun emitCurrentScreen(
@@ -44,9 +47,9 @@ class HomeScreenManager(private val ioDispatcher: CoroutineDispatcher) {
         }
     }
 
-//    fun emitTopBarConfigs(topBarConfigs: TopBarConfigs) {
-//        CoroutineScope(ioDispatcher).launch {
-//            _topBarConfigs.emit(topBarConfigs)
-//        }
-//    }
+    fun emitTopBarConfigs(topBarConfigs: TopBarConfigs) {
+        CoroutineScope(ioDispatcher).launch {
+            _topBarConfigs.emit(topBarConfigs)
+        }
+    }
 }

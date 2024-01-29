@@ -159,7 +159,9 @@ fun LoginScreen(navController: NavController) {
                     }
                     Spacer(Modifier.height(40.dp))
                     ButtonComponent(
-                        onClick = { /* todo */ },
+                        onClick = {
+                            navController.navigate(Screens.Home.route)
+                        },
                         modifier = Modifier
                             .height(50.dp)
                             .width(250.dp)

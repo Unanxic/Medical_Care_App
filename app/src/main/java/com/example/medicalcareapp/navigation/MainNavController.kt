@@ -16,6 +16,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.medicalcareapp.event_manager.AppEvents
 import com.example.medicalcareapp.event_manager.EventManager
+import com.example.medicalcareapp.screens.HomeScreen
 import com.example.medicalcareapp.screens.LoginScreen
 import com.example.medicalcareapp.screens.NoInternetScreen
 import com.example.medicalcareapp.screens.RegisterScreen
@@ -93,6 +94,10 @@ fun MainNavController(
             composable(Screens.Register.route) {
                 currentScreen = Screens.Register
                 RegisterScreen(navController = navController)
+            }
+            composable(Screens.Home.route) {
+                currentScreen = Screens.Home
+                HomeScreen(navController = navController)
             }
         }
         if (showNoInternetScreen) {
