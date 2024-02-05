@@ -40,7 +40,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
-import com.example.medicalcareapp.composables.GenericTextField
+import com.example.medicalcareapp.composables.GenericFilledTextField
 import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.navigation.Screens
 import com.example.medicalcareapp.ui.theme.DarkJungleGreen
@@ -130,7 +130,7 @@ fun RegisterScreen(navController: NavController) {
                             color = DarkJungleGreen,
                             fontSize = 16.sp,
                         )
-                        GenericTextField(
+                        GenericFilledTextField(
                             value = email,
                             title = "",
                             updateText = {
@@ -145,7 +145,7 @@ fun RegisterScreen(navController: NavController) {
                             color = DarkJungleGreen,
                             fontSize = 16.sp,
                         )
-                        GenericTextField(
+                        GenericFilledTextField(
                             value = password,
                             title = "",
                             updateText = {
@@ -160,7 +160,7 @@ fun RegisterScreen(navController: NavController) {
                             color = DarkJungleGreen,
                             fontSize = 16.sp,
                         )
-                        GenericTextField(
+                        GenericFilledTextField(
                             value = confirmPassword,
                             title = "",
                             updateText = {
