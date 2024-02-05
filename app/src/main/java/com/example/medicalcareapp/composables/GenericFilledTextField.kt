@@ -1,19 +1,24 @@
 package com.example.medicalcareapp.composables
 
-import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -22,10 +27,15 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -35,24 +45,27 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.medicalcareapp.extesions.getDefaultTweenAnimation
-import com.example.medicalcareapp.ui.theme.SmokyBlack
+import com.example.medicalcareapp.R
+import com.example.medicalcareapp.extesions.setNoRippleClickable
+import com.example.medicalcareapp.ui.theme.DarkJungleGreen
 import com.example.medicalcareapp.ui.theme.SoldierGreen
+import com.example.medicalcareapp.ui.theme.TeaGreen
 import kotlinx.coroutines.delay
 
 @Composable
-fun GenericTextField(
+fun GenericFilledTextField(
     modifier: Modifier = Modifier,
     value: String,
+    title: String,
+    titleTextSize: TextUnit = 18.sp,
+    isTitleBold: Boolean = false,
     keyboardType: KeyboardType = KeyboardType.Text,
     updateText: (String) -> Unit,
-    title: String = "",
     isError: MutableState<Boolean> = mutableStateOf(false),
     singleLine: Boolean = true,
-    fontSize: TextUnit = 22.sp,
-    titleTextSize: TextUnit = 18.sp,
-    imeAction: ImeAction = ImeAction.Next,
-    isTitleBold: Boolean = false,
+    isErrorTextField: Boolean = false,
+    showTrailingIcon: Boolean = false,
+    imeAction: ImeAction = ImeAction.Next
 ) {
     val isVisible by remember { mutableStateOf(keyboardType != KeyboardType.Password) }
 
@@ -61,32 +74,48 @@ fun GenericTextField(
         isError.value = false
     }
 
-    Column(modifier = modifier.animateContentSize(getDefaultTweenAnimation())) {
+    Column(
+        modifier = modifier
+            .height(50.dp)
+            .shadow(
+                elevation = 30.dp,
+                spotColor = Color(0x40000000),
+                ambientColor = Color(0x40000000)
+            )
+            .clip(MaterialTheme.shapes.medium)
+            .background(TeaGreen)
+    ) {
         if (title.isNotBlank()) {
-            TextFieldNormalLabel(
+            TextFieldLabel(
                 title = title,
                 titleTextSize = titleTextSize,
                 isTitleBold = isTitleBold
             )
         }
-        BaseTextField(
-            modifier = Modifier
-                .fillMaxWidth(),
-            textState = value,
-            updateText = {
-                updateText(it)
-            },
-            isVisible = isVisible,
-            keyboardType = keyboardType,
-            singleLine = singleLine,
-            imeAction = imeAction,
-            fontSize = fontSize
-        )
+        Box(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            BaseFilledTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+                    .align(Alignment.Center),
+                textState = value,
+                updateText = {
+                    updateText(it)
+                },
+                isVisible = isVisible,
+                keyboardType = keyboardType,
+                singleLine = singleLine,
+                showTrailingIcon = showTrailingIcon,
+                imeAction = imeAction
+            )
+        }
     }
 }
 
 @Composable
-private fun TextFieldNormalLabel(
+private fun TextFieldLabel(
     modifier: Modifier = Modifier,
     title: String,
     titleTextSize: TextUnit,
@@ -117,44 +146,40 @@ private fun TextFieldNormalLabel(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun BaseTextField(
+private fun BaseFilledTextField(
     modifier: Modifier,
     textState: String,
     isVisible: Boolean,
     updateText: (String) -> Unit,
     keyboardType: KeyboardType,
     singleLine: Boolean,
-    fontSize: TextUnit,
-    isEnabled: Boolean = true,
+    showTrailingIcon: Boolean = false,
     imeAction: ImeAction = ImeAction.Next
 ) {
-    val interactionSource = remember { MutableInteractionSource() }
 
-    val indicatorColor = SmokyBlack
+    var passwordVisibility by remember { mutableStateOf(isVisible) }
+
+    val interactionSource = remember { MutableInteractionSource() }
 
     BasicTextField(
         value = textState,
-        onValueChange = {
-            updateText(it)
-        },
+        onValueChange = { updateText(it) },
         textStyle = TextStyle(
-            color = SmokyBlack,
-            fontSize = fontSize
+            color = SoldierGreen,
+            fontSize = 16.sp
         ),
         keyboardOptions = KeyboardOptions(
             keyboardType = keyboardType,
             imeAction = imeAction
         ),
         singleLine = singleLine,
-        visualTransformation = if (isVisible) VisualTransformation.None else PasswordVisualTransformation(),
-        modifier = modifier.padding(top = 8.dp),
-        cursorBrush = SolidColor(SmokyBlack),
-        interactionSource = interactionSource
-    ) { innerTextField ->
-        val focused = interactionSource.collectIsFocusedAsState().value
+        visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
+        modifier = modifier,
+        cursorBrush = SolidColor(SoldierGreen),
+    ){ innerTextField ->
         TextFieldDefaults.DecorationBox(
             value = textState,
-            visualTransformation = if (isVisible) VisualTransformation.None else PasswordVisualTransformation(),
+            visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
             innerTextField = innerTextField,
             singleLine = singleLine,
             enabled = true,
@@ -164,9 +189,32 @@ private fun BaseTextField(
                 focusedContainerColor = Color.Transparent,
                 unfocusedContainerColor = Color.Transparent,
                 disabledContainerColor = Color.Transparent,
-                focusedIndicatorColor = if (focused) SoldierGreen else indicatorColor,
-                unfocusedIndicatorColor = if (!focused && isEnabled) indicatorColor else SoldierGreen
-            )
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            ),
+            trailingIcon = if (showTrailingIcon) {
+                {
+                    Box(
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .size(24.dp)
+                            .setNoRippleClickable {
+                                passwordVisibility = !passwordVisibility
+                            }
+                    ) {
+                        val eyeIcon = if (passwordVisibility) {
+                            R.drawable.mdi_eye_on
+                        } else {
+                            R.drawable.mdi_eye
+                        }
+                        Image(
+                            painter = painterResource(id = eyeIcon),
+                            contentDescription = "",
+                            colorFilter = ColorFilter.tint(DarkJungleGreen)
+                        )
+                    }
+                }
+            } else null
         )
     }
 }
