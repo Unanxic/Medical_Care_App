@@ -19,7 +19,7 @@ fun FormOfMedicineScreenPreview() {
 @Preview
 @Composable
 fun ReasonOfReceivingScreenPreview() {
-    ReasonOfReceivingScreen()
+    ConditionScreen()
 }
 
 @Preview

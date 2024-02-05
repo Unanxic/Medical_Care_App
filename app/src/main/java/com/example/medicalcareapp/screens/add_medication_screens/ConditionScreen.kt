@@ -47,7 +47,7 @@ import com.example.medicalcareapp.ui.theme.Honeydew
 import com.example.medicalcareapp.ui.theme.LightOlivine
 
 @Composable
-fun ReasonOfReceivingScreen() {
+fun ConditionScreen() {
 
     var condition by rememberSaveable { mutableStateOf("") }
 

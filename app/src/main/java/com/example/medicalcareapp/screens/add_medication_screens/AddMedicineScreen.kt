@@ -47,7 +47,8 @@ import com.example.medicalcareapp.ui.theme.Honeydew
 import com.example.medicalcareapp.ui.theme.LightOlivine
 
 @Composable
-fun AddMedicineScreen() {
+fun AddMedicineScreen(
+) {
 
     var medicineName by rememberSaveable { mutableStateOf("") }
     Box(
