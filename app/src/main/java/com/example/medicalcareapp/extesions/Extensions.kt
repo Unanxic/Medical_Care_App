@@ -25,6 +25,15 @@ fun Modifier.setNoRippleClickable(onClick: () -> Unit): Modifier = composed {
     }
 }
 
+fun String.isEmailValid(): Boolean {
+    val emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}".toRegex()
+    return if (this.isEmpty()) {
+        false
+    } else {
+        this.matches(emailRegex)
+    }
+}
+
 @SuppressLint("UnnecessaryComposedModifier")
 fun Modifier.coloredShadow(
     color: Color,
