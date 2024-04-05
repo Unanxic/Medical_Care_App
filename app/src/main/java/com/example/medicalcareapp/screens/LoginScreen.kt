@@ -168,7 +168,7 @@ fun LoginScreen(navController: NavController) {
                             .align(Alignment.CenterHorizontally),
                         text = stringResource(R.string.log_in),
                         isFilled = true,
-                        fontSize = 20.sp,
+                        fontSize = 16.sp,
                         cornerRadius = 20,
                         fillColorChoice = LightOlivine
                     )

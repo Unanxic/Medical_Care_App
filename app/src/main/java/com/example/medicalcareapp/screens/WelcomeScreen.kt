@@ -103,7 +103,7 @@ fun WelcomeScreen(
                                 ),
                             text = stringResource(R.string.sign_up),
                             isFilled = true,
-                            fontSize = 20.sp,
+                            fontSize = 16.sp,
                             contentColorChoice = SmokyBlack,
                             fillColorChoice = LightTeaGreen,
                         )
@@ -118,7 +118,7 @@ fun WelcomeScreen(
                                 ),
                             text = stringResource(R.string.log_in),
                             isFilled = true,
-                            fontSize = 20.sp,
+                            fontSize = 16.sp,
                             fillColorChoice = LightOlivine,
                         )
                     }

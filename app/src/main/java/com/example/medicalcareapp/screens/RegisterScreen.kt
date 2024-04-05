@@ -181,7 +181,7 @@ fun RegisterScreen(navController: NavController) {
                             .align(Alignment.CenterHorizontally),
                         text = stringResource(R.string.sign_up),
                         isFilled = true,
-                        fontSize = 20.sp,
+                        fontSize = 16.sp,
                         cornerRadius = 20,
                         fillColorChoice = LightOlivine
                     )

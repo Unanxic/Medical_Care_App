@@ -3,6 +3,7 @@ package com.example.medicalcareapp.screens.account_settings
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -44,6 +45,7 @@ import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.ui.theme.DarkJungleGreen
 import com.example.medicalcareapp.ui.theme.Honeydew
 import com.example.medicalcareapp.ui.theme.Olivine
+import com.example.medicalcareapp.ui.theme.TeaGreen
 import com.example.medicalcareapp.utilities.LanguageHelper
 
 @Composable
@@ -61,11 +63,19 @@ fun ChangeLanguageScreen(
             .fillMaxSize()
             .background(color = Olivine),
     ) {
+        Box(
+            Modifier
+                .align(Alignment.TopCenter)
+                .fillMaxWidth()
+                .height(50.dp)
+                .background(TeaGreen)
+        )
         Image(
-            painter = painterResource(id = R.drawable.large_rectangle),
+            painter = painterResource(id = R.drawable.rectangle_green_rounded),
             contentDescription = null,
             modifier = Modifier
                 .align(Alignment.TopCenter)
+                .padding(top = 50.dp)
                 .fillMaxWidth(),
             contentScale = ContentScale.FillWidth
         )
@@ -83,7 +93,7 @@ fun ChangeLanguageScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 87.dp, bottom = 38.dp),
+                .padding(top = 50.dp, bottom = 38.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
@@ -93,7 +103,7 @@ fun ChangeLanguageScreen(
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
             )
-            Spacer(modifier = Modifier.height(11.dp))
+            Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = stringResource(R.string.select_your_preferred_language_to_use),
                 color = DarkJungleGreen,
@@ -101,30 +111,30 @@ fun ChangeLanguageScreen(
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Center
             )
-            Spacer(modifier = Modifier.height(14.dp))
             Image(
                 painter = painterResource(id = R.drawable.language),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(200.dp)
+                    .size(170.dp)
             )
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 12.dp)
-            ) {
-                Spacer(modifier = Modifier.height(27.dp))
-                languageOptions.forEach { option ->
-                    ClickableRowWithIcon(
-                        option = option,
-                        isSelected = option == selectedLanguage,
-                        onClick = {
-                            selectedLanguage = option
-                            LanguageHelper.setSelectedLanguage(context, option.language)
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(18.dp))
-                }
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 12.dp),
+            verticalArrangement = Arrangement.Center
+        ) {
+            Spacer(modifier = Modifier.height(104.dp))
+            languageOptions.forEach { option ->
+                ClickableRowWithIcon(
+                    option = option,
+                    isSelected = option == selectedLanguage,
+                    onClick = {
+                        selectedLanguage = option
+                        LanguageHelper.setSelectedLanguage(context, option.language)
+                    }
+                )
+                Spacer(modifier = Modifier.height(18.dp))
             }
         }
     }

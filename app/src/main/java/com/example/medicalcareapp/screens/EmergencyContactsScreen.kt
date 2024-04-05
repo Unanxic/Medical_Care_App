@@ -68,7 +68,7 @@ fun EmergencyContactsScreen(
                     .width(215.dp),
                 text = stringResource(R.string.add_record),
                 isFilled = true,
-                fontSize = 20.sp,
+                fontSize = 16.sp,
                 cornerRadius = 20,
                 fillColorChoice = Honeydew,
                 contentColorChoice = SmokyBlack

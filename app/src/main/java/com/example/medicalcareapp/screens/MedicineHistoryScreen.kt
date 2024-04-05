@@ -68,7 +68,7 @@ fun MedicineHistoryScreen(
                     .width(215.dp),
                 text = stringResource(R.string.add_medicine),
                 isFilled = true,
-                fontSize = 20.sp,
+                fontSize = 16.sp,
                 cornerRadius = 20,
                 fillColorChoice = Honeydew,
                 contentColorChoice = SmokyBlack

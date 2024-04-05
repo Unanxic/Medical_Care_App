@@ -49,4 +49,7 @@
     <string name="already_have_an_account">Already have an account?</string>
     <string name="english_language">English</string>
     <string name="greek_language">Greek</string>
+    <string name="medicine">MEDICINE</string>
+    <string name="contacts">CONTACTS</string>
+    <string name="more">MORE</string>
 </resources>

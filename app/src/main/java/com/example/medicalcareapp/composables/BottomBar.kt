@@ -7,11 +7,13 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -26,12 +28,17 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.extesions.coloredShadow
 import com.example.medicalcareapp.managers.CurrentHomeScreen
 import com.example.medicalcareapp.managers.HomeScreenManager
+import com.example.medicalcareapp.ui.theme.DarkJungleGreen
 import com.example.medicalcareapp.ui.theme.HookersGreen
 import com.example.medicalcareapp.ui.theme.Nyanza
 import kotlinx.coroutines.Dispatchers
@@ -57,7 +64,7 @@ fun BottomBar(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(60.dp)
+                .height(65.dp)
         ) {
             Row(
                 modifier = Modifier
@@ -66,8 +73,9 @@ fun BottomBar(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 ImageComponent(
-                    painter = painterResource(id = R.drawable.chart_line),
+                    painter = painterResource(id = R.drawable.medicines),
                     contentDescription = "medication icon",
+                    labelResId = stringResource(R.string.medicine),
                     onClick = {
                         homeScreenManager.emitCurrentScreen(CurrentHomeScreen.HISTORY)
                     },
@@ -76,18 +84,9 @@ fun BottomBar(
                     ) else null
                 )
                 ImageComponent(
-                    painter = painterResource(id = R.drawable.medicines),
-                    contentDescription = "medication icon",
-                    onClick = {
-                        homeScreenManager.emitCurrentScreen(CurrentHomeScreen.ALLERGIES)
-                    },
-                    colorFilter = if (currentScreen == CurrentHomeScreen.ALLERGIES) ColorFilter.tint(
-                        HookersGreen
-                    ) else null
-                )
-                ImageComponent(
                     painter = painterResource(id = R.drawable.accident_and_emergency),
                     contentDescription = "emergency contacts icon",
+                    labelResId = stringResource(R.string.contacts),
                     onClick = {
                         homeScreenManager.emitCurrentScreen(CurrentHomeScreen.CONTACTS)
                     },
@@ -98,6 +97,7 @@ fun BottomBar(
                 ImageComponent(
                     painter = painterResource(id = R.drawable.clinical),
                     contentDescription = "account icon",
+                    labelResId = stringResource(R.string.more),
                     onClick = {
                         homeScreenManager.emitCurrentScreen(CurrentHomeScreen.ACCOUNT)
                     },
@@ -112,9 +112,10 @@ fun BottomBar(
 
 @Composable
 fun ImageComponent(
-    painter: Painter,
-    contentDescription: String?,
     modifier: Modifier = Modifier,
+    painter: Painter,
+    labelResId: String = "",
+    contentDescription: String?,
     onClick: () -> Unit,
     colorFilter: ColorFilter? = null,
 ) {
@@ -136,23 +137,39 @@ fun ImageComponent(
         }
     }
 
-    Image(
-        painter = painter,
-        contentDescription = contentDescription,
-        colorFilter = colorFilter,
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceBetween,
         modifier = modifier
-            .graphicsLayer {
-                val scale = animateFloat
-                scaleX = scale
-                scaleY = scale
-            }
-            .clickable(
-                interactionSource = interactionSource,
-                indication = null
-            ) {
-                onClick()
-            }
-    )
+            .height(42.dp)
+    ) {
+        Image(
+            painter = painter,
+            contentDescription = contentDescription,
+            colorFilter = colorFilter,
+            modifier = modifier
+                .graphicsLayer {
+                    val scale = animateFloat
+                    scaleX = scale
+                    scaleY = scale
+                }
+                .clickable(
+                    interactionSource = interactionSource,
+                    indication = null
+                ) {
+                    onClick()
+                }
+        )
+        Text(
+            text = labelResId.uppercase(),
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Normal,
+            color = DarkJungleGreen,
+            maxLines = 1,
+            textAlign = TextAlign.Center
+        )
+
+    }
 }
 
 @Composable
