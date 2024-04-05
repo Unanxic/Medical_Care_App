@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -52,7 +53,7 @@ fun SuccessfulMedicineSubmitScreen() {
                     .size(200.dp)
             )
             Text(
-                text = "Medicine submitted successfully!",
+                text = stringResource(R.string.medicine_submitted_successfully),
                 color = DarkJungleGreen,
                 fontSize = 30.sp,
                 textAlign = TextAlign.Center,
@@ -65,7 +66,7 @@ fun SuccessfulMedicineSubmitScreen() {
                     .height(76.dp)
                     .width(307.dp)
                     .align(Alignment.CenterHorizontally),
-                text = "Go back to medicine history",
+                text = stringResource(R.string.go_back_to_medicine_history),
                 isFilled = true,
                 fontSize = 20.sp,
                 cornerRadius = 20,

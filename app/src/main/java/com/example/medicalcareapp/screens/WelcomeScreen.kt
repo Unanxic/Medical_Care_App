@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -79,7 +80,7 @@ fun WelcomeScreen(
                     )
                     Spacer(Modifier.height(23.dp))
                     Text(
-                        text = "Medical Care App",
+                        text = stringResource(R.string.app_name),
                         color = DarkJungleGreen,
                         fontSize = 34.sp,
                         fontWeight = FontWeight.Bold
@@ -100,7 +101,7 @@ fun WelcomeScreen(
                                     elevation = 8.dp,
                                     shape = CircleShape
                                 ),
-                            text = "Sign up",
+                            text = stringResource(R.string.sign_up),
                             isFilled = true,
                             fontSize = 20.sp,
                             contentColorChoice = SmokyBlack,
@@ -115,7 +116,7 @@ fun WelcomeScreen(
                                     elevation = 8.dp,
                                     shape = CircleShape
                                 ),
-                            text = "Log in",
+                            text = stringResource(R.string.log_in),
                             isFilled = true,
                             fontSize = 20.sp,
                             fillColorChoice = LightOlivine,

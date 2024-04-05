@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -51,7 +52,7 @@ fun AllergiesScreen(
                     .size(200.dp)
             )
             Text(
-                text = "No record of allergies",
+                text = stringResource(R.string.no_record_of_allergies),
                 color = Color.White,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Light,
@@ -65,7 +66,7 @@ fun AllergiesScreen(
                 modifier = Modifier
                     .height(50.dp)
                     .width(215.dp),
-                text = "Add allergies",
+                text = stringResource(R.string.add_allergies),
                 isFilled = true,
                 fontSize = 20.sp,
                 cornerRadius = 20,

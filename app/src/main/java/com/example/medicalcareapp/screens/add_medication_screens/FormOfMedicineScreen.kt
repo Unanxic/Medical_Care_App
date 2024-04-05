@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -71,7 +72,7 @@ fun FormOfMedicineScreen() {
                 contentDescription = null
             )
             Text(
-                text = "What form is the medicine?",
+                text = stringResource(R.string.what_form_is_the_medicine),
                 color = DarkJungleGreen,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
@@ -106,7 +107,7 @@ fun FormOfMedicineScreen() {
                             .height(50.dp)
                             .width(250.dp)
                             .align(Alignment.CenterHorizontally),
-                        text = "Pill",
+                        text = stringResource(R.string.pill),
                         isFilled = true,
                         fontSize = 20.sp,
                         cornerRadius = 40,
@@ -121,7 +122,7 @@ fun FormOfMedicineScreen() {
                             .height(50.dp)
                             .width(250.dp)
                             .align(Alignment.CenterHorizontally),
-                        text = "Solution",
+                        text = stringResource(R.string.solution),
                         isFilled = true,
                         fontSize = 20.sp,
                         cornerRadius = 40,
@@ -136,7 +137,7 @@ fun FormOfMedicineScreen() {
                             .height(50.dp)
                             .width(250.dp)
                             .align(Alignment.CenterHorizontally),
-                        text = "Inhaler",
+                        text = stringResource(R.string.inhaler),
                         isFilled = true,
                         fontSize = 20.sp,
                         cornerRadius = 40,
@@ -151,7 +152,7 @@ fun FormOfMedicineScreen() {
                             .height(50.dp)
                             .width(250.dp)
                             .align(Alignment.CenterHorizontally),
-                        text = "Drops",
+                        text = stringResource(R.string.drops),
                         isFilled = true,
                         fontSize = 20.sp,
                         cornerRadius = 40,
@@ -166,7 +167,7 @@ fun FormOfMedicineScreen() {
                             .height(50.dp)
                             .width(250.dp)
                             .align(Alignment.CenterHorizontally),
-                        text = "Injection",
+                        text = stringResource(R.string.injection),
                         isFilled = true,
                         fontSize = 20.sp,
                         cornerRadius = 40,
@@ -181,7 +182,7 @@ fun FormOfMedicineScreen() {
                             .height(50.dp)
                             .width(250.dp)
                             .align(Alignment.CenterHorizontally),
-                        text = "Other",
+                        text = stringResource(R.string.other),
                         isFilled = true,
                         fontSize = 20.sp,
                         cornerRadius = 40,

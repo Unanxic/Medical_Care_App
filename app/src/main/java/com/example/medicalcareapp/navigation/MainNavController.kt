@@ -23,6 +23,7 @@ import com.example.medicalcareapp.screens.NoInternetScreen
 import com.example.medicalcareapp.screens.RegisterScreen
 import com.example.medicalcareapp.screens.SplashScreen
 import com.example.medicalcareapp.screens.WelcomeScreen
+import com.example.medicalcareapp.screens.account_settings.ChangeLanguageScreen
 import org.koin.compose.koinInject
 
 
@@ -99,6 +100,10 @@ fun MainNavController(
             composable(Screens.Home.route) {
                 currentScreen = Screens.Home
                 HomeScreen(navController = navController)
+            }
+            composable(Screens.ChangeLanguage.route) {
+                currentScreen = Screens.ChangeLanguage
+                ChangeLanguageScreen(navController = navController)
             }
             registerMedicineNavigation(navController) {
                 currentScreen = it

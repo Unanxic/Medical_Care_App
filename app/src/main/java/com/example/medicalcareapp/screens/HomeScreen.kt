@@ -28,12 +28,15 @@ fun HomeScreen(
             CurrentHomeScreen.NONE -> TODO()
             CurrentHomeScreen.HISTORY ->
                 homeScreenManager.emitTopBarConfigs(TopBarConfigs(topBarLayout = TopBarLayouts.MEDICAL_HISTORY_TEXT))
+
             CurrentHomeScreen.ALLERGIES ->
                 homeScreenManager.emitTopBarConfigs(TopBarConfigs(topBarLayout = TopBarLayouts.ALLERGIES_HISTORY_TEXT))
+
             CurrentHomeScreen.CONTACTS ->
                 homeScreenManager.emitTopBarConfigs(TopBarConfigs(topBarLayout = TopBarLayouts.CONTACTS_TEXT))
+
             CurrentHomeScreen.ACCOUNT ->
-            homeScreenManager.emitTopBarConfigs(TopBarConfigs(topBarLayout = TopBarLayouts.ACCOUNT_TEXT))
+                homeScreenManager.emitTopBarConfigs(TopBarConfigs(topBarLayout = TopBarLayouts.ACCOUNT_TEXT))
         }
     }
 
@@ -41,17 +44,20 @@ fun HomeScreen(
         navController = navController,
         topBarLayouts = topBarConfigs.topBarLayout,
         leftActionOnClick = topBarConfigs.leftActionClick
-    ) {paddingValues ->
+    ) { paddingValues ->
         when (currentScreen) {
             CurrentHomeScreen.NONE -> TODO()
             CurrentHomeScreen.HISTORY ->
                 MedicineHistoryScreen(paddingValues = paddingValues)
+
             CurrentHomeScreen.ALLERGIES ->
                 AllergiesScreen(paddingValues = paddingValues)
+
             CurrentHomeScreen.CONTACTS ->
                 EmergencyContactsScreen(paddingValues = paddingValues)
+
             CurrentHomeScreen.ACCOUNT ->
-                AccountScreen(paddingValues = paddingValues)
+                AccountScreen(paddingValues = paddingValues, navController = navController)
         }
     }
 

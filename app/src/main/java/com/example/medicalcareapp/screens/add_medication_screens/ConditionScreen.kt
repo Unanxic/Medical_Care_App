@@ -34,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
@@ -86,7 +87,7 @@ fun ConditionScreen() {
                 contentDescription = null
             )
             Text(
-                text = "What medicine would you like to add?",
+                text = stringResource(R.string.what_are_you_taking_it_for),
                 color = DarkJungleGreen,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
@@ -141,7 +142,7 @@ fun ConditionScreen() {
                             ) + fadeOut(animationSpec = tween(400))
                         ) {
                             Text(
-                                text = "Start typing your condition...",
+                                text = stringResource(R.string.start_typing_your_condition),
                                 color = DarkJungleGreen,
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Light
@@ -156,7 +157,7 @@ fun ConditionScreen() {
                             .height(50.dp)
                             .width(250.dp)
                             .align(Alignment.CenterHorizontally),
-                        text = "Next",
+                        text = stringResource(R.string.next),
                         isFilled = true,
                         fontSize = 20.sp,
                         cornerRadius = 20,

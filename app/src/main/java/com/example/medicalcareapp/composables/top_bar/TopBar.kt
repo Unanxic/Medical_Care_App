@@ -70,7 +70,7 @@ fun TopBar(
             }
             TopBarLayouts.ACCOUNT_TEXT -> {
                 Text(
-                    text = "Account",
+                    text = "Account Settings",
                     fontSize = 20.sp,
                     color = DarkJungleGreen,
                     textAlign = TextAlign.Center,

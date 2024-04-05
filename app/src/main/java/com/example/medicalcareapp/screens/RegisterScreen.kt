@@ -32,6 +32,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -110,14 +111,14 @@ fun RegisterScreen(navController: NavController) {
                         .padding(horizontal = 32.dp)
                 ) {
                     Text(
-                        text = "Let’s Sign You up",
+                        text = stringResource(R.string.let_s_sign_you_up),
                         color = DarkJungleGreen,
                         fontSize = 34.sp,
                         fontWeight = FontWeight.Bold
                     )
                     Spacer(Modifier.height(10.dp))
                     Text(
-                        text = "Hello and Welcome!",
+                        text = stringResource(R.string.hello_and_welcome),
                         color = Color.Black,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Light,
@@ -126,7 +127,7 @@ fun RegisterScreen(navController: NavController) {
                     Spacer(Modifier.height(49.dp))
                     Column {
                         Text(
-                            text = "Email",
+                            text = stringResource(R.string.email),
                             color = DarkJungleGreen,
                             fontSize = 16.sp,
                         )
@@ -141,7 +142,7 @@ fun RegisterScreen(navController: NavController) {
                     Spacer(Modifier.height(20.dp))
                     Column {
                         Text(
-                            text = "Password",
+                            text = stringResource(R.string.password),
                             color = DarkJungleGreen,
                             fontSize = 16.sp,
                         )
@@ -178,7 +179,7 @@ fun RegisterScreen(navController: NavController) {
                             .height(50.dp)
                             .width(250.dp)
                             .align(Alignment.CenterHorizontally),
-                        text = "Sign up",
+                        text = stringResource(R.string.sign_up),
                         isFilled = true,
                         fontSize = 20.sp,
                         cornerRadius = 20,
@@ -213,13 +214,13 @@ fun LoginLink(navController: NavController) {
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Already have an account?",
+                text = stringResource(R.string.already_have_an_account),
                 fontSize = 16.sp,
                 color = DarkJungleGreen.copy(alpha = 0.8f),
                 fontWeight = FontWeight.Light
             )
             Text(
-                text = "Log in",
+                text = stringResource(R.string.log_in),
                 color = LilacPurple,
                 fontSize = 16.sp,
                 modifier = Modifier.setNoRippleClickable {

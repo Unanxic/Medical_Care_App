@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -71,7 +72,7 @@ fun AddAllergyScreen() {
                 contentDescription = null
             )
             Text(
-                text = "Are you allergic to this medicine?",
+                text = stringResource(R.string.are_you_allergic_to_this_medicine),
                 color = DarkJungleGreen,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
@@ -106,7 +107,7 @@ fun AddAllergyScreen() {
                             .height(50.dp)
                             .width(250.dp)
                             .align(Alignment.CenterHorizontally),
-                        text = "Yes",
+                        text = stringResource(R.string.yes),
                         isFilled = true,
                         fontSize = 20.sp,
                         cornerRadius = 40,
@@ -121,7 +122,7 @@ fun AddAllergyScreen() {
                             .height(50.dp)
                             .width(250.dp)
                             .align(Alignment.CenterHorizontally),
-                        text = "No",
+                        text = stringResource(R.string.no),
                         isFilled = true,
                         fontSize = 20.sp,
                         cornerRadius = 40,

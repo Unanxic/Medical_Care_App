@@ -1,10 +1,52 @@
 <resources>
-    <string name="app_name">Medical Care App</string>
+    <string name="app_name" translatable="false"> Medical Care App</string>
     <string name="password">Password</string>
-    <string name="email">Email</string>
+    <string name="email" translatable="false">Email</string>
     <string name="let_s_sign_you_in">Let\'s Sign You in</string>
     <string name="log_in">Log in</string>
     <string name="welcome_back">Welcome back!</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="sign_up">" Sign up"</string>
+    <string name="choose_your_language">Choose your language</string>
+    <string name="select_your_preferred_language_to_use">Select your preferred language to use</string>
+    <string name="are_you_allergic_to_this_medicine">Are you allergic to this medicine?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="what_medicine_would_you_like_to_add">What medicine would you like to add?</string>
+    <string name="start_typing_your_medicine">Start typing your medicine...</string>
+    <string name="next">Next</string>
+    <string name="what_are_you_taking_it_for">What are you taking it for?</string>
+    <string name="start_typing_your_condition">Start typing your condition...</string>
+    <string name="what_form_is_the_medicine">What form is the medicine?</string>
+    <string name="pill">Pill</string>
+    <string name="solution">Solution</string>
+    <string name="inhaler">Inhaler</string>
+    <string name="drops">Drops</string>
+    <string name="injection">Injection</string>
+    <string name="other">Other</string>
+    <string name="medicine_submitted_successfully">Medicine submitted successfully!</string>
+    <string name="go_back_to_medicine_history">Go back to medicine history</string>
+    <string name="my_account">My Account</string>
+    <string name="change_language">Change Language</string>
+    <string name="logout">Logout</string>
+    <string name="no_record_of_allergies">No record of allergies</string>
+    <string name="add_allergies">Add allergies</string>
+    <string name="no_record">No record</string>
+    <string name="add_record">Add record</string>
+    <string name="condition">"Condition: "</string>
+    <string name="type">"Type: "</string>
+    <string name="allergy">"Allergy: "</string>
+    <string name="yes_no">yes/no</string>
+    <string name="delete">DELETE</string>
+    <string name="no_medicine_history">No medicine history</string>
+    <string name="add_medicine">Add medicine</string>
+    <string name="try_again">TRY AGAIN</string>
+    <string name="no_connection">No connection</string>
+    <string name="no_internet_connection_found">No internet connection found.</string>
+    <string name="check_your_connection_and_try_again">Check your connection and try again</string>
+    <string name="let_s_sign_you_up">Let’s Sign You up</string>
+    <string name="hello_and_welcome">Hello and Welcome!</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="english_language">English</string>
+    <string name="greek_language">Greek</string>
 </resources>

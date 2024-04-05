@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -59,20 +60,20 @@ fun NoInternetScreen(
                 .padding(top = 94.dp)
         )
         Text(
-            text = "No connection",
+            text = stringResource(R.string.no_connection),
             color = Color.White,
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold
         )
         Spacer(Modifier.height(10.dp))
         Text(
-            text = "No internet connection found.",
+            text = stringResource(R.string.no_internet_connection_found),
             color = Color.White,
             fontSize = 16.sp,
             fontWeight = FontWeight.Light
         )
         Text(
-            text = "Check your connection and try again",
+            text = stringResource(R.string.check_your_connection_and_try_again),
             color = Color.White,
             fontSize = 16.sp,
             fontWeight = FontWeight.Light
@@ -110,7 +111,7 @@ fun NoInternetScreen(
                             .height(50.dp)
                             .padding(horizontal = 55.dp)
                             .align(Alignment.CenterHorizontally),
-                        text = "TRY AGAIN",
+                        text = stringResource(R.string.try_again),
                         isFilled = true,
                         fontSize = 20.sp,
                         cornerRadius = 20,
