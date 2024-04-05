@@ -28,6 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -55,6 +56,7 @@ fun ConditionScreen(
     navController: NavController
 ) {
 
+    var isNavigationInProgress by remember { mutableStateOf(false) }
     var condition by rememberSaveable { mutableStateOf("") }
 
     Box(
@@ -76,7 +78,10 @@ fun ConditionScreen(
                 .padding(16.dp)
                 .size(25.dp)
                 .setNoRippleClickable {
-                    //todo
+                    if (!isNavigationInProgress) {
+                        isNavigationInProgress = true
+                        navController.popBackStack()
+                    }
                 },
             tint = DarkJungleGreen
         )

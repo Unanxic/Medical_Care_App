@@ -77,7 +77,10 @@ fun AddMedicineScreen(
                 .padding(16.dp)
                 .size(25.dp)
                 .setNoRippleClickable {
-                    navController.popBackStack()
+                    if (!isNavigationInProgress) {
+                        isNavigationInProgress = true
+                        navController.popBackStack()
+                    }
                 },
             tint = DarkJungleGreen
         )
@@ -159,10 +162,7 @@ fun AddMedicineScreen(
                     Spacer(Modifier.height(50.dp))
                     ButtonComponent(
                         onClick = {
-                            if (!isNavigationInProgress) {
-                                isNavigationInProgress = true
-                                navController.medicineNavigateSingleTop(Screens.FormOfMedicine.route)
-                            }
+                            navController.medicineNavigateSingleTop(Screens.FormOfMedicine.route)
                         },
                         modifier = Modifier
                             .height(50.dp)
