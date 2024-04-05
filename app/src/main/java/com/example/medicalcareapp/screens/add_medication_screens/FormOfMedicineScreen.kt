@@ -19,6 +19,10 @@ import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -27,16 +31,23 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
+import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
 import com.example.medicalcareapp.extesions.setNoRippleClickable
+import com.example.medicalcareapp.navigation.Screens
 import com.example.medicalcareapp.ui.theme.DarkJungleGreen
 import com.example.medicalcareapp.ui.theme.Honeydew
 import com.example.medicalcareapp.ui.theme.SmokyBlack
 import com.example.medicalcareapp.ui.theme.TeaGreen
 
 @Composable
-fun FormOfMedicineScreen() {
+fun FormOfMedicineScreen(
+    navController: NavController
+) {
+    var isNavigationInProgress by remember { mutableStateOf(false) }
+
     Box(
         modifier = Modifier
             .fillMaxSize(),
@@ -102,7 +113,12 @@ fun FormOfMedicineScreen() {
                 ) {
                     //Pill
                     ButtonComponent(
-                        onClick = { /* todo */ },
+                        onClick = {
+                            if (!isNavigationInProgress) {
+                                isNavigationInProgress = true
+                                navController.medicineNavigateSingleTop(Screens.Condition.route)
+                            }
+                        },
                         modifier = Modifier
                             .height(50.dp)
                             .width(250.dp)

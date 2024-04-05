@@ -29,6 +29,7 @@ import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
 import com.example.medicalcareapp.event_manager.EventManager
+import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
 import com.example.medicalcareapp.navigation.Screens
 import com.example.medicalcareapp.ui.theme.DarkJungleGreen
 import com.example.medicalcareapp.ui.theme.Honeydew
@@ -93,7 +94,7 @@ fun WelcomeScreen(
                         horizontalArrangement = Arrangement.SpaceEvenly
                     ) {
                         ButtonComponent(
-                            onClick = { navController.navigate(Screens.Register.route) },
+                            onClick = { navController.medicineNavigateSingleTop(Screens.Register.route) },
                             modifier = Modifier
                                 .height(50.dp)
                                 .width(131.dp)
@@ -108,7 +109,7 @@ fun WelcomeScreen(
                             fillColorChoice = LightTeaGreen,
                         )
                         ButtonComponent(
-                            onClick = { navController.navigate(Screens.Login.route) },
+                            onClick = { navController.medicineNavigateSingleTop(Screens.Login.route) },
                             modifier = Modifier
                                 .height(50.dp)
                                 .width(131.dp)

@@ -48,7 +48,7 @@ fun HomeScreen(
         when (currentScreen) {
             CurrentHomeScreen.NONE -> TODO()
             CurrentHomeScreen.HISTORY ->
-                MedicineHistoryScreen(paddingValues = paddingValues)
+                MedicineHistoryScreen(paddingValues = paddingValues, navController = navController)
 
             CurrentHomeScreen.ALLERGIES ->
                 AllergiesScreen(paddingValues = paddingValues)

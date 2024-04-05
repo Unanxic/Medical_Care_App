@@ -25,7 +25,7 @@
     <string name="injection">Injection</string>
     <string name="other">Other</string>
     <string name="medicine_submitted_successfully">Medicine submitted successfully!</string>
-    <string name="go_back_to_medicine_history">Go back to medicine history</string>
+    <string name="back_to_medicine_history">Back</string>
     <string name="my_account">My Account</string>
     <string name="change_language">Change Language</string>
     <string name="logout">Logout</string>

@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.event_manager.EventManager
+import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
 import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.navigation.Screens
 import com.example.medicalcareapp.ui.theme.DarkJungleGreen
@@ -127,7 +128,7 @@ fun AccountScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .setNoRippleClickable {
-                            navController.navigate(Screens.ChangeLanguage.route)
+                            navController.medicineNavigateSingleTop(Screens.ChangeLanguage.route)
                         }
                 ) {
                     Text(

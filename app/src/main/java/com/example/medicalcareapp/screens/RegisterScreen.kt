@@ -42,6 +42,7 @@ import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
 import com.example.medicalcareapp.composables.GenericFilledTextField
+import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
 import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.navigation.Screens
 import com.example.medicalcareapp.ui.theme.DarkJungleGreen
@@ -224,7 +225,7 @@ fun LoginLink(navController: NavController) {
                 color = LilacPurple,
                 fontSize = 16.sp,
                 modifier = Modifier.setNoRippleClickable {
-                    navController.navigate(Screens.Login.route)
+                    navController.medicineNavigateSingleTop(Screens.Login.route)
                 }
             )
         }

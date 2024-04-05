@@ -39,16 +39,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
 import com.example.medicalcareapp.composables.GenericTextField
+import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
 import com.example.medicalcareapp.extesions.setNoRippleClickable
+import com.example.medicalcareapp.navigation.Screens
 import com.example.medicalcareapp.ui.theme.DarkJungleGreen
 import com.example.medicalcareapp.ui.theme.Honeydew
 import com.example.medicalcareapp.ui.theme.LightOlivine
 
 @Composable
-fun ConditionScreen() {
+fun ConditionScreen(
+    navController: NavController
+) {
 
     var condition by rememberSaveable { mutableStateOf("") }
 
@@ -144,7 +149,7 @@ fun ConditionScreen() {
                             Text(
                                 text = stringResource(R.string.start_typing_your_condition),
                                 color = DarkJungleGreen,
-                                fontSize = 16.sp,
+                                fontSize = 13.sp,
                                 fontWeight = FontWeight.Light
                             )
                         }
@@ -152,7 +157,9 @@ fun ConditionScreen() {
                     Spacer(Modifier.weight(1f))
                     Spacer(Modifier.height(70.dp))
                     ButtonComponent(
-                        onClick = { /* todo */ },
+                        onClick = {
+                            navController.medicineNavigateSingleTop(Screens.Allergy.route)
+                        },
                         modifier = Modifier
                             .height(50.dp)
                             .width(250.dp)

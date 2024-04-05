@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.input.pointer.pointerInteropFilter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 
 fun Modifier.setNoRippleClickable(onClick: () -> Unit): Modifier = composed {
@@ -32,6 +33,11 @@ fun Modifier.setNoRippleClickable(onClick: () -> Unit): Modifier = composed {
         onClick()
     }
 }
+
+fun NavController.medicineNavigateSingleTop(route: String) = this.navigate(route) {
+    launchSingleTop = true
+}
+
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun Modifier.onClickWithScaleAnimation(scaleFactor: Float = 0.9f, onClick: () -> Unit): Modifier =

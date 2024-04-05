@@ -14,6 +14,5 @@ sealed class Screens(
     object Condition : Screens("condition")
     object Allergy : Screens("allergy")
     object SuccessfulMedicineRegistration : Screens("successful_medicine_registration")
-
     object ChangeLanguage : Screens("change_language")
 }

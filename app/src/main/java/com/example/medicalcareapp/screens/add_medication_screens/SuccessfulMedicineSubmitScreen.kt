@@ -16,18 +16,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
+import com.example.medicalcareapp.extesions.navigateToHomeScreen
+import com.example.medicalcareapp.managers.CurrentHomeScreen
 import com.example.medicalcareapp.ui.theme.DarkJungleGreen
 import com.example.medicalcareapp.ui.theme.SmokyBlack
 import com.example.medicalcareapp.ui.theme.TeaGreen
 
 @Composable
-fun SuccessfulMedicineSubmitScreen() {
+fun SuccessfulMedicineSubmitScreen(
+    navController: NavController
+) {
     Box(
         modifier = Modifier
             .fillMaxSize(),
@@ -57,23 +66,34 @@ fun SuccessfulMedicineSubmitScreen() {
                 color = DarkJungleGreen,
                 fontSize = 30.sp,
                 textAlign = TextAlign.Center,
-                fontWeight = FontWeight.SemiBold
+                maxLines = Int.MAX_VALUE,
+                overflow = TextOverflow.Clip,
+                style = TextStyle(
+                    fontWeight = FontWeight.SemiBold,
+                    platformStyle = PlatformTextStyle(includeFontPadding = false),
+                    lineHeightStyle = LineHeightStyle(
+                        alignment = LineHeightStyle.Alignment.Center,
+                        trim = LineHeightStyle.Trim.LastLineBottom
+                    )
+                ),
             )
             Spacer(modifier = Modifier.height(50.dp))
             ButtonComponent(
-                onClick = { /* todo */ },
+                onClick = {
+                    navController.navigateToHomeScreen(CurrentHomeScreen.HISTORY)
+                },
                 modifier = Modifier
-                    .height(76.dp)
-                    .width(307.dp)
+                    .height(60.dp)
+                    .width(250.dp)
                     .align(Alignment.CenterHorizontally),
-                text = stringResource(R.string.go_back_to_medicine_history),
+                text = stringResource(R.string.back_to_medicine_history),
                 isFilled = true,
                 fontSize = 20.sp,
                 cornerRadius = 20,
                 fillColorChoice = TeaGreen,
                 contentColorChoice = SmokyBlack,
 
-            )
+                )
         }
     }
 }

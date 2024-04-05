@@ -24,7 +24,7 @@
     <string name="injection">Ένεση</string>
     <string name="other">Άλλο</string>
     <string name="medicine_submitted_successfully">Το φάρμακο υποβλήθηκε επιτυχώς!</string>
-    <string name="go_back_to_medicine_history">Επιστροφή στο ιστορικό φαρμάκων</string>
+    <string name="back_to_medicine_history">Επιστροφή</string>
     <string name="my_account">Ο Λογαριασμός μου</string>
     <string name="change_language">Αλλαγή Γλώσσας</string>
     <string name="logout">Αποσύνδεση</string>

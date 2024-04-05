@@ -28,6 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -39,17 +40,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
 import com.example.medicalcareapp.composables.GenericTextField
+import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
 import com.example.medicalcareapp.extesions.setNoRippleClickable
+import com.example.medicalcareapp.navigation.Screens
 import com.example.medicalcareapp.ui.theme.DarkJungleGreen
 import com.example.medicalcareapp.ui.theme.Honeydew
 import com.example.medicalcareapp.ui.theme.LightOlivine
 
 @Composable
 fun AddMedicineScreen(
+    navController: NavController
 ) {
+    var isNavigationInProgress by remember { mutableStateOf(false) }
 
     var medicineName by rememberSaveable { mutableStateOf("") }
     Box(
@@ -71,7 +77,7 @@ fun AddMedicineScreen(
                 .padding(16.dp)
                 .size(25.dp)
                 .setNoRippleClickable {
-                    //todo
+                    navController.popBackStack()
                 },
             tint = DarkJungleGreen
         )
@@ -144,7 +150,7 @@ fun AddMedicineScreen(
                             Text(
                                 text = stringResource(R.string.start_typing_your_medicine),
                                 color = DarkJungleGreen,
-                                fontSize = 16.sp,
+                                fontSize = 13.sp,
                                 fontWeight = FontWeight.Light
                             )
                         }
@@ -152,7 +158,12 @@ fun AddMedicineScreen(
                     Spacer(Modifier.weight(1f))
                     Spacer(Modifier.height(50.dp))
                     ButtonComponent(
-                        onClick = { /* todo */ },
+                        onClick = {
+                            if (!isNavigationInProgress) {
+                                isNavigationInProgress = true
+                                navController.medicineNavigateSingleTop(Screens.FormOfMedicine.route)
+                            }
+                        },
                         modifier = Modifier
                             .height(50.dp)
                             .width(250.dp)

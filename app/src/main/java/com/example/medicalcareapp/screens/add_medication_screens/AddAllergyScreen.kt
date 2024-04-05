@@ -27,16 +27,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
+import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
 import com.example.medicalcareapp.extesions.setNoRippleClickable
+import com.example.medicalcareapp.navigation.Screens
 import com.example.medicalcareapp.ui.theme.DarkJungleGreen
 import com.example.medicalcareapp.ui.theme.Honeydew
 import com.example.medicalcareapp.ui.theme.SmokyBlack
 import com.example.medicalcareapp.ui.theme.TeaGreen
 
 @Composable
-fun AddAllergyScreen() {
+fun AddAllergyScreen(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize(),
@@ -56,7 +59,7 @@ fun AddAllergyScreen() {
                 .padding(16.dp)
                 .size(25.dp)
                 .setNoRippleClickable {
-                    //todo
+                    navController.popBackStack()
                 },
             tint = DarkJungleGreen
         )
@@ -117,7 +120,9 @@ fun AddAllergyScreen() {
                     Spacer(modifier = Modifier.height(20.dp))
                     //No
                     ButtonComponent(
-                        onClick = { /* todo */ },
+                        onClick = {
+                                  navController.medicineNavigateSingleTop(Screens.SuccessfulMedicineRegistration.route)
+                        },
                         modifier = Modifier
                             .height(50.dp)
                             .width(250.dp)

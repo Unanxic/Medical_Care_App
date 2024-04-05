@@ -42,6 +42,7 @@ import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
 import com.example.medicalcareapp.composables.GenericFilledTextField
+import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
 import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.navigation.Screens
 import com.example.medicalcareapp.ui.theme.DarkJungleGreen
@@ -160,7 +161,7 @@ fun LoginScreen(navController: NavController) {
                     Spacer(Modifier.height(40.dp))
                     ButtonComponent(
                         onClick = {
-                            navController.navigate(Screens.Home.route)
+                            navController.medicineNavigateSingleTop(Screens.Home.route)
                         },
                         modifier = Modifier
                             .height(50.dp)
@@ -210,7 +211,7 @@ fun RegisterLink(navController: NavController) {
                 color = LilacPurple,
                 fontSize = 16.sp,
                 modifier = Modifier.setNoRippleClickable {
-                    navController.navigate(Screens.Register.route)
+                    navController.medicineNavigateSingleTop(Screens.Register.route)
                 }
             )
         }

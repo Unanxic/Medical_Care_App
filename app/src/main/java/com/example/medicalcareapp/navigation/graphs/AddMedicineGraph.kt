@@ -50,7 +50,7 @@ fun NavGraphBuilder.registerMedicineNavigation(
             }
         ) {
             updateCurrentScreen(Screens.AddMedicine)
-            AddMedicineScreen()
+            AddMedicineScreen(navController = navController)
         }
         //form of medicine screen
         composable(
@@ -81,7 +81,7 @@ fun NavGraphBuilder.registerMedicineNavigation(
             }
         ) {
             updateCurrentScreen(Screens.FormOfMedicine)
-            FormOfMedicineScreen()
+            FormOfMedicineScreen(navController = navController)
         }
         //condition screen
         composable(
@@ -112,7 +112,7 @@ fun NavGraphBuilder.registerMedicineNavigation(
             }
         ) {
             updateCurrentScreen(Screens.Condition)
-            ConditionScreen()
+            ConditionScreen(navController = navController)
         }
         //allergy screen
         composable(
@@ -143,7 +143,7 @@ fun NavGraphBuilder.registerMedicineNavigation(
             }
         ) {
             updateCurrentScreen(Screens.Allergy)
-            AddAllergyScreen()
+            AddAllergyScreen(navController = navController)
         }
         //successful medication submit screen
         composable(
@@ -174,7 +174,7 @@ fun NavGraphBuilder.registerMedicineNavigation(
             }
         ) {
             updateCurrentScreen(Screens.SuccessfulMedicineRegistration)
-            SuccessfulMedicineSubmitScreen()
+            SuccessfulMedicineSubmitScreen(navController = navController)
         }
 
     }
