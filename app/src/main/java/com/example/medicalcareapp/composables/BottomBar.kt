@@ -174,7 +174,7 @@ fun ImageComponent(
 
 @Composable
 @Preview
-fun BottomBarPreview() {
+private fun BottomBarPreview() {
     val homeScreenManager = HomeScreenManager(Dispatchers.IO)
     BottomBar(homeScreenManager = homeScreenManager)
 }

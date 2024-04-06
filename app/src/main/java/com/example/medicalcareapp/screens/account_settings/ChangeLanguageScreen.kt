@@ -58,6 +58,8 @@ fun ChangeLanguageScreen(
 
     var selectedLanguage by remember(languageOptions) { mutableStateOf(languageOptions.find { it.language == LanguageHelper.getLanguage() }) }
 
+    var isNavigationInProgress by remember { mutableStateOf(false) }
+
     Box(
         Modifier
             .fillMaxSize()
@@ -86,7 +88,10 @@ fun ChangeLanguageScreen(
                 .padding(16.dp)
                 .size(25.dp)
                 .setNoRippleClickable {
-                    navController.popBackStack()
+                    if (!isNavigationInProgress) {
+                        isNavigationInProgress = true
+                        navController.popBackStack()
+                    }
                 },
             tint = DarkJungleGreen
         )
