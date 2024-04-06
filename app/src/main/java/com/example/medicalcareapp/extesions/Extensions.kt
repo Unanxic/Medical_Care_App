@@ -39,6 +39,12 @@ fun NavController.medicineNavigateSingleTop(route: String) = this.navigate(route
 }
 
 
+fun String.capitalizeWords(): String = split(" ").joinToString(" ") { it ->
+    it.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+}
+
+
+
 @OptIn(ExperimentalComposeUiApi::class)
 fun Modifier.onClickWithScaleAnimation(scaleFactor: Float = 0.9f, onClick: () -> Unit): Modifier =
     composed {
