@@ -32,10 +32,30 @@ import com.example.medicalcareapp.ui.theme.Axolotl
 import com.example.medicalcareapp.ui.theme.DarkJungleGreen
 import com.example.medicalcareapp.ui.theme.Honeydew
 
+enum class IconType(@DrawableRes val resourceId: Int) {
+    INHALER(
+        resourceId = R.drawable.inhaler_icon
+    ),
+    PILL(
+        resourceId = R.drawable.pill_icon
+    ),
+    SOLUTION(
+        resourceId = R.drawable.solution_icon
+    ),
+    DROPS(
+        resourceId = R.drawable.drops_icon
+    ),
+    INJECTION(
+        resourceId = R.drawable.injection_icon
+    ),
+    OTHER(
+        resourceId = R.drawable.other_icon
+    )
+}
 
 @Composable
 fun GenericClickableRowWithIcons(
-    @DrawableRes icon: Int,
+    icon: IconType,
     text: String = "",
     secondaryText: String = "",
     onClick: () -> Unit
@@ -61,7 +81,7 @@ fun GenericClickableRowWithIcons(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = painterResource(id = icon),
+                painter = painterResource(id = icon.resourceId),
                 contentDescription = "type of medicine icon",
                 modifier = Modifier.size(48.dp)
             )
@@ -103,7 +123,7 @@ private fun PreviewGenericClickableRowWithIcons() {
         contentAlignment = Alignment.Center
     ) {
         GenericClickableRowWithIcons(
-            icon = R.drawable.injection_icon,
+            icon = IconType.DROPS,
             text = "test",
             secondaryText = "inhaler",
             onClick = { /* Example click action */ }
