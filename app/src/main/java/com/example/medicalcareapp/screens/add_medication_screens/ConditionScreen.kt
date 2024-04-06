@@ -171,6 +171,7 @@ fun ConditionScreen(
                             .align(Alignment.CenterHorizontally),
                         text = stringResource(R.string.next),
                         isFilled = true,
+                        isDisabled = condition.isBlank(),
                         fontSize = 20.sp,
                         cornerRadius = 20,
                         fillColorChoice = LightOlivine

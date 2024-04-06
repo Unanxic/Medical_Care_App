@@ -8,13 +8,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -23,8 +21,10 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.medicalcareapp.extesions.setNoRippleClickable
+import com.example.medicalcareapp.ui.theme.Alabaster
 import com.example.medicalcareapp.ui.theme.Axolotl
 import com.example.medicalcareapp.ui.theme.SmokyBlack
+import com.example.medicalcareapp.ui.theme.SpanishGray
 import com.example.medicalcareapp.ui.theme.TeaGreen
 
 
@@ -37,15 +37,15 @@ fun ButtonComponent(
     isBold: Boolean = false,
     fontSize: TextUnit = 18.sp,
     contentColorChoice: Color = Color.White,
-    disabledContentColor: Color = TeaGreen,
-    backgroundColorChoice: Color = TeaGreen,
+    disabledContentColor: Color = Alabaster,
+    backgroundColorChoice: Color = Alabaster,
     fillColorChoice: Color = Axolotl,
     cornerRadius: Int = 50,
     onClick: () -> Unit
 ) {
     val contentColor =
         if (isFilled && !isDisabled) contentColorChoice
-        else Color.White
+        else SpanishGray
     val borderColor =
         if (isDisabled) disabledContentColor
         else fillColorChoice
