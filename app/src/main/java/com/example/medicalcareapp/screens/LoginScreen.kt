@@ -53,7 +53,7 @@ import com.example.medicalcareapp.ui.theme.LilacPurple
 @Composable
 fun LoginScreen(navController: NavController) {
 
-    var usernameOrEmail by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     Box(
         modifier = Modifier
@@ -133,10 +133,10 @@ fun LoginScreen(navController: NavController) {
                             fontSize = 16.sp,
                         )
                         GenericFilledTextField(
-                            value = usernameOrEmail,
+                            value = email,
                             title = "",
                             updateText = {
-                                usernameOrEmail = it
+                                email = it
                             },
                         )
                     }
@@ -169,6 +169,7 @@ fun LoginScreen(navController: NavController) {
                             .align(Alignment.CenterHorizontally),
                         text = stringResource(R.string.log_in),
                         isFilled = true,
+                        isDisabled = email.isBlank() || password.isBlank() ,
                         fontSize = 16.sp,
                         cornerRadius = 20,
                         fillColorChoice = LightOlivine
