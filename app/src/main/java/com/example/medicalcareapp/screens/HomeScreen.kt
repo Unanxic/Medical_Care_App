@@ -29,9 +29,6 @@ fun HomeScreen(
             CurrentHomeScreen.HISTORY ->
                 homeScreenManager.emitTopBarConfigs(TopBarConfigs(topBarLayout = TopBarLayouts.MEDICAL_HISTORY_TEXT))
 
-            CurrentHomeScreen.ALLERGIES ->
-                homeScreenManager.emitTopBarConfigs(TopBarConfigs(topBarLayout = TopBarLayouts.ALLERGIES_HISTORY_TEXT))
-
             CurrentHomeScreen.CONTACTS ->
                 homeScreenManager.emitTopBarConfigs(TopBarConfigs(topBarLayout = TopBarLayouts.CONTACTS_TEXT))
 
@@ -49,9 +46,6 @@ fun HomeScreen(
             CurrentHomeScreen.NONE -> TODO()
             CurrentHomeScreen.HISTORY ->
                 MedicineHistoryScreen(paddingValues = paddingValues, navController = navController)
-
-            CurrentHomeScreen.ALLERGIES ->
-                AllergiesScreen(paddingValues = paddingValues)
 
             CurrentHomeScreen.CONTACTS ->
                 EmergencyContactsScreen(paddingValues = paddingValues)

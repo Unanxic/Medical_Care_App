@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
 enum class CurrentHomeScreen {
     NONE,
     HISTORY,
-    ALLERGIES,
     CONTACTS,
     ACCOUNT,
 }
