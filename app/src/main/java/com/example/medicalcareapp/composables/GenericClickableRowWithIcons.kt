@@ -33,24 +33,33 @@ import com.example.medicalcareapp.ui.theme.AliceBlue
 import com.example.medicalcareapp.ui.theme.EerieBlack
 import com.example.medicalcareapp.ui.theme.SmokyBlack
 
-enum class IconType(@DrawableRes val resourceId: Int) {
+enum class IconType(
+    @DrawableRes val medicationIcon: Int,
+    val medicationType: String
+) {
     INHALER(
-        resourceId = R.drawable.inhaler
+        medicationIcon = R.drawable.inhaler,
+        medicationType = "Inhaler"
     ),
     PILL(
-        resourceId = R.drawable.pill
+        medicationIcon = R.drawable.pill,
+        medicationType = "Pill"
     ),
     SOLUTION(
-        resourceId = R.drawable.solution
+        medicationIcon = R.drawable.solution,
+        medicationType = "Solution"
     ),
     DROPS(
-        resourceId = R.drawable.drops
+        medicationIcon = R.drawable.drops,
+        medicationType = "Drops"
     ),
     INJECTION(
-        resourceId = R.drawable.injection_icon
+        medicationIcon = R.drawable.injection_icon,
+        medicationType = "Injection"
     ),
     OTHER(
-        resourceId = R.drawable.other
+        medicationIcon = R.drawable.other,
+        medicationType = "Other"
     )
 }
 
@@ -58,12 +67,10 @@ enum class IconType(@DrawableRes val resourceId: Int) {
 fun GenericClickableRowWithIcons(
     icon: IconType,
     text: String = "",
-    secondaryText: String = "",
     onClick: () -> Unit
 ) {
 
     val capitalizedText = text.capitalizeWords()
-    val capitalizedSecondaryText = secondaryText.capitalizeWords()
 
     Card(
         modifier = Modifier
@@ -82,7 +89,7 @@ fun GenericClickableRowWithIcons(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = painterResource(id = icon.resourceId),
+                painter = painterResource(id = icon.medicationIcon),
                 contentDescription = "type of medicine icon",
                 modifier = Modifier.size(48.dp)
             )
@@ -97,7 +104,7 @@ fun GenericClickableRowWithIcons(
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = capitalizedSecondaryText,
+                    text = icon.medicationType,
                     color = EerieBlack,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Light,
@@ -122,12 +129,10 @@ private fun PreviewGenericClickableRowWithIcons() {
             .fillMaxSize()
             .background(SmokyBlack)
             .padding(17.dp),
-        contentAlignment = Alignment.Center
     ) {
         GenericClickableRowWithIcons(
-            icon = IconType.DROPS,
+            icon = IconType.OTHER,
             text = "test",
-            secondaryText = "inhaler",
             onClick = { /* Example click action */ }
         )
     }
