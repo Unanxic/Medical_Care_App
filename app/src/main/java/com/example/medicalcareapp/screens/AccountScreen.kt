@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -33,9 +34,10 @@ import com.example.medicalcareapp.event_manager.EventManager
 import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
 import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.navigation.Screens
-import com.example.medicalcareapp.ui.theme.DarkJungleGreen
-import com.example.medicalcareapp.ui.theme.Honeydew
-import com.example.medicalcareapp.ui.theme.Olivine
+import com.example.medicalcareapp.ui.theme.AliceBlue
+import com.example.medicalcareapp.ui.theme.DesaturatedCyan
+import com.example.medicalcareapp.ui.theme.EerieBlack
+import com.example.medicalcareapp.ui.theme.HookersGreen
 import com.example.medicalcareapp.ui.theme.SmokyBlack
 import org.koin.compose.koinInject
 
@@ -48,7 +50,7 @@ fun AccountScreen(
     Box(
         Modifier
             .fillMaxSize()
-            .background(color = Olivine)
+            .background(color = HookersGreen)
             .padding(top = paddingValues.calculateTopPadding()),
         contentAlignment = Alignment.Center,
     ) {
@@ -61,8 +63,8 @@ fun AccountScreen(
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth(),
-                contentScale = ContentScale.FillWidth
-
+                contentScale = ContentScale.FillWidth,
+                colorFilter = ColorFilter.tint(DesaturatedCyan)
             )
             Box(
                 contentAlignment = Alignment.Center,
@@ -84,7 +86,7 @@ fun AccountScreen(
                         text = stringResource(R.string.my_account),
                         fontWeight = FontWeight.Bold,
                         fontSize = 30.sp,
-                        color = DarkJungleGreen
+                        color = EerieBlack
                     )
                 }
             }
@@ -94,7 +96,7 @@ fun AccountScreen(
                 .width(327.dp)
                 .height(160.dp)
                 .clip(RoundedCornerShape(12.dp))
-                .background(color = Honeydew.copy(alpha = 0.6f))
+                .background(color = AliceBlue)
         ) {
             Column(
                 modifier = Modifier

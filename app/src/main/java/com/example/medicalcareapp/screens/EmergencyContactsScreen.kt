@@ -25,9 +25,8 @@ import androidx.compose.ui.unit.sp
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
 import com.example.medicalcareapp.event_manager.EventManager
-import com.example.medicalcareapp.ui.theme.Honeydew
-import com.example.medicalcareapp.ui.theme.Olivine
-import com.example.medicalcareapp.ui.theme.SmokyBlack
+import com.example.medicalcareapp.ui.theme.HookersGreen
+import com.example.medicalcareapp.ui.theme.MSUGreen
 import org.koin.compose.koinInject
 
 @Composable
@@ -38,7 +37,7 @@ fun EmergencyContactsScreen(
     Box(
         Modifier
             .fillMaxSize()
-            .background(color = Olivine)
+            .background(color = HookersGreen)
             .padding(top = paddingValues.calculateTopPadding()),
         contentAlignment = Alignment.Center
     ) {
@@ -70,8 +69,8 @@ fun EmergencyContactsScreen(
                 isFilled = true,
                 fontSize = 16.sp,
                 cornerRadius = 20,
-                fillColorChoice = Honeydew,
-                contentColorChoice = SmokyBlack
+                fillColorChoice = MSUGreen,
+                contentColorChoice = Color.White
             )
         }
     }

@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -27,8 +28,8 @@ import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
 import com.example.medicalcareapp.event_manager.AppEvents
 import com.example.medicalcareapp.event_manager.EventManager
-import com.example.medicalcareapp.ui.theme.Honeydew
-import com.example.medicalcareapp.ui.theme.Olivine
+import com.example.medicalcareapp.ui.theme.HookersGreen
+import com.example.medicalcareapp.ui.theme.MSUGreen
 import org.koin.compose.koinInject
 
 @Composable
@@ -49,7 +50,7 @@ fun NoInternetScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Olivine),
+            .background(HookersGreen),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
@@ -88,7 +89,7 @@ fun NoInternetScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(
-                        color = Honeydew,
+                        color = HookersGreen,
                         shape = RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp)
                     )
             ) {
@@ -96,6 +97,7 @@ fun NoInternetScreen(
                     painter = painterResource(id = R.drawable.waves),
                     contentDescription = "Waves",
                     contentScale = ContentScale.FillWidth,
+                    colorFilter = ColorFilter.tint(MSUGreen),
                     modifier = Modifier
                         .fillMaxWidth()
                         .align(Alignment.BottomCenter)
@@ -115,7 +117,7 @@ fun NoInternetScreen(
                         isFilled = true,
                         fontSize = 20.sp,
                         cornerRadius = 20,
-                        fillColorChoice = Olivine
+                        fillColorChoice = MSUGreen
                     )
                 }
             }

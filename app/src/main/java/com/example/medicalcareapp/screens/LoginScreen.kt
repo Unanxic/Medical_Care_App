@@ -30,7 +30,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -45,28 +44,23 @@ import com.example.medicalcareapp.composables.GenericFilledTextField
 import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
 import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.navigation.Screens
-import com.example.medicalcareapp.ui.theme.DarkJungleGreen
-import com.example.medicalcareapp.ui.theme.Honeydew
-import com.example.medicalcareapp.ui.theme.LightOlivine
+import com.example.medicalcareapp.ui.theme.AliceBlue
+import com.example.medicalcareapp.ui.theme.EerieBlack
 import com.example.medicalcareapp.ui.theme.LilacPurple
+import com.example.medicalcareapp.ui.theme.MSUGreen
+import com.example.medicalcareapp.ui.theme.PewterBlue
+import com.example.medicalcareapp.ui.theme.SmokyBlack
 
 @Composable
 fun LoginScreen(navController: NavController) {
 
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("1234") }
+    var password by remember { mutableStateOf("1234") }
     Box(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .background(PewterBlue),
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_rainbow),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxSize()
-                .align(Alignment.TopCenter)
-        )
         Icon(
             imageVector = Icons.Outlined.ArrowBack,
             contentDescription = null,
@@ -76,12 +70,12 @@ fun LoginScreen(navController: NavController) {
                 .setNoRippleClickable {
                     navController.popBackStack(Screens.Welcome.route, inclusive = false)
                 },
-            tint = DarkJungleGreen
+            tint = SmokyBlack
         )
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 87.dp, bottom = 38.dp),
+                .padding(top = 87.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Image(
@@ -99,7 +93,7 @@ fun LoginScreen(navController: NavController) {
                     .fillMaxSize()
                     .padding(top = 230.dp)
                     .background(
-                        color = Honeydew,
+                        color = AliceBlue,
                         shape = RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp)
                     )
             ) {
@@ -113,7 +107,7 @@ fun LoginScreen(navController: NavController) {
                 ) {
                     Text(
                         text = stringResource(R.string.let_s_sign_you_in),
-                        color = DarkJungleGreen,
+                        color = EerieBlack,
                         fontSize = 34.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -129,7 +123,7 @@ fun LoginScreen(navController: NavController) {
                     Column {
                         Text(
                             text = stringResource(R.string.email),
-                            color = DarkJungleGreen,
+                            color = EerieBlack,
                             fontSize = 16.sp,
                         )
                         GenericFilledTextField(
@@ -144,7 +138,7 @@ fun LoginScreen(navController: NavController) {
                     Column {
                         Text(
                             text = stringResource(R.string.password),
-                            color = DarkJungleGreen,
+                            color = EerieBlack,
                             fontSize = 16.sp,
                         )
                         GenericFilledTextField(
@@ -172,7 +166,7 @@ fun LoginScreen(navController: NavController) {
                         isDisabled = email.isBlank() || password.isBlank() ,
                         fontSize = 16.sp,
                         cornerRadius = 20,
-                        fillColorChoice = LightOlivine
+                        fillColorChoice = MSUGreen
                     )
                     Spacer(Modifier.height(10.dp))
                     Column(
@@ -204,7 +198,7 @@ fun RegisterLink(navController: NavController) {
             Text(
                 text = stringResource(R.string.don_t_have_an_account),
                 fontSize = 16.sp,
-                color = DarkJungleGreen.copy(alpha = 0.8f),
+                color = EerieBlack.copy(alpha = 0.8f),
                 fontWeight = FontWeight.Light
             )
             Text(

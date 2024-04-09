@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
@@ -26,23 +27,26 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
 import com.example.medicalcareapp.extesions.CARD_ELEVATION
 import com.example.medicalcareapp.extesions.setNoRippleClickable
-import com.example.medicalcareapp.ui.theme.DarkJungleGreen
-import com.example.medicalcareapp.ui.theme.Honeydew
-import com.example.medicalcareapp.ui.theme.Olivine
+import com.example.medicalcareapp.ui.theme.AliceBlue
+import com.example.medicalcareapp.ui.theme.EerieBlack
+import com.example.medicalcareapp.ui.theme.HookersGreen
+import com.example.medicalcareapp.ui.theme.JetStream
+import com.example.medicalcareapp.ui.theme.MSUGreen
 import com.example.medicalcareapp.ui.theme.SmokyBlack
-import com.example.medicalcareapp.ui.theme.TeaGreen
 
 
 @Composable
@@ -53,7 +57,7 @@ fun MedicineDetailsScreen(
     Box(
         Modifier
             .fillMaxSize()
-            .background(color = Olivine),
+            .background(color = HookersGreen),
     ) {
         Icon(
             imageVector = Icons.Outlined.ArrowBack,
@@ -67,7 +71,7 @@ fun MedicineDetailsScreen(
                         //add navController pop back stack
                     }
                 },
-            tint = DarkJungleGreen
+            tint = EerieBlack
         )
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -76,14 +80,14 @@ fun MedicineDetailsScreen(
                 .padding(top = 45.dp)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.inhaler_icon),
+                painter = painterResource(id = R.drawable.inhaler),
                 contentDescription = "inhaler",
                 modifier = Modifier.size(50.dp)
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = "Aerolin",
-                color = DarkJungleGreen,
+                color = EerieBlack,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.ExtraBold,
             )
@@ -96,12 +100,16 @@ fun MedicineDetailsScreen(
                 },
                 modifier = Modifier
                     .height(50.dp)
-                    .width(150.dp),
+                    .width(150.dp)
+                    .shadow(
+                        elevation = 4.dp,
+                        shape = CircleShape
+                    ),
                 text = stringResource(R.string.delete),
                 isFilled = true,
                 fontSize = 20.sp,
                 cornerRadius = 20,
-                fillColorChoice = Honeydew,
+                fillColorChoice = JetStream,
                 contentColorChoice = SmokyBlack
             )
         }
@@ -109,7 +117,7 @@ fun MedicineDetailsScreen(
             painter = painterResource(id = R.drawable.waves),
             contentDescription = "Waves",
             contentScale = ContentScale.FillWidth,
-            colorFilter = ColorFilter.tint(Honeydew),
+            colorFilter = ColorFilter.tint(MSUGreen),
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
@@ -124,7 +132,7 @@ fun ColoredCard() {
             .fillMaxWidth()
             .height(314.dp),
         colors = CardDefaults.cardColors(
-            containerColor = TeaGreen
+            containerColor = AliceBlue
         ),
         shape = RoundedCornerShape(40.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = CARD_ELEVATION)
@@ -137,14 +145,14 @@ fun ColoredCard() {
         ) {
             Text(
                 text = stringResource(R.string.condition),
-                color = DarkJungleGreen,
+                color = EerieBlack,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Center
             )
             Text(
                 text = "asthma",
-                color = DarkJungleGreen,
+                color = EerieBlack,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Light,
                 textAlign = TextAlign.Center
@@ -152,14 +160,14 @@ fun ColoredCard() {
             Spacer(modifier = Modifier.height(34.dp))
             Text(
                 text = stringResource(R.string.type),
-                color = DarkJungleGreen,
+                color = EerieBlack,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Center
             )
             Text(
                 text = "inhaler",
-                color = DarkJungleGreen,
+                color = EerieBlack,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Light,
                 textAlign = TextAlign.Center
@@ -167,18 +175,24 @@ fun ColoredCard() {
             Spacer(modifier = Modifier.height(34.dp))
             Text(
                 text = stringResource(R.string.allergy),
-                color = DarkJungleGreen,
+                color = EerieBlack,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Center
             )
             Text(
                 text = stringResource(R.string.yes_no),
-                color = DarkJungleGreen,
+                color = EerieBlack,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Light,
                 textAlign = TextAlign.Center
             )
         }
     }
+}
+
+@Preview
+@Composable
+fun Preview() {
+    MedicineDetailsScreen()
 }

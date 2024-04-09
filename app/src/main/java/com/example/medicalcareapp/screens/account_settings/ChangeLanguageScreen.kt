@@ -28,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -42,10 +43,11 @@ import com.example.medicalcareapp.R
 import com.example.medicalcareapp.extesions.CARD_ELEVATION
 import com.example.medicalcareapp.extesions.onClickWithScaleAnimation
 import com.example.medicalcareapp.extesions.setNoRippleClickable
-import com.example.medicalcareapp.ui.theme.DarkJungleGreen
-import com.example.medicalcareapp.ui.theme.Honeydew
-import com.example.medicalcareapp.ui.theme.Olivine
-import com.example.medicalcareapp.ui.theme.TeaGreen
+import com.example.medicalcareapp.ui.theme.DesaturatedCyan
+import com.example.medicalcareapp.ui.theme.EerieBlack
+import com.example.medicalcareapp.ui.theme.HookersGreen
+import com.example.medicalcareapp.ui.theme.JetStream
+import com.example.medicalcareapp.ui.theme.SmokyBlack
 import com.example.medicalcareapp.utilities.LanguageHelper
 
 @Composable
@@ -63,14 +65,14 @@ fun ChangeLanguageScreen(
     Box(
         Modifier
             .fillMaxSize()
-            .background(color = Olivine),
+            .background(color = HookersGreen),
     ) {
         Box(
             Modifier
                 .align(Alignment.TopCenter)
                 .fillMaxWidth()
                 .height(50.dp)
-                .background(TeaGreen)
+                .background(DesaturatedCyan)
         )
         Image(
             painter = painterResource(id = R.drawable.rectangle_green_rounded),
@@ -79,7 +81,8 @@ fun ChangeLanguageScreen(
                 .align(Alignment.TopCenter)
                 .padding(top = 50.dp)
                 .fillMaxWidth(),
-            contentScale = ContentScale.FillWidth
+            contentScale = ContentScale.FillWidth,
+            colorFilter = ColorFilter.tint(DesaturatedCyan)
         )
         Icon(
             imageVector = Icons.Outlined.ArrowBack,
@@ -93,7 +96,7 @@ fun ChangeLanguageScreen(
                         navController.popBackStack()
                     }
                 },
-            tint = DarkJungleGreen
+            tint = SmokyBlack
         )
         Column(
             modifier = Modifier
@@ -103,7 +106,7 @@ fun ChangeLanguageScreen(
         ) {
             Text(
                 text = stringResource(R.string.choose_your_language),
-                color = DarkJungleGreen,
+                color = EerieBlack,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
@@ -111,7 +114,7 @@ fun ChangeLanguageScreen(
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = stringResource(R.string.select_your_preferred_language_to_use),
-                color = DarkJungleGreen,
+                color = EerieBlack,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Center
@@ -157,7 +160,7 @@ fun ClickableRowWithIcon(
             .height(80.dp)
             .onClickWithScaleAnimation(scaleFactor = 0.99f) { onClick() },
         colors = CardDefaults.cardColors(
-            containerColor = Honeydew
+            containerColor = JetStream
         ),
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = CARD_ELEVATION)
@@ -176,7 +179,7 @@ fun ClickableRowWithIcon(
             Spacer(modifier = Modifier.width(12.dp))
             Text(
                 text = option.label,
-                color = DarkJungleGreen,
+                color = EerieBlack,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
             )
@@ -184,7 +187,8 @@ fun ClickableRowWithIcon(
             AnimatedVisibility(visible = isSelected) {
                 Image(
                     painter = painterResource(id = R.drawable.arrow_check),
-                    contentDescription = null
+                    contentDescription = null,
+                    colorFilter = ColorFilter.tint(SmokyBlack)
                 )
             }
         }

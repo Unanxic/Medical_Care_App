@@ -28,8 +28,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.navigation.Screens
-import com.example.medicalcareapp.ui.theme.DarkJungleGreen
-import com.example.medicalcareapp.ui.theme.Olivine
+import com.example.medicalcareapp.ui.theme.EerieBlack
+import com.example.medicalcareapp.ui.theme.PewterBlue
 import kotlinx.coroutines.delay
 
 @Composable
@@ -48,7 +48,7 @@ fun SplashScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Olivine),
+            .background(PewterBlue),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
@@ -68,7 +68,7 @@ fun SplashScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = stringResource(R.string.app_name),
-            color = DarkJungleGreen,
+            color = EerieBlack,
             fontSize = 30.sp,
             modifier = Modifier
                 .alpha(imageAlpha),

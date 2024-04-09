@@ -19,7 +19,6 @@ import org.koin.compose.koinInject
 
 enum class TopBarLayouts {
     MEDICAL_HISTORY_TEXT,
-    ALLERGIES_HISTORY_TEXT,
     CONTACTS_TEXT,
     ACCOUNT_TEXT,
     BACK,
@@ -60,14 +59,6 @@ fun TopBarLayout(
                     Column {
                         TopBar(
                             topBarLayout = TopBarLayouts.MEDICAL_HISTORY_TEXT,
-                            navController = navController,
-                        )
-                    }
-                }
-                else if (topBarLayouts == TopBarLayouts.ALLERGIES_HISTORY_TEXT) {
-                    Column {
-                        TopBar(
-                            topBarLayout = TopBarLayouts.ALLERGIES_HISTORY_TEXT,
                             navController = navController,
                         )
                     }

@@ -1,6 +1,7 @@
 package com.example.medicalcareapp.screens.add_medication_screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.PlatformTextStyle
@@ -29,9 +29,9 @@ import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
 import com.example.medicalcareapp.extesions.navigateToHomeScreen
 import com.example.medicalcareapp.managers.CurrentHomeScreen
-import com.example.medicalcareapp.ui.theme.DarkJungleGreen
-import com.example.medicalcareapp.ui.theme.SmokyBlack
-import com.example.medicalcareapp.ui.theme.TeaGreen
+import com.example.medicalcareapp.ui.theme.EerieBlack
+import com.example.medicalcareapp.ui.theme.MSUGreen
+import com.example.medicalcareapp.ui.theme.PewterBlue
 
 @Composable
 fun SuccessfulMedicineSubmitScreen(
@@ -39,16 +39,9 @@ fun SuccessfulMedicineSubmitScreen(
 ) {
     Box(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .background(PewterBlue),
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_rainbow),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxSize()
-                .align(Alignment.TopCenter)
-        )
         Column(
             modifier = Modifier
                 .fillMaxSize(),
@@ -63,7 +56,7 @@ fun SuccessfulMedicineSubmitScreen(
             )
             Text(
                 text = stringResource(R.string.medicine_submitted_successfully),
-                color = DarkJungleGreen,
+                color = EerieBlack,
                 fontSize = 30.sp,
                 textAlign = TextAlign.Center,
                 maxLines = Int.MAX_VALUE,
@@ -90,8 +83,7 @@ fun SuccessfulMedicineSubmitScreen(
                 isFilled = true,
                 fontSize = 20.sp,
                 cornerRadius = 20,
-                fillColorChoice = TeaGreen,
-                contentColorChoice = SmokyBlack,
+                fillColorChoice = MSUGreen,
 
                 )
         }

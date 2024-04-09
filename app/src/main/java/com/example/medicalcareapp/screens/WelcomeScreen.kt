@@ -19,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -31,10 +30,10 @@ import com.example.medicalcareapp.composables.ButtonComponent
 import com.example.medicalcareapp.event_manager.EventManager
 import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
 import com.example.medicalcareapp.navigation.Screens
-import com.example.medicalcareapp.ui.theme.DarkJungleGreen
-import com.example.medicalcareapp.ui.theme.Honeydew
-import com.example.medicalcareapp.ui.theme.LightOlivine
-import com.example.medicalcareapp.ui.theme.LightTeaGreen
+import com.example.medicalcareapp.ui.theme.AliceBlue
+import com.example.medicalcareapp.ui.theme.EerieBlack
+import com.example.medicalcareapp.ui.theme.MSUGreen
+import com.example.medicalcareapp.ui.theme.PewterBlue
 import com.example.medicalcareapp.ui.theme.SmokyBlack
 import org.koin.compose.koinInject
 
@@ -46,15 +45,8 @@ fun WelcomeScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .background(PewterBlue)
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_rainbow),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxSize()
-                .align(Alignment.TopCenter)
-        )
         Column(
             modifier = Modifier
                 .fillMaxSize(),
@@ -65,7 +57,7 @@ fun WelcomeScreen(
                     .fillMaxSize()
                     .padding(top = 300.dp)
                     .background(
-                        color = Honeydew,
+                        color = AliceBlue,
                         shape = RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp)
                     )
             ) {
@@ -82,11 +74,11 @@ fun WelcomeScreen(
                     Spacer(Modifier.height(23.dp))
                     Text(
                         text = stringResource(R.string.app_name),
-                        color = DarkJungleGreen,
+                        color = EerieBlack,
                         fontSize = 34.sp,
                         fontWeight = FontWeight.Bold
                     )
-                    Spacer(Modifier.height(198.dp))
+                    Spacer(Modifier.weight(1f))
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -106,7 +98,7 @@ fun WelcomeScreen(
                             isFilled = true,
                             fontSize = 16.sp,
                             contentColorChoice = SmokyBlack,
-                            fillColorChoice = LightTeaGreen,
+                            fillColorChoice = PewterBlue,
                         )
                         ButtonComponent(
                             onClick = { navController.medicineNavigateSingleTop(Screens.Login.route) },
@@ -120,9 +112,10 @@ fun WelcomeScreen(
                             text = stringResource(R.string.log_in),
                             isFilled = true,
                             fontSize = 16.sp,
-                            fillColorChoice = LightOlivine,
+                            fillColorChoice = MSUGreen,
                         )
                     }
+                    Spacer(Modifier.height(51.dp))
                 }
             }
         }

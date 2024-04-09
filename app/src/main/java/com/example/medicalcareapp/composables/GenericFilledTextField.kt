@@ -47,9 +47,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.extesions.setNoRippleClickable
-import com.example.medicalcareapp.ui.theme.DarkJungleGreen
-import com.example.medicalcareapp.ui.theme.SoldierGreen
-import com.example.medicalcareapp.ui.theme.TeaGreen
+import com.example.medicalcareapp.ui.theme.EerieBlack
+import com.example.medicalcareapp.ui.theme.PewterBlue
 import kotlinx.coroutines.delay
 
 @Composable
@@ -83,7 +82,7 @@ fun GenericFilledTextField(
                 ambientColor = Color(0x40000000)
             )
             .clip(MaterialTheme.shapes.medium)
-            .background(TeaGreen)
+            .background(PewterBlue)
     ) {
         if (title.isNotBlank()) {
             TextFieldLabel(
@@ -165,7 +164,7 @@ private fun BaseFilledTextField(
         value = textState,
         onValueChange = { updateText(it) },
         textStyle = TextStyle(
-            color = SoldierGreen,
+            color = EerieBlack,
             fontSize = 16.sp
         ),
         keyboardOptions = KeyboardOptions(
@@ -175,7 +174,7 @@ private fun BaseFilledTextField(
         singleLine = singleLine,
         visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
         modifier = modifier,
-        cursorBrush = SolidColor(SoldierGreen),
+        cursorBrush = SolidColor(EerieBlack),
     ){ innerTextField ->
         TextFieldDefaults.DecorationBox(
             value = textState,
@@ -210,7 +209,7 @@ private fun BaseFilledTextField(
                         Image(
                             painter = painterResource(id = eyeIcon),
                             contentDescription = "",
-                            colorFilter = ColorFilter.tint(DarkJungleGreen)
+                            colorFilter = ColorFilter.tint(EerieBlack)
                         )
                     }
                 }

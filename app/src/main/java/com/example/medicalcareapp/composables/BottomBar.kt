@@ -38,9 +38,9 @@ import com.example.medicalcareapp.R
 import com.example.medicalcareapp.extesions.coloredShadow
 import com.example.medicalcareapp.managers.CurrentHomeScreen
 import com.example.medicalcareapp.managers.HomeScreenManager
-import com.example.medicalcareapp.ui.theme.DarkJungleGreen
+import com.example.medicalcareapp.ui.theme.EerieBlack
 import com.example.medicalcareapp.ui.theme.HookersGreen
-import com.example.medicalcareapp.ui.theme.Nyanza
+import com.example.medicalcareapp.ui.theme.PastelBlue
 import kotlinx.coroutines.Dispatchers
 import org.koin.compose.koinInject
 
@@ -59,7 +59,7 @@ fun BottomBar(
             alpha = 0.3f,
             rectangleShapeShadow = true
         ),
-        color = Nyanza
+        color = PastelBlue
     ) {
         Box(
             modifier = Modifier
@@ -164,7 +164,7 @@ fun ImageComponent(
             text = labelResId.uppercase(),
             fontSize = 10.sp,
             fontWeight = FontWeight.Normal,
-            color = DarkJungleGreen,
+            color = EerieBlack,
             maxLines = 1,
             textAlign = TextAlign.Center
         )

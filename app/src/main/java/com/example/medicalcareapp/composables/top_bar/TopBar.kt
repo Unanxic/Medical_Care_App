@@ -19,9 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.medicalcareapp.extesions.setNoRippleClickable
-import com.example.medicalcareapp.ui.theme.DarkJungleGreen
-import com.example.medicalcareapp.ui.theme.SoldierGreen
-import com.example.medicalcareapp.ui.theme.TeaGreen
+import com.example.medicalcareapp.ui.theme.DesaturatedCyan
+import com.example.medicalcareapp.ui.theme.EerieBlack
 
 @Composable
 fun TopBar(
@@ -35,34 +34,24 @@ fun TopBar(
         modifier = Modifier
             .height(height)
             .fillMaxWidth()
-            .background(TeaGreen),
+            .background(DesaturatedCyan),
     ){
         when (topBarLayout) {
             TopBarLayouts.MEDICAL_HISTORY_TEXT -> {
                 Text(
                     text = "Medicine History",
                     fontSize = 20.sp,
-                    color = DarkJungleGreen,
+                    color = EerieBlack,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Bold,
                 modifier = Modifier.align(Alignment.Center)
-                )
-            }
-            TopBarLayouts.ALLERGIES_HISTORY_TEXT -> {
-                Text(
-                    text = "Allergies History",
-                    fontSize = 20.sp,
-                    color = DarkJungleGreen,
-                    textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.align(Alignment.Center)
                 )
             }
             TopBarLayouts.CONTACTS_TEXT -> {
                 Text(
                     text = "Emergency Contacts",
                     fontSize = 20.sp,
-                    color = DarkJungleGreen,
+                    color = EerieBlack,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.align(Alignment.Center)
@@ -72,7 +61,7 @@ fun TopBar(
                 Text(
                     text = "Account Settings",
                     fontSize = 20.sp,
-                    color = DarkJungleGreen,
+                    color = EerieBlack,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.align(Alignment.Center)
@@ -92,7 +81,7 @@ fun TopBar(
                                 navController.popBackStack()
                             }
                         },
-                    tint = SoldierGreen
+                    tint = EerieBlack
                 )
             }
         }

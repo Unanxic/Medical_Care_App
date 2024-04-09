@@ -33,7 +33,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -47,9 +46,10 @@ import com.example.medicalcareapp.composables.GenericTextField
 import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
 import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.navigation.Screens
-import com.example.medicalcareapp.ui.theme.DarkJungleGreen
-import com.example.medicalcareapp.ui.theme.Honeydew
-import com.example.medicalcareapp.ui.theme.LightOlivine
+import com.example.medicalcareapp.ui.theme.AliceBlue
+import com.example.medicalcareapp.ui.theme.EerieBlack
+import com.example.medicalcareapp.ui.theme.MSUGreen
+import com.example.medicalcareapp.ui.theme.PewterBlue
 
 @Composable
 fun AddMedicineScreen(
@@ -60,16 +60,9 @@ fun AddMedicineScreen(
     var medicineName by rememberSaveable { mutableStateOf("") }
     Box(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .background(PewterBlue),
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_rainbow),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxSize()
-                .align(Alignment.TopCenter)
-        )
         Icon(
             imageVector = Icons.Outlined.ArrowBack,
             contentDescription = null,
@@ -82,7 +75,7 @@ fun AddMedicineScreen(
                         navController.popBackStack()
                     }
                 },
-            tint = DarkJungleGreen
+            tint = EerieBlack
         )
         Column(
             modifier = Modifier
@@ -97,7 +90,7 @@ fun AddMedicineScreen(
             )
             Text(
                 text = stringResource(R.string.what_medicine_would_you_like_to_add),
-                color = DarkJungleGreen,
+                color = EerieBlack,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -112,7 +105,7 @@ fun AddMedicineScreen(
                     .fillMaxSize()
                     .padding(top = 250.dp)
                     .background(
-                        color = Honeydew,
+                        color = AliceBlue,
                         shape = RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp)
                     )
             ) {
@@ -152,7 +145,7 @@ fun AddMedicineScreen(
                         ) {
                             Text(
                                 text = stringResource(R.string.start_typing_your_medicine),
-                                color = DarkJungleGreen,
+                                color = EerieBlack,
                                 fontSize = 13.sp,
                                 fontWeight = FontWeight.Light
                             )
@@ -173,7 +166,7 @@ fun AddMedicineScreen(
                         isDisabled = medicineName.isBlank(),
                         fontSize = 20.sp,
                         cornerRadius = 20,
-                        fillColorChoice = LightOlivine
+                        fillColorChoice = MSUGreen
                     )
                     Spacer(Modifier.height(70.dp))
                 }

@@ -25,7 +25,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -37,10 +36,11 @@ import com.example.medicalcareapp.composables.ButtonComponent
 import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
 import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.navigation.Screens
-import com.example.medicalcareapp.ui.theme.DarkJungleGreen
-import com.example.medicalcareapp.ui.theme.Honeydew
+import com.example.medicalcareapp.ui.theme.AliceBlue
+import com.example.medicalcareapp.ui.theme.EerieBlack
+import com.example.medicalcareapp.ui.theme.LightBlue
+import com.example.medicalcareapp.ui.theme.PewterBlue
 import com.example.medicalcareapp.ui.theme.SmokyBlack
-import com.example.medicalcareapp.ui.theme.TeaGreen
 
 @Composable
 fun FormOfMedicineScreen(
@@ -50,16 +50,9 @@ fun FormOfMedicineScreen(
 
     Box(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .background(PewterBlue),
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_rainbow),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxSize()
-                .align(Alignment.TopCenter)
-        )
         Icon(
             imageVector = Icons.Outlined.ArrowBack,
             contentDescription = null,
@@ -72,7 +65,7 @@ fun FormOfMedicineScreen(
                         navController.popBackStack()
                     }
                 },
-            tint = DarkJungleGreen
+            tint = EerieBlack
         )
         Column(
             modifier = Modifier
@@ -87,7 +80,7 @@ fun FormOfMedicineScreen(
             )
             Text(
                 text = stringResource(R.string.what_form_is_the_medicine),
-                color = DarkJungleGreen,
+                color = EerieBlack,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -102,7 +95,7 @@ fun FormOfMedicineScreen(
                     .fillMaxSize()
                     .padding(top = 250.dp)
                     .background(
-                        color = Honeydew,
+                        color = AliceBlue,
                         shape = RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp)
                     )
             ) {
@@ -130,7 +123,7 @@ fun FormOfMedicineScreen(
                         isFilled = true,
                         fontSize = 20.sp,
                         cornerRadius = 40,
-                        fillColorChoice = TeaGreen,
+                        fillColorChoice = LightBlue,
                         contentColorChoice = SmokyBlack,
                     )
                     Spacer(modifier = Modifier.height(20.dp))
@@ -145,7 +138,7 @@ fun FormOfMedicineScreen(
                         isFilled = true,
                         fontSize = 20.sp,
                         cornerRadius = 40,
-                        fillColorChoice = TeaGreen,
+                        fillColorChoice = LightBlue,
                         contentColorChoice = SmokyBlack
                     )
                     Spacer(modifier = Modifier.height(20.dp))
@@ -160,7 +153,7 @@ fun FormOfMedicineScreen(
                         isFilled = true,
                         fontSize = 20.sp,
                         cornerRadius = 40,
-                        fillColorChoice = TeaGreen,
+                        fillColorChoice = LightBlue,
                         contentColorChoice = SmokyBlack
                     )
                     Spacer(modifier = Modifier.height(20.dp))
@@ -175,7 +168,7 @@ fun FormOfMedicineScreen(
                         isFilled = true,
                         fontSize = 20.sp,
                         cornerRadius = 40,
-                        fillColorChoice = TeaGreen,
+                        fillColorChoice = LightBlue,
                         contentColorChoice = SmokyBlack
                     )
                     Spacer(modifier = Modifier.height(20.dp))
@@ -190,7 +183,7 @@ fun FormOfMedicineScreen(
                         isFilled = true,
                         fontSize = 20.sp,
                         cornerRadius = 40,
-                        fillColorChoice = TeaGreen,
+                        fillColorChoice = LightBlue,
                         contentColorChoice = SmokyBlack
                     )
                     Spacer(modifier = Modifier.height(20.dp))
@@ -205,7 +198,7 @@ fun FormOfMedicineScreen(
                         isFilled = true,
                         fontSize = 20.sp,
                         cornerRadius = 40,
-                        fillColorChoice = TeaGreen,
+                        fillColorChoice = LightBlue,
                         contentColorChoice = SmokyBlack
                     )
                 }

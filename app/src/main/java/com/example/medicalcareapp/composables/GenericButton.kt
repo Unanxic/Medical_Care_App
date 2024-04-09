@@ -5,9 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,16 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.medicalcareapp.extesions.setNoRippleClickable
-import com.example.medicalcareapp.ui.theme.Alabaster
-import com.example.medicalcareapp.ui.theme.Axolotl
-import com.example.medicalcareapp.ui.theme.SmokyBlack
-import com.example.medicalcareapp.ui.theme.SpanishGray
-import com.example.medicalcareapp.ui.theme.TeaGreen
+import com.example.medicalcareapp.ui.theme.JetStream
+import com.example.medicalcareapp.ui.theme.LightSilver
+import com.example.medicalcareapp.ui.theme.SilverFoil
 
 
 @Composable
@@ -37,15 +32,15 @@ fun ButtonComponent(
     isBold: Boolean = false,
     fontSize: TextUnit = 18.sp,
     contentColorChoice: Color = Color.White,
-    disabledContentColor: Color = Alabaster,
-    backgroundColorChoice: Color = Alabaster,
-    fillColorChoice: Color = Axolotl,
+    disabledContentColor: Color = SilverFoil,
+    backgroundColorChoice: Color = SilverFoil,
+    fillColorChoice: Color = JetStream,
     cornerRadius: Int = 50,
     onClick: () -> Unit
 ) {
     val contentColor =
         if (isFilled && !isDisabled) contentColorChoice
-        else SpanishGray
+        else LightSilver
     val borderColor =
         if (isDisabled) disabledContentColor
         else fillColorChoice
@@ -76,63 +71,4 @@ fun ButtonComponent(
             textAlign = TextAlign.Center
         )
     }
-
-}
-
-@Composable
-@Preview
-fun OutlinedTextPreview() {
-    ButtonComponent(
-        text = "Outlined Text",
-        isFilled = false,
-        isDisabled = false,
-        modifier = Modifier
-            .height(65.dp)
-            .width(313.dp),
-        onClick = {}
-    )
-}
-
-@Composable
-@Preview
-fun FilledTextPreview() {
-    ButtonComponent(
-        text = "Filled Text",
-        isFilled = true,
-        isDisabled = false,
-        modifier = Modifier
-            .height(65.dp)
-            .width(313.dp),
-        onClick = {}
-    )
-}
-
-@Composable
-@Preview
-fun DisabledOutlinedTextPreview() {
-    ButtonComponent(
-        text = "Disabled Outlined Text",
-        modifier = Modifier
-            .height(65.dp)
-            .width(313.dp),
-        onClick = {},
-        isFilled = true,
-        fontSize = 20.sp,
-        contentColorChoice = SmokyBlack,
-        fillColorChoice = TeaGreen
-    )
-}
-
-@Composable
-@Preview
-fun DisabledFilledTextPreview() {
-    ButtonComponent(
-        text = "Disabled Filled Text",
-        isFilled = true,
-        isDisabled = true,
-        modifier = Modifier
-            .height(65.dp)
-            .width(313.dp),
-        onClick = {}
-    )
 }

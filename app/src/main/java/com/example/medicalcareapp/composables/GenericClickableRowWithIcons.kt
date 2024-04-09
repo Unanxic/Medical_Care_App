@@ -20,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,28 +29,28 @@ import androidx.compose.ui.unit.sp
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.extesions.capitalizeWords
 import com.example.medicalcareapp.extesions.onClickWithScaleAnimation
-import com.example.medicalcareapp.ui.theme.Axolotl
-import com.example.medicalcareapp.ui.theme.DarkJungleGreen
-import com.example.medicalcareapp.ui.theme.Honeydew
+import com.example.medicalcareapp.ui.theme.AliceBlue
+import com.example.medicalcareapp.ui.theme.EerieBlack
+import com.example.medicalcareapp.ui.theme.SmokyBlack
 
 enum class IconType(@DrawableRes val resourceId: Int) {
     INHALER(
-        resourceId = R.drawable.inhaler_icon
+        resourceId = R.drawable.inhaler
     ),
     PILL(
-        resourceId = R.drawable.pill_icon
+        resourceId = R.drawable.pill
     ),
     SOLUTION(
-        resourceId = R.drawable.solution_icon
+        resourceId = R.drawable.solution
     ),
     DROPS(
-        resourceId = R.drawable.drops_icon
+        resourceId = R.drawable.drops
     ),
     INJECTION(
         resourceId = R.drawable.injection_icon
     ),
     OTHER(
-        resourceId = R.drawable.other_icon
+        resourceId = R.drawable.other
     )
 }
 
@@ -70,7 +71,7 @@ fun GenericClickableRowWithIcons(
             .height(80.dp)
             .onClickWithScaleAnimation(scaleFactor = 0.99f) { onClick() },
         colors = CardDefaults.cardColors(
-            containerColor = Honeydew
+            containerColor = AliceBlue
         ),
         shape = RoundedCornerShape(12.dp),
     ) {
@@ -90,14 +91,14 @@ fun GenericClickableRowWithIcons(
 
                 Text(
                     text = capitalizedText,
-                    color = DarkJungleGreen,
+                    color = EerieBlack,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = capitalizedSecondaryText,
-                    color = DarkJungleGreen,
+                    color = EerieBlack,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Light,
                 )
@@ -106,7 +107,8 @@ fun GenericClickableRowWithIcons(
             Image(
                 painter = painterResource(id = R.drawable.arrow_right),
                 contentDescription = "",
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(24.dp),
+                colorFilter = ColorFilter.tint(SmokyBlack)
             )
         }
     }
@@ -118,7 +120,7 @@ private fun PreviewGenericClickableRowWithIcons() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Axolotl)
+            .background(SmokyBlack)
             .padding(17.dp),
         contentAlignment = Alignment.Center
     ) {

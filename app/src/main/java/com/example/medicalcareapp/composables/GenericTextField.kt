@@ -36,8 +36,8 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.medicalcareapp.extesions.getDefaultTweenAnimation
+import com.example.medicalcareapp.ui.theme.MSUGreen
 import com.example.medicalcareapp.ui.theme.SmokyBlack
-import com.example.medicalcareapp.ui.theme.SoldierGreen
 import kotlinx.coroutines.delay
 
 @Composable
@@ -164,8 +164,8 @@ private fun BaseTextField(
                 focusedContainerColor = Color.Transparent,
                 unfocusedContainerColor = Color.Transparent,
                 disabledContainerColor = Color.Transparent,
-                focusedIndicatorColor = if (focused) SoldierGreen else indicatorColor,
-                unfocusedIndicatorColor = if (!focused && isEnabled) indicatorColor else SoldierGreen
+                focusedIndicatorColor = if (focused) MSUGreen else indicatorColor,
+                unfocusedIndicatorColor = if (!focused && isEnabled) indicatorColor else MSUGreen
             )
         )
     }
