@@ -153,7 +153,7 @@ fun ConditionScreen(
                         }
                     }
                     Spacer(Modifier.weight(1f))
-                    Spacer(Modifier.height(70.dp))
+                    Spacer(Modifier.height(50.dp))
                     ButtonComponent(
                         onClick = {
                             navController.medicineNavigateSingleTop(Screens.Allergy.route)

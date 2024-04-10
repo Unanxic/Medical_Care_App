@@ -104,8 +104,7 @@ fun FormOfMedicineScreen(
                         .align(Alignment.TopCenter)
                         .imePadding()
                         .verticalScroll(rememberScrollState())
-                        .padding(top = 66.dp)
-                        .padding(horizontal = 32.dp)
+                        .padding(horizontal = 32.dp, vertical = 66.dp)
                 ) {
                     //Pill
                     ButtonComponent(
