@@ -12,6 +12,7 @@ import com.example.medicalcareapp.composables.top_bar.TopBarLayouts
 import com.example.medicalcareapp.event_manager.EventManager
 import com.example.medicalcareapp.managers.CurrentHomeScreen
 import com.example.medicalcareapp.managers.HomeScreenManager
+import com.example.medicalcareapp.screens.medicine_history_screen.screen.MedicineHistoryScreen
 import org.koin.compose.koinInject
 
 @Composable

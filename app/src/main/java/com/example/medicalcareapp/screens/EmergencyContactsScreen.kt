@@ -38,7 +38,7 @@ fun EmergencyContactsScreen(
         Modifier
             .fillMaxSize()
             .background(color = HookersGreen)
-            .padding(top = paddingValues.calculateTopPadding()),
+            .padding(paddingValues),
         contentAlignment = Alignment.Center
     ) {
         Column(

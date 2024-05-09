@@ -1,7 +1,8 @@
-package com.example.medicalcareapp.screens
+package com.example.medicalcareapp.screens.medicine_history_screen.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,9 +26,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
+import com.example.medicalcareapp.composables.IconType
 import com.example.medicalcareapp.event_manager.EventManager
 import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
+import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.navigation.Screens
+import com.example.medicalcareapp.screens.medicine_history_screen.components.MedicineHistoryList
 import com.example.medicalcareapp.ui.theme.HookersGreen
 import com.example.medicalcareapp.ui.theme.MSUGreen
 import org.koin.compose.koinInject
@@ -38,11 +42,30 @@ fun MedicineHistoryScreen(
     paddingValues: PaddingValues,
     eventManager: EventManager = koinInject(),
 ) {
+    val medicineHistoryItems = listOf(
+        IconType.INHALER to "Use Inhaler",
+        IconType.PILL to "Take Pill",
+        IconType.SOLUTION to "Use Solution",
+        IconType.DROPS to "Use Drops",
+        IconType.INHALER to "Use Inhaler",
+        IconType.PILL to "Take Pill",
+        IconType.SOLUTION to "Use Solution",
+        IconType.INHALER to "Use Inhaler",
+        IconType.PILL to "Take Pill",
+        IconType.SOLUTION to "Use Solution",
+        IconType.INHALER to "Use Inhaler",
+        IconType.PILL to "Take Pill",
+        IconType.SOLUTION to "Use Solution",
+        IconType.INHALER to "Use Inhaler",
+        IconType.PILL to "Take Pill",
+        IconType.SOLUTION to "Use Solution",
+        // Add more items as needed
+    )
     Box(
         Modifier
             .fillMaxSize()
             .background(color = HookersGreen)
-            .padding(top = paddingValues.calculateTopPadding()),
+            .padding(paddingValues),
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -54,6 +77,11 @@ fun MedicineHistoryScreen(
                 modifier = Modifier
                     .size(200.dp)
             )
+//            MedicineHistoryList(
+//                modifier = Modifier.padding(vertical = 16.dp),
+//                items = medicineHistoryItems,
+//                onItemClick = { /* Handle item click */ }
+//            )
             Text(
                 text = stringResource(R.string.no_medicine_history),
                 color = Color.White,
@@ -77,5 +105,27 @@ fun MedicineHistoryScreen(
                 contentColorChoice = Color.White
             )
         }
+//        AddMoreButton(
+//            onClick = {
+//                //todo
+//            },
+//            modifier = Modifier
+//                .align(Alignment.BottomCenter)
+//                .padding(bottom = 13.dp)
+//        )
     }
+}
+
+@Composable
+fun AddMoreButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Image(
+        painter = painterResource(id = R.drawable.add_circle),
+        contentDescription = null,
+        modifier = modifier.clickable {
+            onClick()
+        }
+    )
 }
