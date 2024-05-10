@@ -18,7 +18,7 @@ val SmokyBlack = Color(0xFF050F0E)
 val PastelBlue = Color(0xFFACC9C5)
 val LilacPurple = Color(0xFF686EFB)
 val LightBlue= Color(0xFFA8C7C1)
-//val = Color(0xFF)
+val BlackOlive = Color(0xFF202616)
 //val = Color(0xFF)
 
 

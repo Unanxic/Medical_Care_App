@@ -1,4 +1,4 @@
-package com.example.medicalcareapp.screens
+package com.example.medicalcareapp.screens.medicine_details_screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

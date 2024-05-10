@@ -17,13 +17,14 @@ import androidx.navigation.compose.rememberNavController
 import com.example.medicalcareapp.event_manager.AppEvents
 import com.example.medicalcareapp.event_manager.EventManager
 import com.example.medicalcareapp.navigation.graphs.registerMedicineNavigation
-import com.example.medicalcareapp.screens.HomeScreen
-import com.example.medicalcareapp.screens.LoginScreen
-import com.example.medicalcareapp.screens.NoInternetScreen
-import com.example.medicalcareapp.screens.RegisterScreen
-import com.example.medicalcareapp.screens.SplashScreen
-import com.example.medicalcareapp.screens.WelcomeScreen
-import com.example.medicalcareapp.screens.account_settings.ChangeLanguageScreen
+import com.example.medicalcareapp.screens.add_contacts_screen.screen.AddContactsScreen
+import com.example.medicalcareapp.screens.home_screen.HomeScreen
+import com.example.medicalcareapp.screens.login_screen.LoginScreen
+import com.example.medicalcareapp.screens.no_internet_screen.NoInternetScreen
+import com.example.medicalcareapp.screens.register_screen.RegisterScreen
+import com.example.medicalcareapp.screens.splash_screen.SplashScreen
+import com.example.medicalcareapp.screens.welcome_screen.WelcomeScreen
+import com.example.medicalcareapp.screens.account_settings.screens.ChangeLanguageScreen
 import org.koin.compose.koinInject
 
 
@@ -104,6 +105,10 @@ fun MainNavController(
             composable(Screens.ChangeLanguage.route) {
                 currentScreen = Screens.ChangeLanguage
                 ChangeLanguageScreen(navController = navController)
+            }
+            composable(Screens.AddContacts.route) {
+                currentScreen = Screens.AddContacts
+                AddContactsScreen(navController = navController)
             }
             registerMedicineNavigation(navController) {
                 currentScreen = it

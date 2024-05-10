@@ -1,4 +1,4 @@
-package com.example.medicalcareapp.screens
+package com.example.medicalcareapp.screens.home_screen
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
@@ -12,6 +12,8 @@ import com.example.medicalcareapp.composables.top_bar.TopBarLayouts
 import com.example.medicalcareapp.event_manager.EventManager
 import com.example.medicalcareapp.managers.CurrentHomeScreen
 import com.example.medicalcareapp.managers.HomeScreenManager
+import com.example.medicalcareapp.screens.account_screen.AccountScreen
+import com.example.medicalcareapp.screens.emergency_contacts_screen.EmergencyContactsScreen
 import com.example.medicalcareapp.screens.medicine_history_screen.screen.MedicineHistoryScreen
 import org.koin.compose.koinInject
 
@@ -49,7 +51,7 @@ fun HomeScreen(
                 MedicineHistoryScreen(paddingValues = paddingValues, navController = navController)
 
             CurrentHomeScreen.CONTACTS ->
-                EmergencyContactsScreen(paddingValues = paddingValues)
+                EmergencyContactsScreen(paddingValues = paddingValues, navController = navController)
 
             CurrentHomeScreen.ACCOUNT ->
                 AccountScreen(paddingValues = paddingValues, navController = navController)

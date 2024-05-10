@@ -1,4 +1,4 @@
-package com.example.medicalcareapp.screens
+package com.example.medicalcareapp.screens.register_screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -52,10 +52,10 @@ import com.example.medicalcareapp.ui.theme.PewterBlue
 import com.example.medicalcareapp.ui.theme.SmokyBlack
 
 @Composable
-fun LoginScreen(navController: NavController) {
-
-    var email by remember { mutableStateOf("1234") }
-    var password by remember { mutableStateOf("1234") }
+fun RegisterScreen(navController: NavController) {
+    var email by remember { mutableStateOf("") }
+    var confirmPassword by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -75,7 +75,7 @@ fun LoginScreen(navController: NavController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 87.dp),
+                .padding(top = 87.dp, bottom = 38.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Image(
@@ -106,14 +106,14 @@ fun LoginScreen(navController: NavController) {
                         .padding(horizontal = 32.dp)
                 ) {
                     Text(
-                        text = stringResource(R.string.let_s_sign_you_in),
+                        text = stringResource(R.string.let_s_sign_you_up),
                         color = EerieBlack,
                         fontSize = 34.sp,
                         fontWeight = FontWeight.Bold
                     )
                     Spacer(Modifier.height(10.dp))
                     Text(
-                        text = stringResource(R.string.welcome_back),
+                        text = stringResource(R.string.hello_and_welcome),
                         color = Color.Black,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Light,
@@ -147,6 +147,21 @@ fun LoginScreen(navController: NavController) {
                             updateText = {
                                 password = it
                             },
+                        )
+                    }
+                    Spacer(Modifier.height(20.dp))
+                    Column {
+                        Text(
+                            text = "Confirm password",
+                            color = EerieBlack,
+                            fontSize = 16.sp,
+                        )
+                        GenericFilledTextField(
+                            value = confirmPassword,
+                            title = "",
+                            updateText = {
+                                confirmPassword = it
+                            },
                             keyboardType = KeyboardType.Password,
                             showTrailingIcon = true,
                             imeAction = ImeAction.Done
@@ -154,16 +169,14 @@ fun LoginScreen(navController: NavController) {
                     }
                     Spacer(Modifier.height(40.dp))
                     ButtonComponent(
-                        onClick = {
-                            navController.medicineNavigateSingleTop(Screens.Home.route)
-                        },
+                        onClick = { /* todo */ },
                         modifier = Modifier
                             .height(50.dp)
                             .width(250.dp)
                             .align(Alignment.CenterHorizontally),
-                        text = stringResource(R.string.log_in),
+                        text = stringResource(R.string.sign_up),
                         isFilled = true,
-                        isDisabled = email.isBlank() || password.isBlank() ,
+                        isDisabled = email.isBlank() || password.isBlank() || confirmPassword.isBlank(),
                         fontSize = 16.sp,
                         cornerRadius = 20,
                         fillColorChoice = MSUGreen
@@ -174,7 +187,7 @@ fun LoginScreen(navController: NavController) {
                             .fillMaxSize()
                     ) {
                         Spacer(modifier = Modifier.weight(1f))
-                        RegisterLink(navController = navController)
+                        LoginLink(navController = navController)
                         Spacer(modifier = Modifier.height(16.dp))
                     }
                 }
@@ -183,8 +196,9 @@ fun LoginScreen(navController: NavController) {
     }
 }
 
+
 @Composable
-fun RegisterLink(navController: NavController) {
+fun LoginLink(navController: NavController) {
     Box(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -196,17 +210,17 @@ fun RegisterLink(navController: NavController) {
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = stringResource(R.string.don_t_have_an_account),
+                text = stringResource(R.string.already_have_an_account),
                 fontSize = 16.sp,
                 color = EerieBlack.copy(alpha = 0.8f),
                 fontWeight = FontWeight.Light
             )
             Text(
-                text = stringResource(R.string.sign_up),
+                text = stringResource(R.string.log_in),
                 color = LilacPurple,
                 fontSize = 16.sp,
                 modifier = Modifier.setNoRippleClickable {
-                    navController.medicineNavigateSingleTop(Screens.Register.route)
+                    navController.medicineNavigateSingleTop(Screens.Login.route)
                 }
             )
         }

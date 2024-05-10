@@ -1,4 +1,4 @@
-package com.example.medicalcareapp.screens
+package com.example.medicalcareapp.screens.splash_screen
 
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.tween

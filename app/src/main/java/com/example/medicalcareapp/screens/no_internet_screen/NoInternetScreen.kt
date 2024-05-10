@@ -1,4 +1,4 @@
-package com.example.medicalcareapp.screens
+package com.example.medicalcareapp.screens.no_internet_screen
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image

@@ -1,4 +1,4 @@
-package com.example.medicalcareapp.screens
+package com.example.medicalcareapp.screens.emergency_contacts_screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -22,15 +22,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
 import com.example.medicalcareapp.event_manager.EventManager
+import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
+import com.example.medicalcareapp.navigation.Screens
 import com.example.medicalcareapp.ui.theme.HookersGreen
 import com.example.medicalcareapp.ui.theme.MSUGreen
 import org.koin.compose.koinInject
 
 @Composable
 fun EmergencyContactsScreen(
+    navController: NavController,
     paddingValues: PaddingValues,
     eventManager: EventManager = koinInject(),
 ) {
@@ -60,7 +64,7 @@ fun EmergencyContactsScreen(
             Spacer(modifier = Modifier.height(70.dp))
             ButtonComponent(
                 onClick = {
-                    //todo
+                    navController.medicineNavigateSingleTop(Screens.AddContacts.route)
                 },
                 modifier = Modifier
                     .height(50.dp)

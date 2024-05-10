@@ -1,4 +1,4 @@
-package com.example.medicalcareapp.screens.account_settings
+package com.example.medicalcareapp.screens.account_settings.screens
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
