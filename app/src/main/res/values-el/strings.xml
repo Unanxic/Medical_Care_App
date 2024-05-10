@@ -51,4 +51,11 @@
     <string name="medicine">ΦΑΡΜΑΚΑ</string>
     <string name="contacts">ΕΠΑΦΕΣ</string>
     <string name="more">ΠΕΡΙΣΣΟΤΕΡΑ</string>
+    <string name="name">Ονοματεπώνυμο</string>
+    <string name="phone_number">Αριθμός Τηλεφώνου</string>
+    <string name="phone_number_2">Αριθμός Τηλεφώνου 2</string>
+    <string name="select_the_type_of_the_contact">Επιλέξτε τον τύπο της επαφής:</string>
+    <string name="caregiver">Φροντιστής</string>
+    <string name="pharmacy">Φαρμακείο</string>
+    <string name="doctor">Γιατρός</string>
 </resources>
