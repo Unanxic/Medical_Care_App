@@ -16,10 +16,6 @@ import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -155,14 +151,15 @@ fun ExpandableTextInputField(
     hint: String,
     text: String,
     onTextChanged: (String) -> Unit,
-    imeAction: ImeAction = ImeAction.Next
+    imeAction: ImeAction = ImeAction.Next,
+    expanded: Boolean,
+    onExpandChange: (Boolean) -> Unit
 ) {
-    var expanded by remember { mutableStateOf(false) }
 
     Column {
         AddMoreButton(
             text = if (expanded) "Insert another number" else "Insert another number",
-            onClick = { expanded = !expanded },
+            onClick = { onExpandChange(!expanded) },
             iconResourceId = if (expanded) R.drawable.collapse else R.drawable.add,
         )
 

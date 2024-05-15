@@ -16,9 +16,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -52,7 +50,9 @@ fun AddContactsScreen(
     var phoneNumberOne by remember { mutableStateOf("") }
     var phoneNumberTwo by remember { mutableStateOf("") }
 
-    var selectedIndex by remember { mutableIntStateOf(-1) }
+    var isFieldExpanded by remember { mutableStateOf(false) }
+
+    var isTypeSelectedValid by remember { mutableStateOf(false) }
 
     Column(
         Modifier
@@ -75,29 +75,31 @@ fun AddContactsScreen(
         ) {
             TextInputField(
                 label = stringResource(R.string.name),
-                hint = "ex: John Doe",
+                hint = stringResource(R.string.ex_john_doe),
                 text = name,
-                onTextChanged = {name = it}
+                onTextChanged = { name = it }
             )
             TextInputField(
                 label = stringResource(R.string.email_uppercase),
-                hint = "ex: example@gmail.com",
+                hint = stringResource(R.string.ex_example_gmail_com),
                 text = email,
-                onTextChanged = {email = it}
+                onTextChanged = { email = it }
             )
             TextInputField(
                 label = stringResource(R.string.phone_number),
-                hint = "ex: +69...",
+                hint = stringResource(R.string.ex_69),
                 text = phoneNumberOne,
-                onTextChanged = {phoneNumberOne = it},
+                onTextChanged = { phoneNumberOne = it },
                 imeAction = ImeAction.Done
             )
             ExpandableTextInputField(
                 label = stringResource(R.string.phone_number_2),
-                hint = "ex: +2651...",
+                hint = stringResource(R.string.ex_2651),
                 text = phoneNumberTwo,
                 onTextChanged = { phoneNumberTwo = it },
-                imeAction = ImeAction.Done
+                imeAction = ImeAction.Done,
+                expanded = isFieldExpanded,
+                onExpandChange = { isFieldExpanded = it }
             )
             Text(
                 text = stringResource(R.string.select_the_type_of_the_contact),
@@ -105,7 +107,11 @@ fun AddContactsScreen(
                 fontSize = 16.sp,
                 textAlign = TextAlign.Start
             )
-            TypeOfContactSection()
+            TypeOfContactSection(
+                onTypeChange = { isValid ->
+                    isTypeSelectedValid = isValid
+                }
+            )
             Spacer(modifier = Modifier.weight(1f))
             Spacer(modifier = Modifier.height(12.dp))
             ButtonComponent(
@@ -116,12 +122,13 @@ fun AddContactsScreen(
                     .height(50.dp)
                     .width(250.dp)
                     .align(Alignment.CenterHorizontally),
-                text = "Add contact",
+                text = stringResource(R.string.add_contact),
                 isFilled = true,
                 fontSize = 20.sp,
                 cornerRadius = 20,
                 fillColorChoice = LightBlue,
-                contentColorChoice = SmokyBlack
+                contentColorChoice = SmokyBlack,
+                isDisabled = email.isBlank() || name.isBlank() || phoneNumberOne.isBlank() || (isFieldExpanded && phoneNumberTwo.isBlank()) || !isTypeSelectedValid
             )
             Spacer(modifier = Modifier.height(32.dp))
         }
@@ -130,18 +137,13 @@ fun AddContactsScreen(
 
 @Composable
 private fun TypeOfContactSection(
-    ) {
+    onTypeChange: (Boolean) -> Unit
+) {
     var dropDownValue by rememberSaveable { mutableStateOf("") }
 
     var firstButtonSelected by rememberSaveable { mutableStateOf(false) }
     var secondButtonSelected by rememberSaveable { mutableStateOf(false) }
     var thirdButtonSelected by rememberSaveable { mutableStateOf(false) }
-
-    val isButtonSelected by remember {
-        derivedStateOf {
-            firstButtonSelected || secondButtonSelected || thirdButtonSelected
-        }
-    }
 
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -155,6 +157,7 @@ private fun TypeOfContactSection(
             firstButtonSelected = !firstButtonSelected
             secondButtonSelected = false
             thirdButtonSelected = false
+            onTypeChange(firstButtonSelected && dropDownValue.isNotBlank())
         }
         GenericButtonSwitch(
             text = stringResource(R.string.pharmacy),
@@ -163,6 +166,7 @@ private fun TypeOfContactSection(
             secondButtonSelected = !secondButtonSelected
             firstButtonSelected = false
             thirdButtonSelected = false
+            onTypeChange(secondButtonSelected)
         }
         GenericButtonSwitch(
             text = stringResource(R.string.caregiver),
@@ -171,6 +175,21 @@ private fun TypeOfContactSection(
             thirdButtonSelected = !thirdButtonSelected
             firstButtonSelected = false
             secondButtonSelected = false
+            onTypeChange(thirdButtonSelected && dropDownValue.isNotBlank())
+        }
+    }
+
+    when {
+        firstButtonSelected || thirdButtonSelected -> {
+            TextInputField(
+                label = if (firstButtonSelected) stringResource(R.string.doctors_specialty) else stringResource(R.string.caregiver_role),
+                hint = if (firstButtonSelected) stringResource(R.string.ex_dentist) else stringResource(R.string.ex_parent),
+                text = dropDownValue,
+                onTextChanged = {
+                    dropDownValue = it
+                    onTypeChange(dropDownValue.isNotBlank())
+                }
+            )
         }
     }
 }

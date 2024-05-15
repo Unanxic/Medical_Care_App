@@ -58,4 +58,13 @@
     <string name="caregiver">Φροντιστής</string>
     <string name="pharmacy">Φαρμακείο</string>
     <string name="doctor">Γιατρός</string>
+    <string name="doctors_specialty">Ειδικότητα γιατρού</string>
+    <string name="ex_dentist">πχ: Οδοντίατρος</string>
+    <string name="ex_john_doe">πχ: John Doe</string>
+    <string name="ex_example_gmail_com">πχ: example@gmail.com</string>
+    <string name="ex_69">πχ: 69...</string>
+    <string name="ex_2651">πχ: 2651...</string>
+    <string name="caregiver_role">Ρόλος του φροντιστή</string>
+    <string name="ex_parent">πχ: Γονέας</string>
+    <string name="add_contact">Προσθήκη επαφής</string>
 </resources>

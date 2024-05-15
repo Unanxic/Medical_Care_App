@@ -52,7 +52,7 @@
     <string name="medicine">MEDICINE</string>
     <string name="contacts">CONTACTS</string>
     <string name="more">MORE</string>
-    <string name="name">Name</string>
+    <string name="name">Full name</string>
     <string name="email_uppercase" translatable="false">Email</string>
     <string name="phone_number">Phone Number</string>
     <string name="phone_number_2">Phone Number 2</string>
@@ -60,4 +60,13 @@
     <string name="caregiver">Caregiver</string>
     <string name="pharmacy">Pharmacy</string>
     <string name="doctor">Doctor</string>
+    <string name="doctors_specialty">Doctor\'s specialty</string>
+    <string name="ex_dentist">ex: Dentist</string>
+    <string name="ex_john_doe">ex: John Doe</string>
+    <string name="ex_example_gmail_com">ex: example@gmail.com</string>
+    <string name="ex_69">ex: 69...</string>
+    <string name="ex_2651">ex: 2651...</string>
+    <string name="caregiver_role">Caregiver\'s Role</string>
+    <string name="ex_parent">ex: Parent</string>
+    <string name="add_contact">Add contact</string>
 </resources>
