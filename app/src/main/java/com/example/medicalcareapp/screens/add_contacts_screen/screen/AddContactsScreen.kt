@@ -112,7 +112,6 @@ fun AddContactsScreen(
                     isTypeSelectedValid = isValid
                 }
             )
-            Spacer(modifier = Modifier.weight(1f))
             Spacer(modifier = Modifier.height(12.dp))
             ButtonComponent(
                 onClick = {

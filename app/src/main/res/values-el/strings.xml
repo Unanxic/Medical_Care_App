@@ -67,4 +67,6 @@
     <string name="caregiver_role">Ρόλος του φροντιστή</string>
     <string name="ex_parent">πχ: Γονέας</string>
     <string name="add_contact">Προσθήκη επαφής</string>
+    <string name="add_a_contact">Προσθέστε μια επαφή</string>
+    <string name="type_the_details_of_the_emergency_contact">Πληκτρολογήστε τα στοιχεία της επαφής έκτακτης ανάγκης</string>
 </resources>

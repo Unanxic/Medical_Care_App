@@ -69,4 +69,6 @@
     <string name="caregiver_role">Caregiver\'s Role</string>
     <string name="ex_parent">ex: Parent</string>
     <string name="add_contact">Add contact</string>
+    <string name="add_a_contact">Add a contact</string>
+    <string name="type_the_details_of_the_emergency_contact">Type the details of the emergency contact</string>
 </resources>

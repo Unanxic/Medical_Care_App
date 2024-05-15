@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
@@ -121,11 +122,11 @@ fun GreenRoundedTopBar(
             colorFilter = ColorFilter.tint(HookersGreen)
         )
         Column(
-            modifier = Modifier
+            modifier = Modifier.padding(horizontal = 31.dp)
         ) {
             Spacer(modifier = Modifier.height(57.dp))
             Text(
-                text = "Add a contact",
+                text = stringResource(R.string.add_a_contact),
                 color = EerieBlack,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
@@ -134,7 +135,7 @@ fun GreenRoundedTopBar(
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "Type the details of the emergency contact",
+                text = stringResource(R.string.type_the_details_of_the_emergency_contact),
                 color = EerieBlack,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold,
