@@ -101,7 +101,7 @@ fun AccountScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(20.dp),
+                    .padding(vertical = 10.dp, horizontal = 20.dp),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Row(
@@ -123,6 +123,7 @@ fun AccountScreen(
                 Divider(
                     color = SmokyBlack,
                     modifier = Modifier
+                        .padding(vertical = 1.dp)
                         .fillMaxWidth()
                         .height(1.dp)
                 )
@@ -148,6 +149,33 @@ fun AccountScreen(
                 Divider(
                     color = SmokyBlack,
                     modifier = Modifier
+                        .padding(vertical = 1.dp)
+                        .fillMaxWidth()
+                        .height(1.dp)
+                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .setNoRippleClickable {
+                           //todo
+                        }
+                ) {
+                    Text(
+                        text = stringResource(R.string.sos_contact),
+                        color = SmokyBlack,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    Image(
+                        painter = painterResource(id = R.drawable.arrow_right),
+                        contentDescription = null,
+                    )
+                }
+                Divider(
+                    color = SmokyBlack,
+                    modifier = Modifier
+                        .padding(vertical = 1.dp)
                         .fillMaxWidth()
                         .height(1.dp)
                 )
