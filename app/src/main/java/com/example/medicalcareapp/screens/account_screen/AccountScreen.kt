@@ -157,7 +157,7 @@ fun AccountScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .setNoRippleClickable {
-                           //todo
+                            navController.medicineNavigateSingleTop(Screens.SOSContact.route)
                         }
                 ) {
                     Text(

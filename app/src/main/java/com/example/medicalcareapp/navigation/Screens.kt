@@ -16,6 +16,7 @@ sealed class Screens(
     object SuccessfulMedicineRegistration : Screens("successful_medicine_registration")
     object ChangeLanguage : Screens("change_language")
     object AddContacts : Screens("add_contacts")
+    object SOSContact : Screens("sos_contact")
 
     object SuccessfulAddContacts : Screens("successful_add_contacts")
 }

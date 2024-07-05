@@ -19,6 +19,7 @@ import com.example.medicalcareapp.event_manager.EventManager
 import com.example.medicalcareapp.navigation.graphs.addContactsNavigation
 import com.example.medicalcareapp.navigation.graphs.registerMedicineNavigation
 import com.example.medicalcareapp.screens.account_settings.screens.ChangeLanguageScreen
+import com.example.medicalcareapp.screens.account_settings.screens.SOSContactScreen
 import com.example.medicalcareapp.screens.home_screen.HomeScreen
 import com.example.medicalcareapp.screens.login_screen.LoginScreen
 import com.example.medicalcareapp.screens.no_internet_screen.NoInternetScreen
@@ -105,6 +106,10 @@ fun MainNavController(
             composable(Screens.ChangeLanguage.route) {
                 currentScreen = Screens.ChangeLanguage
                 ChangeLanguageScreen(navController = navController)
+            }
+            composable(Screens.SOSContact.route) {
+                currentScreen = Screens.SOSContact
+                SOSContactScreen(navController = navController)
             }
             registerMedicineNavigation(navController) {
                 currentScreen = it
