@@ -42,8 +42,10 @@ fun TextInputField(
     hint: String = "",
     text: String = "",
     onTextChanged: (String) -> Unit,
-    imeAction: ImeAction = ImeAction.Next
-) {
+    imeAction: ImeAction = ImeAction.Next,
+    errorMessage: String = "",
+    isErrorTextField: Boolean = false,
+    ) {
     Column {
         Text(
             text = label,
@@ -58,6 +60,8 @@ fun TextInputField(
             initialValue = text,
             onValueChanged = onTextChanged,
             imeAction = imeAction,
+            errorMessage = errorMessage,
+            isErrorTextField = isErrorTextField,
         )
     }
 }
@@ -154,7 +158,9 @@ fun ExpandableTextInputField(
     onTextChanged: (String) -> Unit,
     imeAction: ImeAction = ImeAction.Next,
     expanded: Boolean,
-    onExpandChange: (Boolean) -> Unit
+    onExpandChange: (Boolean) -> Unit,
+    errorMessage: String = "",
+    isErrorTextField: Boolean = false,
 ) {
 
     Column {
@@ -171,7 +177,9 @@ fun ExpandableTextInputField(
                 hint = hint,
                 text = text,
                 onTextChanged = onTextChanged,
-                imeAction = imeAction
+                imeAction = imeAction,
+                errorMessage = errorMessage,
+                isErrorTextField = isErrorTextField
             )
         }
     }

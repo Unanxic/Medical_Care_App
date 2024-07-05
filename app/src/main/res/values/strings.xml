@@ -73,4 +73,8 @@
     <string name="type_the_details_of_the_emergency_contact">Type the details of the emergency contact</string>
     <string name="sos_contact">SOS Contact</string>
     <string name="contact_submitted_successfully">Contact submitted successfully!</string>
+    <string name="invalid_email_address">Invalid email address</string>
+    <string name="phone_number_must_be_10_digits_long">Phone number must be 10 digits long</string>
+    <string name="pharmacy_name">Pharmacy Name</string>
+    <string name="add_or_change_the_number_for_the_sos_contact">Add or change the number for the SOS contact</string>
 </resources>

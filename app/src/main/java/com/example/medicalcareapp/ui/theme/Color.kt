@@ -19,6 +19,10 @@ val PastelBlue = Color(0xFFACC9C5)
 val LilacPurple = Color(0xFF686EFB)
 val LightBlue= Color(0xFFA8C7C1)
 val BlackOlive = Color(0xFF202616)
+val ArtyClickRed = Color(0xFFFF0000)
+//val = Color(0xFF)
+//val = Color(0xFF)
+//val = Color(0xFF)
 //val = Color(0xFF)
 
 

@@ -32,6 +32,7 @@ import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
 import com.example.medicalcareapp.composables.GenericButtonSwitch
+import com.example.medicalcareapp.extesions.isEmailValid
 import com.example.medicalcareapp.screens.add_contacts_screen.composables.ExpandableTextInputField
 import com.example.medicalcareapp.screens.add_contacts_screen.composables.GreenRoundedTopBar
 import com.example.medicalcareapp.screens.add_contacts_screen.composables.TextInputField
@@ -51,8 +52,13 @@ fun AddContactsScreen(
     var phoneNumberTwo by remember { mutableStateOf("") }
 
     var isFieldExpanded by remember { mutableStateOf(false) }
-
     var isTypeSelectedValid by remember { mutableStateOf(false) }
+
+    var isEmailError by rememberSaveable { mutableStateOf(false) }
+    var isPhoneNumberOneError by rememberSaveable { mutableStateOf(false) }
+    var isPhoneNumberTwoError by rememberSaveable { mutableStateOf(false) }
+
+
 
     Column(
         Modifier
@@ -77,29 +83,44 @@ fun AddContactsScreen(
                 label = stringResource(R.string.name),
                 hint = stringResource(R.string.ex_john_doe),
                 text = name,
-                onTextChanged = { name = it }
+                onTextChanged = { name = it },
             )
             TextInputField(
                 label = stringResource(R.string.email_uppercase),
                 hint = stringResource(R.string.ex_example_gmail_com),
                 text = email,
-                onTextChanged = { email = it }
+                onTextChanged = {
+                    email = it
+                    isEmailError = !it.isEmailValid()
+                },
+                errorMessage = stringResource(R.string.invalid_email_address),
+                isErrorTextField = isEmailError,
             )
             TextInputField(
                 label = stringResource(R.string.phone_number),
                 hint = stringResource(R.string.ex_69),
                 text = phoneNumberOne,
-                onTextChanged = { phoneNumberOne = it },
+                onTextChanged = {
+                    phoneNumberOne = it
+                    isPhoneNumberOneError = it.length != 10
+                },
+                errorMessage = stringResource(R.string.phone_number_must_be_10_digits_long),
+                isErrorTextField = isPhoneNumberOneError,
                 imeAction = ImeAction.Done
             )
             ExpandableTextInputField(
                 label = stringResource(R.string.phone_number_2),
                 hint = stringResource(R.string.ex_2651),
                 text = phoneNumberTwo,
-                onTextChanged = { phoneNumberTwo = it },
+                onTextChanged = {
+                    phoneNumberTwo = it
+                    isPhoneNumberTwoError = it.length != 10
+                },
+                isErrorTextField = isPhoneNumberTwoError,
+                errorMessage = stringResource(R.string.phone_number_must_be_10_digits_long),
                 imeAction = ImeAction.Done,
                 expanded = isFieldExpanded,
-                onExpandChange = { isFieldExpanded = it }
+                onExpandChange = { isFieldExpanded = it },
             )
             Text(
                 text = stringResource(R.string.select_the_type_of_the_contact),
@@ -127,7 +148,13 @@ fun AddContactsScreen(
                 cornerRadius = 20,
                 fillColorChoice = LightBlue,
                 contentColorChoice = SmokyBlack,
-                isDisabled = email.isBlank() || name.isBlank() || phoneNumberOne.isBlank() || (isFieldExpanded && phoneNumberTwo.isBlank()) || !isTypeSelectedValid
+                isDisabled = email.isBlank() ||
+                        name.isBlank() ||
+                        phoneNumberOne.isBlank() ||
+                        (isFieldExpanded && phoneNumberTwo.isBlank() || isPhoneNumberTwoError) ||
+                        !isTypeSelectedValid ||
+                        isEmailError ||
+                        isPhoneNumberOneError
             )
             Spacer(modifier = Modifier.height(32.dp))
         }
@@ -179,10 +206,18 @@ private fun TypeOfContactSection(
     }
 
     when {
-        firstButtonSelected || thirdButtonSelected -> {
+        firstButtonSelected || secondButtonSelected || thirdButtonSelected -> {
             TextInputField(
-                label = if (firstButtonSelected) stringResource(R.string.doctors_specialty) else stringResource(R.string.caregiver_role),
-                hint = if (firstButtonSelected) stringResource(R.string.ex_dentist) else stringResource(R.string.ex_parent),
+                label = when {
+                    firstButtonSelected -> stringResource(R.string.doctors_specialty)
+                    secondButtonSelected -> stringResource(R.string.pharmacy_name)
+                    else -> stringResource(R.string.caregiver_role)
+                },
+                hint = when {
+                    firstButtonSelected -> stringResource(R.string.ex_dentist)
+                    thirdButtonSelected -> stringResource(R.string.ex_parent)
+                    else -> ""
+                },
                 text = dropDownValue,
                 onTextChanged = {
                     dropDownValue = it

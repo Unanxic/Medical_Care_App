@@ -71,4 +71,8 @@
     <string name="type_the_details_of_the_emergency_contact">Πληκτρολογήστε τα στοιχεία της επαφής έκτακτης ανάγκης</string>
     <string name="sos_contact">SOS Επαφή</string>
     <string name="contact_submitted_successfully">Η επαφή υποβλήθηκε επιτυχώς!</string>
+    <string name="invalid_email_address">Μη έγκυρη διεύθυνση email</string>
+    <string name="phone_number_must_be_10_digits_long">Ο αριθμός τηλεφώνου πρέπει να είναι 10ψήφιος</string>
+    <string name="pharmacy_name">Όνομα φαρμακείου</string>
+    <string name="add_or_change_the_number_for_the_sos_contact">Προσθέστε ή αλλάξτε τον αριθμό για την επαφή SOS</string>
 </resources>
