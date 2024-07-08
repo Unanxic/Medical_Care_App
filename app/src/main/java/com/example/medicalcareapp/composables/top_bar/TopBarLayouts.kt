@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -11,9 +12,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.medicalcareapp.composables.BottomBar
+import com.example.medicalcareapp.composables.SOSButton
 import com.example.medicalcareapp.managers.HomeScreenManager
 import org.koin.compose.koinInject
 
@@ -33,6 +37,7 @@ fun TopBarLayout(
     topBarLayouts: TopBarLayouts,
     leftActionOnClick: (() -> Unit)? = null,
     homeScreenManager: HomeScreenManager = koinInject(),
+    showSOSButton: Boolean = false,
     content: @Composable (PaddingValues) -> Unit
 ) {
 
@@ -92,7 +97,18 @@ fun TopBarLayout(
                 BottomBar(homeScreenManager)
             }
         ) { paddingValues ->
-            content(paddingValues)
+            Box(modifier = Modifier.fillMaxSize()) {
+                content(paddingValues)
+                if (showSOSButton) {
+                    SOSButton(
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .padding(end = 9.5.dp, bottom = 66.dp)
+                    ) {
+                        // TODO
+                    }
+                }
+            }
         }
     }
 }
