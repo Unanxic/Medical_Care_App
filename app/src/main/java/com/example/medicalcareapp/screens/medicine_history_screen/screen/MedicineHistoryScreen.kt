@@ -29,9 +29,7 @@ import com.example.medicalcareapp.composables.ButtonComponent
 import com.example.medicalcareapp.composables.IconType
 import com.example.medicalcareapp.event_manager.EventManager
 import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
-import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.navigation.Screens
-import com.example.medicalcareapp.screens.medicine_history_screen.components.MedicineHistoryList
 import com.example.medicalcareapp.ui.theme.HookersGreen
 import com.example.medicalcareapp.ui.theme.MSUGreen
 import org.koin.compose.koinInject
