@@ -77,4 +77,7 @@
     <string name="phone_number_must_be_10_digits_long">Phone number must be 10 digits long</string>
     <string name="pharmacy_name">Pharmacy Name</string>
     <string name="add_or_change_the_number_for_the_sos_contact">Add or change the number for the SOS contact</string>
+    <string name="medicine_history">Medicine History</string>
+    <string name="emergency_contacts">Emergency Contacts</string>
+    <string name="account_settings">Account Settings</string>
 </resources>

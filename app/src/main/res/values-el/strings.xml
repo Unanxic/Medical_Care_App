@@ -75,4 +75,7 @@
     <string name="phone_number_must_be_10_digits_long">Ο αριθμός τηλεφώνου πρέπει να είναι 10ψήφιος</string>
     <string name="pharmacy_name">Όνομα φαρμακείου</string>
     <string name="add_or_change_the_number_for_the_sos_contact">Προσθέστε ή αλλάξτε τον αριθμό για την επαφή SOS</string>
+    <string name="medicine_history">Ιστορικό Φαρμάκων</string>
+    <string name="emergency_contacts">Επαφές Έκτακτης Ανάγκης</string>
+    <string name="account_settings">Ρυθμίσεις λογαριασμού</string>
 </resources>
