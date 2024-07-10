@@ -44,7 +44,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
-import com.example.medicalcareapp.composables.GenericOutlinedTextFieldNumberOnly
+import com.example.medicalcareapp.composables.GenericOutlinedTextFieldWithValue
 import com.example.medicalcareapp.extesions.medicineNavigateSingleTopWithSecondParameter
 import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.navigation.Screens
@@ -211,7 +211,7 @@ fun InputField(
             textAlign = TextAlign.Start
         )
         Spacer(modifier = Modifier.height(6.dp))
-        GenericOutlinedTextFieldNumberOnly(
+        GenericOutlinedTextFieldWithValue(
             modifier = Modifier
                 .fillMaxWidth()
                 .focusRequester(focusRequester),

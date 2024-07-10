@@ -94,7 +94,7 @@ fun GenericOutlinedTextField(
 }
 
 @Composable
-fun GenericOutlinedTextFieldNumberOnly(
+fun GenericOutlinedTextFieldWithValue(
     modifier: Modifier = Modifier,
     label: String,
     initialValue: TextFieldValue = TextFieldValue(""),
