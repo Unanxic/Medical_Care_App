@@ -44,7 +44,6 @@ fun HomeScreen(
         navController = navController,
         topBarLayouts = topBarConfigs.topBarLayout,
         leftActionOnClick = topBarConfigs.leftActionClick,
-        showSOSButton = true
     ) { paddingValues ->
         when (currentScreen) {
             CurrentHomeScreen.NONE -> TODO()
