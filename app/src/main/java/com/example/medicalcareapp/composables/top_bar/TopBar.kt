@@ -13,11 +13,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.medicalcareapp.R
 import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.ui.theme.DesaturatedCyan
 import com.example.medicalcareapp.ui.theme.EerieBlack
@@ -39,7 +41,7 @@ fun TopBar(
         when (topBarLayout) {
             TopBarLayouts.MEDICAL_HISTORY_TEXT -> {
                 Text(
-                    text = "Medicine History",
+                    text = stringResource(R.string.medicine_history),
                     fontSize = 20.sp,
                     color = EerieBlack,
                     textAlign = TextAlign.Center,
@@ -49,7 +51,7 @@ fun TopBar(
             }
             TopBarLayouts.CONTACTS_TEXT -> {
                 Text(
-                    text = "Emergency Contacts",
+                    text = stringResource(R.string.emergency_contacts),
                     fontSize = 20.sp,
                     color = EerieBlack,
                     textAlign = TextAlign.Center,
@@ -59,7 +61,7 @@ fun TopBar(
             }
             TopBarLayouts.ACCOUNT_TEXT -> {
                 Text(
-                    text = "Account Settings",
+                    text = stringResource(R.string.account_settings),
                     fontSize = 20.sp,
                     color = EerieBlack,
                     textAlign = TextAlign.Center,
