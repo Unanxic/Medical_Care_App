@@ -1,4 +1,4 @@
-package com.example.data.repositories
+package com.example.data.repositories.locale
 
 import android.content.Context
 import android.content.SharedPreferences
