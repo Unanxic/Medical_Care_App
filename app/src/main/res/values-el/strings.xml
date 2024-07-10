@@ -78,4 +78,6 @@
     <string name="medicine_history">Ιστορικό Φαρμάκων</string>
     <string name="emergency_contacts">Επαφές Έκτακτης Ανάγκης</string>
     <string name="account_settings">Ρυθμίσεις λογαριασμού</string>
+    <string name="sos_contact_submitted_successfully">Η SOS Επαφή υποβλήθηκε επιτυχώς</string>
+    <string name="sos_contact_deleted_successfully">Η SOS Επαφή διαγράφτηκε επιτυχώς</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.medicalcareapp.screens.account_settings.screens
+package com.example.medicalcareapp.screens.account_settings.screens.change_language
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image

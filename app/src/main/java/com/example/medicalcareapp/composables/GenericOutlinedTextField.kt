@@ -23,6 +23,8 @@ import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.medicalcareapp.ui.theme.ArtyClickRed
@@ -91,6 +93,71 @@ fun GenericOutlinedTextField(
     }
 }
 
+@Composable
+fun GenericOutlinedTextFieldNumberOnly(
+    modifier: Modifier = Modifier,
+    label: String,
+    initialValue: TextFieldValue = TextFieldValue(""),
+    keyboardType: KeyboardType = KeyboardType.Number,
+    onValueChanged: (TextFieldValue) -> Unit,
+    readOnly: Boolean = false,
+    textFieldColors: AppColors = AppColors.DEFAULT,
+    imeAction: ImeAction = ImeAction.Next,
+    errorMessage: String = "",
+    isErrorTextField: Boolean = false,
+    isEnabled: Boolean = true,
+    focusRequester: FocusRequester = FocusRequester()
+
+) {
+
+    val focusManager = LocalFocusManager.current
+    val isFocused = remember { mutableStateOf(false) }
+
+    val errorVisible = isErrorTextField && (!isFocused.value && initialValue.text.isNotEmpty())
+
+    OutlinedTextField(
+        modifier = modifier
+            .fillMaxWidth()
+            .focusRequester(focusRequester)
+            .onFocusEvent { focusState ->
+                isFocused.value = focusState.hasFocus
+            },
+        value = initialValue,
+        onValueChange = { onValueChanged(it) },
+        singleLine = true,
+        placeholder = {
+            Text(
+                text = label,
+                color = Color.White.copy(alpha = 0.5f),
+                fontSize = 16.sp,
+            )
+        },
+        keyboardOptions = KeyboardOptions(
+            imeAction = imeAction,
+            keyboardType = keyboardType
+        ),
+        keyboardActions = KeyboardActions(
+            onDone = {
+                if (imeAction == ImeAction.Done) {
+                    focusManager.clearFocus()
+                }
+            }
+        ),
+        shape = RoundedCornerShape(4.dp),
+        readOnly = readOnly,
+        colors = textFieldColors.colors.invoke(),
+        enabled = isEnabled
+    )
+    if (errorVisible) {
+        Spacer(modifier = Modifier.height(7.dp))
+        Text(
+            text = errorMessage,
+            color = ArtyClickRed,
+            fontSize = 12.sp
+        )
+    }
+}
+
 enum class AppColors(val colors: @Composable () -> TextFieldColors) {
     DEFAULT(
         colors = {
@@ -114,7 +181,7 @@ enum class AppColors(val colors: @Composable () -> TextFieldColors) {
                 disabledBorderColor = Color.White.copy(alpha = 0.2f),
                 disabledLabelColor = Color.White.copy(alpha = 0.2f),
                 disabledPlaceholderColor = Color.White.copy(alpha = 0.2f),
-                disabledTextColor = Color.White.copy(alpha = 0.2f),
+                disabledTextColor = Color.White.copy(alpha = 0.7f),
             )
         }
     ),

@@ -1,6 +1,9 @@
 package com.example.medicalcareapp.extesions
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.MotionEvent
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
@@ -38,12 +41,17 @@ fun NavController.medicineNavigateSingleTop(route: String) = this.navigate(route
     launchSingleTop = true
 }
 
+fun NavController.medicineNavigateSingleTopWithSecondParameter(route: String, isContactDeleted: Boolean = false) {
+    this.navigate(route) {
+        popUpTo(route) { inclusive = true }
+        launchSingleTop = true
+    }
+    this.currentBackStackEntry?.arguments?.putBoolean("isContactDeleted", isContactDeleted)
+}
 
 fun String.capitalizeWords(): String = split(" ").joinToString(" ") { it ->
     it.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
 }
-
-
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun Modifier.onClickWithScaleAnimation(scaleFactor: Float = 0.9f, onClick: () -> Unit): Modifier =
@@ -163,4 +171,11 @@ fun Modifier.coloredShadow(
             }
         }
     }
+}
+
+fun Context.makePhoneCall(phoneNumber: String) {
+    val intent = Intent(Intent.ACTION_DIAL)
+    intent.data = Uri.parse("tel:$phoneNumber")
+    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+    this.startActivity(intent)
 }

@@ -18,9 +18,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -34,11 +37,13 @@ import com.example.medicalcareapp.event_manager.EventManager
 import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
 import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.navigation.Screens
+import com.example.medicalcareapp.screens.account_settings.viewmodels.SOSContactViewModel
 import com.example.medicalcareapp.ui.theme.AliceBlue
 import com.example.medicalcareapp.ui.theme.DesaturatedCyan
 import com.example.medicalcareapp.ui.theme.EerieBlack
 import com.example.medicalcareapp.ui.theme.HookersGreen
 import com.example.medicalcareapp.ui.theme.SmokyBlack
+import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
 @Composable
@@ -46,7 +51,10 @@ fun AccountScreen(
     navController: NavController,
     paddingValues: PaddingValues,
     eventManager: EventManager = koinInject(),
+    viewModel: SOSContactViewModel = koinViewModel()
 ) {
+    val sosContact by viewModel.sosContact.collectAsState()
+
     Box(
         Modifier
             .fillMaxSize()
@@ -162,7 +170,7 @@ fun AccountScreen(
                 ) {
                     Text(
                         text = stringResource(R.string.sos_contact),
-                        color = SmokyBlack,
+                        color = if (sosContact != null) SmokyBlack else Color.Red,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.SemiBold
                     )

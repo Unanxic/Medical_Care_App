@@ -1,4 +1,4 @@
-package com.example.medicalcareapp.screens.account_settings.screens
+package com.example.medicalcareapp.screens.account_settings.screens.sos_contact
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -17,15 +17,14 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material3.Icon
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,35 +34,52 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
-import com.example.medicalcareapp.composables.GenericOutlinedTextField
+import com.example.medicalcareapp.composables.GenericOutlinedTextFieldNumberOnly
+import com.example.medicalcareapp.extesions.medicineNavigateSingleTopWithSecondParameter
 import com.example.medicalcareapp.extesions.setNoRippleClickable
+import com.example.medicalcareapp.navigation.Screens
+import com.example.medicalcareapp.screens.account_settings.viewmodels.SOSContactViewModel
 import com.example.medicalcareapp.ui.theme.DesaturatedCyan
 import com.example.medicalcareapp.ui.theme.EerieBlack
 import com.example.medicalcareapp.ui.theme.HookersGreen
 import com.example.medicalcareapp.ui.theme.LightBlue
 import com.example.medicalcareapp.ui.theme.SmokyBlack
-import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SOSContactScreen(
     navController: NavController,
+    viewModel: SOSContactViewModel = koinViewModel()
 ) {
     var isNavigationInProgress by remember { mutableStateOf(false) }
-    var sosPhoneNumber by remember { mutableStateOf("") }
+    val sosContact by viewModel.sosContact.collectAsState()
+    var sosPhoneNumber by remember { mutableStateOf(TextFieldValue(sosContact?.phoneNumber ?: "")) }
     var isEnabled by remember { mutableStateOf(false) }
     var buttonText by remember { mutableStateOf("Edit Number") }
-    val snackbarHostState = remember { SnackbarHostState() }
-    val coroutineScope = rememberCoroutineScope()
     var isErrorPhoneNumber by remember { mutableStateOf(false) }
     val focusRequester = remember { FocusRequester() }
+
+    LaunchedEffect(sosContact) {
+        sosContact?.phoneNumber?.let {
+            sosPhoneNumber = TextFieldValue(it, selection = TextRange(it.length))
+            buttonText = "Edit Number"
+            isEnabled = false
+        } ?: run {
+            sosPhoneNumber = TextFieldValue("", selection = TextRange(0))
+            buttonText = "Add Number"
+            isEnabled = false
+        }
+    }
 
     Box(
         Modifier
@@ -90,12 +106,19 @@ fun SOSContactScreen(
             ) {
                 InputField(
                     label = stringResource(R.string.sos_contact),
-                    hint = stringResource(R.string.ex_69),
+                    hint = "",
                     text = sosPhoneNumber,
                     onTextChanged = {
                         sosPhoneNumber = it
-                        isErrorPhoneNumber = it.length != 10
-                        buttonText = if (it.isEmpty()) "Cancel" else "Save"
+                        isErrorPhoneNumber = it.text.length != 10
+                        buttonText = when {
+                            isEnabled && sosPhoneNumber.text.isEmpty() -> {
+                                if (sosContact != null) "Delete" else "Cancel"
+                            }
+                            sosPhoneNumber.text.isEmpty() -> "Add Number"
+                            isEnabled -> "Save"
+                            else -> "Edit Number"
+                        }
                     },
                     imeAction = ImeAction.Done,
                     isEnabled = isEnabled,
@@ -108,25 +131,38 @@ fun SOSContactScreen(
                 ButtonComponent(
                     onClick = {
                         when (buttonText) {
+                            "Add Number" -> {
+                                isEnabled = true
+                                buttonText = if (sosPhoneNumber.text.isEmpty()) "Cancel" else "Save"
+                            }
+
                             "Edit Number" -> {
                                 isEnabled = true
-                                buttonText = if (sosPhoneNumber.isEmpty()) "Cancel" else "Save"
+                                buttonText = if (sosPhoneNumber.text.isEmpty()) "Delete" else "Save"
                             }
 
                             "Save" -> {
-                                if (sosPhoneNumber.length == 10) {
-                                    isEnabled = false
-                                    buttonText = "Edit Number"
-                                    coroutineScope.launch {
-                                        snackbarHostState.showSnackbar("Saved Successfully")
+                                if (sosPhoneNumber.text.length == 10) {
+                                    viewModel.saveSOSContact(sosPhoneNumber.text) {
+                                        isEnabled = false
+                                        buttonText = "Edit Number"
+                                        navController.medicineNavigateSingleTopWithSecondParameter(Screens.SOSContactSuccess.route)
                                     }
                                 }
                             }
-
                             "Cancel" -> {
                                 isEnabled = false
-                                buttonText = "Edit Number"
-                                sosPhoneNumber = ""
+                                buttonText = "Add Number"
+                                sosPhoneNumber = TextFieldValue(sosContact?.phoneNumber ?: "")
+                            }
+
+                            "Delete" -> {
+                                viewModel.deleteSOSContact {
+                                    isEnabled = false
+                                    buttonText = "Add Number"
+                                    sosPhoneNumber = TextFieldValue("")
+                                    navController.medicineNavigateSingleTopWithSecondParameter(Screens.SOSContactSuccessDelete.route)
+                                }
                             }
                         }
                     },
@@ -140,19 +176,13 @@ fun SOSContactScreen(
                     cornerRadius = 20,
                     fillColorChoice = LightBlue,
                     contentColorChoice = SmokyBlack,
-                    isDisabled = buttonText == "Save" && sosPhoneNumber.length != 10
+                    isDisabled = buttonText == "Save" && sosPhoneNumber.text.length != 10
                 )
                 Spacer(modifier = Modifier.height(114.dp))
             }
         }
-        SnackbarHost(
-            hostState = snackbarHostState,
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 16.dp)
-        )
     }
-    if (buttonText == "Cancel" || buttonText == "Save") {
+    if (buttonText == "Cancel" || buttonText == "Save" || buttonText == "Delete") {
         DisposableEffect(Unit) {
             focusRequester.requestFocus()
             onDispose { }
@@ -165,8 +195,8 @@ fun SOSContactScreen(
 fun InputField(
     label: String = "",
     hint: String = "",
-    text: String = "",
-    onTextChanged: (String) -> Unit,
+    text: TextFieldValue,
+    onTextChanged: (TextFieldValue) -> Unit,
     imeAction: ImeAction = ImeAction.Next,
     isEnabled: Boolean = true,
     errorMessage: String = "",
@@ -181,7 +211,7 @@ fun InputField(
             textAlign = TextAlign.Start
         )
         Spacer(modifier = Modifier.height(6.dp))
-        GenericOutlinedTextField(
+        GenericOutlinedTextFieldNumberOnly(
             modifier = Modifier
                 .fillMaxWidth()
                 .focusRequester(focusRequester),
@@ -195,7 +225,6 @@ fun InputField(
         )
     }
 }
-
 
 @Composable
 fun GreenRoundedTopBarWithIcon(

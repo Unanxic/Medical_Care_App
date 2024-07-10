@@ -27,6 +27,6 @@ class App : Application() {
 
     private fun setUpRealmDb() {
         val realmDataSource: RealmDataSource = getKoin().get()
-        realmDataSource.initializeRealm(this)
+        realmDataSource.initializeRealm()
     }
 }

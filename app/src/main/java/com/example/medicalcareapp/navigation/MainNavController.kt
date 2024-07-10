@@ -18,8 +18,10 @@ import com.example.medicalcareapp.event_manager.AppEvents
 import com.example.medicalcareapp.event_manager.EventManager
 import com.example.medicalcareapp.navigation.graphs.addContactsNavigation
 import com.example.medicalcareapp.navigation.graphs.registerMedicineNavigation
-import com.example.medicalcareapp.screens.account_settings.screens.ChangeLanguageScreen
-import com.example.medicalcareapp.screens.account_settings.screens.SOSContactScreen
+import com.example.medicalcareapp.screens.account_settings.screens.change_language.ChangeLanguageScreen
+import com.example.medicalcareapp.screens.account_settings.screens.sos_contact.SOSContactScreen
+import com.example.medicalcareapp.screens.account_settings.screens.sos_contact.SuccessfulContactSubmitScreen
+import com.example.medicalcareapp.screens.account_settings.screens.sos_contact.SuccessfulContactSuccessDeleteScreen
 import com.example.medicalcareapp.screens.home_screen.HomeScreen
 import com.example.medicalcareapp.screens.login_screen.LoginScreen
 import com.example.medicalcareapp.screens.no_internet_screen.NoInternetScreen
@@ -110,6 +112,14 @@ fun MainNavController(
             composable(Screens.SOSContact.route) {
                 currentScreen = Screens.SOSContact
                 SOSContactScreen(navController = navController)
+            }
+            composable(Screens.SOSContactSuccess.route) {
+                currentScreen = Screens.SOSContactSuccess
+                SuccessfulContactSubmitScreen(navController = navController)
+            }
+            composable(Screens.SOSContactSuccessDelete.route) {
+                currentScreen = Screens.SOSContactSuccess
+                SuccessfulContactSuccessDeleteScreen(navController = navController)
             }
             registerMedicineNavigation(navController) {
                 currentScreen = it

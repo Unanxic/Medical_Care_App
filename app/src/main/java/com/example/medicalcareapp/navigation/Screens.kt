@@ -17,6 +17,8 @@ sealed class Screens(
     object ChangeLanguage : Screens("change_language")
     object AddContacts : Screens("add_contacts")
     object SOSContact : Screens("sos_contact")
+    object SOSContactSuccess : Screens("sos_contact_success")
+    object SOSContactSuccessDelete : Screens("sos_contact_success_delete")
 
     object SuccessfulAddContacts : Screens("successful_add_contacts")
 }

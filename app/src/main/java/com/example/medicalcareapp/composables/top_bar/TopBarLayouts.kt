@@ -8,17 +8,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.medicalcareapp.composables.BottomBar
 import com.example.medicalcareapp.composables.SOSButton
 import com.example.medicalcareapp.managers.HomeScreenManager
+import com.example.medicalcareapp.screens.account_settings.viewmodels.SOSContactViewModel
+import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
 enum class TopBarLayouts {
@@ -36,10 +40,13 @@ fun TopBarLayout(
     navController: NavController,
     topBarLayouts: TopBarLayouts,
     leftActionOnClick: (() -> Unit)? = null,
+    sosContactViewModel: SOSContactViewModel = koinViewModel(),
     homeScreenManager: HomeScreenManager = koinInject(),
-    showSOSButton: Boolean = false,
-    content: @Composable (PaddingValues) -> Unit
+    content: @Composable (PaddingValues) -> Unit,
 ) {
+
+    val sosContact by sosContactViewModel.sosContact.collectAsState()
+    val context = LocalContext.current
 
     var isNavigating by remember { mutableStateOf(false) }
     val navigateFunction by remember { mutableStateOf({}) }
@@ -96,16 +103,16 @@ fun TopBarLayout(
             bottomBar = {
                 BottomBar(homeScreenManager)
             }
-        ) { paddingValues ->
+        ) {paddingValues ->
             Box(modifier = Modifier.fillMaxSize()) {
                 content(paddingValues)
-                if (showSOSButton) {
+                if (sosContact != null) {
                     SOSButton(
                         modifier = Modifier
                             .align(Alignment.BottomEnd)
                             .padding(end = 9.5.dp, bottom = 66.dp)
                     ) {
-                        // TODO
+                        sosContactViewModel.makePhoneCall(context)
                     }
                 }
             }
