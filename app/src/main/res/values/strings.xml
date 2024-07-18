@@ -82,4 +82,5 @@
     <string name="account_settings">Account Settings</string>
     <string name="sos_contact_submitted_successfully">SOS Contact Submitted Successfully</string>
     <string name="sos_contact_deleted_successfully">SOS Contact Deleted Successfully</string>
+    <string name="account_details">Account Details</string>
 </resources>

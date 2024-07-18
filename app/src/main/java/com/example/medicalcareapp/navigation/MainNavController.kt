@@ -18,6 +18,7 @@ import com.example.medicalcareapp.event_manager.AppEvents
 import com.example.medicalcareapp.event_manager.EventManager
 import com.example.medicalcareapp.navigation.graphs.addContactsNavigation
 import com.example.medicalcareapp.navigation.graphs.registerMedicineNavigation
+import com.example.medicalcareapp.screens.account_settings.screens.account_details.AccountDetailsScreen
 import com.example.medicalcareapp.screens.account_settings.screens.change_language.ChangeLanguageScreen
 import com.example.medicalcareapp.screens.account_settings.screens.sos_contact.SOSContactScreen
 import com.example.medicalcareapp.screens.account_settings.screens.sos_contact.SuccessfulContactSubmitScreen
@@ -120,6 +121,10 @@ fun MainNavController(
             composable(Screens.SOSContactSuccessDelete.route) {
                 currentScreen = Screens.SOSContactSuccess
                 SuccessfulContactSuccessDeleteScreen(navController = navController)
+            }
+            composable(Screens.AccountDetails.route) {
+                currentScreen = Screens.AccountDetails
+                AccountDetailsScreen(navController = navController)
             }
             registerMedicineNavigation(navController) {
                 currentScreen = it

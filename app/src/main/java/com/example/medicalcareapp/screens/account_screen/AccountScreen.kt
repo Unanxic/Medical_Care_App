@@ -115,6 +115,9 @@ fun AccountScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .setNoRippleClickable {
+                            navController.medicineNavigateSingleTop(Screens.AccountDetails.route)
+                        }
                 ) {
                     Text(
                         text = stringResource(R.string.my_account),

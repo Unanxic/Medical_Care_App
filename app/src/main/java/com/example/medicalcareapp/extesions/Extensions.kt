@@ -26,6 +26,8 @@ import androidx.compose.ui.input.pointer.pointerInteropFilter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 
 fun Modifier.setNoRippleClickable(onClick: () -> Unit): Modifier = composed {
@@ -178,4 +180,9 @@ fun Context.makePhoneCall(phoneNumber: String) {
     intent.data = Uri.parse("tel:$phoneNumber")
     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
     this.startActivity(intent)
+}
+
+fun Long.toFormattedDateString(): String {
+    val sdf = SimpleDateFormat("LLLL dd, yyyy", Locale.getDefault())
+    return sdf.format(this)
 }
