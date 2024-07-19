@@ -6,7 +6,7 @@ import java.util.Calendar
 import java.util.Locale
 import java.util.MissingFormatArgumentException
 
-class CalendarInformation(private val calendar: Calendar) {
+class CalendarInformation(val calendar: Calendar) {
 
     val dateInformation = TimeInformation(
         hour = calendar.get(Calendar.HOUR_OF_DAY),

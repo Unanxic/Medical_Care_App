@@ -34,7 +34,6 @@ fun DateTextField(
     textFieldColors: AppColors = AppColors.DEFAULT,
     initialDate: Long = System.currentTimeMillis(),
     onDateSelected: (Long) -> Unit,
-    isDateSelectable: (Long) -> Boolean = { true }  // Custom validation function
 ) {
     val today = Calendar.getInstance()
     today.set(Calendar.HOUR_OF_DAY, 0)
