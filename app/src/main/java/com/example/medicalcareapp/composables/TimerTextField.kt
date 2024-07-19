@@ -4,12 +4,14 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
 import androidx.compose.material3.TimePicker
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
@@ -36,18 +38,18 @@ import java.time.format.DateTimeFormatter
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TimerTextField(
-    label: String = "Time",
     textFieldColors: AppColors = AppColors.DEFAULT,
     initialTime: LocalTime = LocalTime.now(),
     onTimeSelected: (LocalTime) -> Unit,
+    showDeleteIcon: Boolean = false,
+    onDeleteClick: (() -> Unit)? = null
 ) {
     var selectedTime by rememberSaveable { mutableStateOf(initialTime) }
     var isTimeSelectOpen by remember { mutableStateOf(false) }
     var isButtonClicked by remember { mutableStateOf(false) }
-
+    var isDeleteButtonClicked by remember { mutableStateOf(false) }
 
     val timeFormatter = DateTimeFormatter.ofPattern("hh:mm a")
-
 
     val timePickerState =
         rememberTimePickerState(initialHour = initialTime.hour, initialMinute = initialTime.minute)
@@ -63,17 +65,33 @@ fun TimerTextField(
         singleLine = true,
         value = selectedTime.format(timeFormatter),
         onValueChange = {},
-        label = { Text(text = label) },
         trailingIcon = {
-            Image(
-                painter = painterResource(id = R.drawable.clock_ic),
-                contentDescription = "Icon Button",
-                colorFilter = ColorFilter.tint(if (isButtonClicked) EerieBlack else Color.White),
-                modifier = Modifier.setNoRippleClickable {
-                    isTimeSelectOpen = !isTimeSelectOpen
-                    isButtonClicked = !isButtonClicked
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.clock_ic),
+                    contentDescription = "Icon Button",
+                    colorFilter = ColorFilter.tint(if (isButtonClicked) EerieBlack else Color.White),
+                    modifier = Modifier.setNoRippleClickable {
+                        isTimeSelectOpen = !isTimeSelectOpen
+                        isButtonClicked = !isButtonClicked
+                    }
+                )
+                Spacer(modifier = Modifier.width(10.dp))
+                if (showDeleteIcon && onDeleteClick != null) {
+                    Image(
+                        painter = painterResource(id = R.drawable.trash_can),
+                        contentDescription = "Delete Icon",
+                        colorFilter = ColorFilter.tint(EerieBlack),
+                        modifier = Modifier
+                            .padding(end = 8.dp)
+                            .setNoRippleClickable {
+                                onDeleteClick()
+                            }
+                    )
                 }
-            )
+            }
         },
         colors = textFieldColors.colors.invoke(),
     )

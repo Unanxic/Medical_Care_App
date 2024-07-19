@@ -2,9 +2,11 @@ package com.example.medicalcareapp.screens.reminder_screen
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -27,11 +30,15 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.DateTextField
 import com.example.medicalcareapp.composables.DropDownField
 import com.example.medicalcareapp.composables.TimerTextField
@@ -54,6 +61,7 @@ fun AddReminderScreen(
     var endDate by rememberSaveable { mutableLongStateOf(Date().time) }
 
     var selectedTime by rememberSaveable { mutableStateOf(LocalTime.now()) }
+    var additionalTimes by rememberSaveable { mutableStateOf(listOf<LocalTime>()) }
 
     Column(
         Modifier
@@ -124,6 +132,26 @@ fun AddReminderScreen(
                 initialTime = selectedTime,
                 onTimeSelected = { selectedTime = it }
             )
+            additionalTimes.forEachIndexed { index, time ->
+                Spacer(modifier = Modifier.height(11.dp))
+                TimerTextField(
+                    initialTime = time,
+                    onTimeSelected = { newTime ->
+                        additionalTimes = additionalTimes.toMutableList().apply { set(index, newTime) }
+                    },
+                    showDeleteIcon = true,
+                    onDeleteClick = {
+                        additionalTimes = additionalTimes.toMutableList().apply { removeAt(index) }
+                    }
+                )
+            }
+            if (additionalTimes.size < 3) {
+                AddMoreButton(
+                    text = "Add Time",
+                    onClick = { additionalTimes = additionalTimes + LocalTime.now() },
+                    iconResourceId = R.drawable.add
+                )
+            }
         }
     }
 }
@@ -163,6 +191,30 @@ private fun TopBarDetails(
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
+        )
+    }
+}
+
+@Composable
+private fun AddMoreButton(
+    text: String,
+    fontSize: TextUnit = 14.sp,
+    onClick: () -> Unit = {},
+    iconResourceId: Int
+) {
+    Row(
+        modifier = Modifier.setNoRippleClickable(onClick),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Image(
+            painter = painterResource(iconResourceId),
+            contentDescription = "Plus Icon"
+        )
+        Spacer(Modifier.width(13.dp))
+        Text(
+            text = text,
+            fontSize = fontSize,
+            color = Color.White
         )
     }
 }
