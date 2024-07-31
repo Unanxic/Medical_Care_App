@@ -89,4 +89,6 @@
     <string name="end_date">End Date</string>
     <string name="time_s_for_medication">Time(s) for Medication</string>
     <string name="reminder_submitted_successfully">Reminder submitted successfully</string>
+    <string name="calendar">CALENDAR</string>
+    <string name="calendar_lower_case">Calendar</string>
 </resources>

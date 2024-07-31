@@ -13,6 +13,7 @@ import com.example.medicalcareapp.event_manager.EventManager
 import com.example.medicalcareapp.managers.CurrentHomeScreen
 import com.example.medicalcareapp.managers.HomeScreenManager
 import com.example.medicalcareapp.screens.account_screen.AccountScreen
+import com.example.medicalcareapp.screens.calendar_screen.CalendarScreen
 import com.example.medicalcareapp.screens.emergency_contacts_screen.EmergencyContactsScreen
 import com.example.medicalcareapp.screens.medicine_history_screen.screen.MedicineHistoryScreen
 import org.koin.compose.koinInject
@@ -37,6 +38,9 @@ fun HomeScreen(
 
             CurrentHomeScreen.ACCOUNT ->
                 homeScreenManager.emitTopBarConfigs(TopBarConfigs(topBarLayout = TopBarLayouts.ACCOUNT_TEXT))
+
+            CurrentHomeScreen.CALENDAR ->
+                homeScreenManager.emitTopBarConfigs(TopBarConfigs(topBarLayout = TopBarLayouts.CALENDAR_TEXT))
         }
     }
 
@@ -55,6 +59,9 @@ fun HomeScreen(
 
             CurrentHomeScreen.ACCOUNT ->
                 AccountScreen(paddingValues = paddingValues, navController = navController)
+
+            CurrentHomeScreen.CALENDAR ->
+                CalendarScreen(paddingValues = paddingValues, navController = navController)
         }
     }
 

@@ -87,4 +87,6 @@
     <string name="end_date">Ημερομηνία λήξης</string>
     <string name="time_s_for_medication">Χρόνος(-οι) για τη φαρμακευτική αγωγή</string>
     <string name="reminder_submitted_successfully">Υπενθύμιση υποβλήθηκε επιτυχώς</string>
+    <string name="calendar">ΗΜΕΡΟΛΟΓΙΟ</string>
+    <string name="calendar_lower_case">Ημερολόγιο</string>
 </resources>

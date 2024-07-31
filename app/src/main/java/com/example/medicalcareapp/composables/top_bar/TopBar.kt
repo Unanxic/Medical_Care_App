@@ -39,6 +39,16 @@ fun TopBar(
             .background(DesaturatedCyan),
     ){
         when (topBarLayout) {
+            TopBarLayouts.CALENDAR_TEXT -> {
+                Text(
+                    text = stringResource(R.string.calendar_lower_case),
+                    fontSize = 20.sp,
+                    color = EerieBlack,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.align(Alignment.Center)
+                )
+            }
             TopBarLayouts.MEDICAL_HISTORY_TEXT -> {
                 Text(
                     text = stringResource(R.string.medicine_history),

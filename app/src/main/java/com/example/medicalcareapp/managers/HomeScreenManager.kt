@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 
 enum class CurrentHomeScreen {
     NONE,
+    CALENDAR,
     HISTORY,
     CONTACTS,
     ACCOUNT,

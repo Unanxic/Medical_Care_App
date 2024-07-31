@@ -74,6 +74,17 @@ fun BottomBar(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 ImageComponent(
+                    painter = painterResource(id = R.drawable.chart_line),
+                    contentDescription = "medication icon",
+                    labelResId = stringResource(R.string.calendar),
+                    onClick = {
+                        homeScreenManager.emitCurrentScreen(CurrentHomeScreen.CALENDAR)
+                    },
+                    colorFilter = if (currentScreen == CurrentHomeScreen.CALENDAR) ColorFilter.tint(
+                        HookersGreen
+                    ) else null
+                )
+                ImageComponent(
                     painter = painterResource(id = R.drawable.medicines),
                     contentDescription = "medication icon",
                     labelResId = stringResource(R.string.medicine),

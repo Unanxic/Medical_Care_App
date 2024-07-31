@@ -26,6 +26,7 @@ import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
 enum class TopBarLayouts {
+    CALENDAR_TEXT,
     MEDICAL_HISTORY_TEXT,
     CONTACTS_TEXT,
     ACCOUNT_TEXT,
@@ -74,24 +75,28 @@ fun TopBarLayout(
                             navController = navController,
                         )
                     }
-                }
-                else if (topBarLayouts == TopBarLayouts.CONTACTS_TEXT) {
+                } else if (topBarLayouts == TopBarLayouts.CONTACTS_TEXT) {
                     Column {
                         TopBar(
                             topBarLayout = TopBarLayouts.CONTACTS_TEXT,
                             navController = navController,
                         )
                     }
-                }
-                else if (topBarLayouts == TopBarLayouts.ACCOUNT_TEXT) {
+                } else if (topBarLayouts == TopBarLayouts.CALENDAR_TEXT) {
+                    Column {
+                        TopBar(
+                            topBarLayout = TopBarLayouts.CALENDAR_TEXT,
+                            navController = navController,
+                        )
+                    }
+                } else if (topBarLayouts == TopBarLayouts.ACCOUNT_TEXT) {
                     Column {
                         TopBar(
                             topBarLayout = TopBarLayouts.ACCOUNT_TEXT,
                             navController = navController,
                         )
                     }
-                }
-                else if (topBarLayouts != TopBarLayouts.BACK) {
+                } else if (topBarLayouts != TopBarLayouts.BACK) {
                     TopBar(
                         topBarLayouts,
                         navController = navController,
@@ -103,7 +108,7 @@ fun TopBarLayout(
             bottomBar = {
                 BottomBar(homeScreenManager)
             }
-        ) {paddingValues ->
+        ) { paddingValues ->
             Box(modifier = Modifier.fillMaxSize()) {
                 content(paddingValues)
                 if (sosContact != null) {
