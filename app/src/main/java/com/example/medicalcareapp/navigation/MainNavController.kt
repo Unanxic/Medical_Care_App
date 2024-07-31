@@ -30,6 +30,7 @@ import com.example.medicalcareapp.screens.login_screen.LoginScreen
 import com.example.medicalcareapp.screens.no_internet_screen.NoInternetScreen
 import com.example.medicalcareapp.screens.register_screen.RegisterScreen
 import com.example.medicalcareapp.screens.reminder_screen.AddReminderScreen
+import com.example.medicalcareapp.screens.reminder_screen.SuccessfulAddReminderScreen
 import com.example.medicalcareapp.screens.splash_screen.SplashScreen
 import com.example.medicalcareapp.screens.welcome_screen.WelcomeScreen
 import org.koin.compose.koinInject
@@ -132,6 +133,10 @@ fun MainNavController(
             composable(Screens.AddReminder.route) {
                 currentScreen = Screens.AddReminder
                 AddReminderScreen(navController = navController)
+            }
+            composable(Screens.SuccessfulAddReminder.route) {
+                currentScreen = Screens.SuccessfulAddReminder
+                SuccessfulAddReminderScreen(navController = navController)
             }
             registerMedicineNavigation(navController) {
                 currentScreen = it
