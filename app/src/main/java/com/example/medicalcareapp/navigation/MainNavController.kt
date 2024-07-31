@@ -1,5 +1,7 @@
 package com.example.medicalcareapp.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
@@ -27,11 +29,12 @@ import com.example.medicalcareapp.screens.home_screen.HomeScreen
 import com.example.medicalcareapp.screens.login_screen.LoginScreen
 import com.example.medicalcareapp.screens.no_internet_screen.NoInternetScreen
 import com.example.medicalcareapp.screens.register_screen.RegisterScreen
+import com.example.medicalcareapp.screens.reminder_screen.AddReminderScreen
 import com.example.medicalcareapp.screens.splash_screen.SplashScreen
 import com.example.medicalcareapp.screens.welcome_screen.WelcomeScreen
 import org.koin.compose.koinInject
 
-
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainNavController(
     eventManager: EventManager = koinInject()
@@ -125,6 +128,10 @@ fun MainNavController(
             composable(Screens.AccountDetails.route) {
                 currentScreen = Screens.AccountDetails
                 AccountDetailsScreen(navController = navController)
+            }
+            composable(Screens.AddReminder.route) {
+                currentScreen = Screens.AddReminder
+                AddReminderScreen(navController = navController)
             }
             registerMedicineNavigation(navController) {
                 currentScreen = it
