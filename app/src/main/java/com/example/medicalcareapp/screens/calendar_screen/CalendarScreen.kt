@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -24,7 +25,7 @@ import androidx.navigation.NavController
 import com.example.medicalcareapp.screens.calendar_screen.composables.DatesHeader
 import com.example.medicalcareapp.ui.theme.AliceBlue
 import com.example.medicalcareapp.ui.theme.HookersGreen
-import com.example.medicalcareapp.ui.theme.SmokyBlack
+import com.example.medicalcareapp.ui.theme.MSUGreen
 
 @Composable
 fun CalendarScreen(
@@ -48,8 +49,11 @@ fun CalendarScreen(
                 // For example, you might want to navigate to another screen or update some state
                 // navController.navigate("some_route/${selectedDate.date}")
             })
+            Spacer(modifier = Modifier.height(30.dp))
             Column(
-                modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 MedicationBreakCard()
@@ -68,7 +72,7 @@ fun MedicationBreakCard(
         shape = RoundedCornerShape(36.dp),
         colors = CardDefaults.cardColors(
             containerColor = AliceBlue,
-            contentColor = SmokyBlack
+            contentColor = MSUGreen
         ),
     ) {
         Row(modifier = Modifier.fillMaxSize()) {
