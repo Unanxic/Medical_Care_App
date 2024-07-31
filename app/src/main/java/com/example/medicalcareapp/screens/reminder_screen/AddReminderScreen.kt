@@ -32,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
@@ -85,7 +86,7 @@ fun AddReminderScreen(
         ) {
             Spacer(modifier = Modifier.height(50.dp))
             Text(
-                text = "Recurrence",
+                text = stringResource(R.string.recurrence),
                 color = SmokyBlack,
                 fontSize = 16.sp,
                 textAlign = TextAlign.Start
@@ -98,7 +99,7 @@ fun AddReminderScreen(
             }
             Spacer(modifier = Modifier.height(12.dp))
             Text(
-                text = "Start Date",
+                text = stringResource(R.string.start_date),
                 color = SmokyBlack,
                 fontSize = 16.sp,
                 textAlign = TextAlign.Start
@@ -110,7 +111,7 @@ fun AddReminderScreen(
             )
             Spacer(modifier = Modifier.height(12.dp))
             Text(
-                text = "End Date",
+                text = stringResource(R.string.end_date),
                 color = SmokyBlack,
                 fontSize = 16.sp,
                 textAlign = TextAlign.Start
@@ -122,7 +123,7 @@ fun AddReminderScreen(
             )
             Spacer(modifier = Modifier.height(12.dp))
             Text(
-                text = "Time(s) for Medication",
+                text = stringResource(R.string.time_s_for_medication),
                 color = SmokyBlack,
                 fontSize = 16.sp,
                 textAlign = TextAlign.Start
@@ -185,7 +186,7 @@ private fun TopBarDetails(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Add Reminder",
+            text = stringResource(R.string.add_reminder),
             color = BlackOlive,
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold,

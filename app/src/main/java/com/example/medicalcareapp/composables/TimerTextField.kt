@@ -47,7 +47,6 @@ fun TimerTextField(
     var selectedTime by rememberSaveable { mutableStateOf(initialTime) }
     var isTimeSelectOpen by remember { mutableStateOf(false) }
     var isButtonClicked by remember { mutableStateOf(false) }
-    var isDeleteButtonClicked by remember { mutableStateOf(false) }
 
     val timeFormatter = DateTimeFormatter.ofPattern("hh:mm a")
 

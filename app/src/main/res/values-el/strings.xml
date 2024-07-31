@@ -81,4 +81,9 @@
     <string name="sos_contact_submitted_successfully">Η SOS Επαφή υποβλήθηκε επιτυχώς</string>
     <string name="sos_contact_deleted_successfully">Η SOS Επαφή διαγράφτηκε επιτυχώς</string>
     <string name="account_details">Λεπτομέρειες λογαριασμού</string>
+    <string name="add_reminder">Προσθήκη υπενθύμισης</string>
+    <string name="recurrence">Επανάληψη</string>
+    <string name="start_date">Ημερομηνία έναρξης</string>
+    <string name="end_date">Ημερομηνία λήξης</string>
+    <string name="time_s_for_medication">Χρόνος(-οι) για τη φαρμακευτική αγωγή</string>
 </resources>
