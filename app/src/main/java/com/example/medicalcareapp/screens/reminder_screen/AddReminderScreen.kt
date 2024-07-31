@@ -40,12 +40,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.medicalcareapp.R
+import com.example.medicalcareapp.composables.ButtonComponent
 import com.example.medicalcareapp.composables.DateTextField
 import com.example.medicalcareapp.composables.DropDownField
 import com.example.medicalcareapp.composables.TimerTextField
 import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.ui.theme.BlackOlive
 import com.example.medicalcareapp.ui.theme.HookersGreen
+import com.example.medicalcareapp.ui.theme.LightBlue
 import com.example.medicalcareapp.ui.theme.SmokyBlack
 import com.example.medicalcareapp.utilities.Recurrence
 import java.time.LocalTime
@@ -153,6 +155,24 @@ fun AddReminderScreen(
                     iconResourceId = R.drawable.add
                 )
             }
+            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.height(12.dp))
+            ButtonComponent(
+                onClick = {
+                    //todo
+                },
+                modifier = Modifier
+                    .height(50.dp)
+                    .width(250.dp)
+                    .align(Alignment.CenterHorizontally),
+                text = stringResource(R.string.add_contact),
+                isFilled = true,
+                fontSize = 20.sp,
+                cornerRadius = 20,
+                fillColorChoice = LightBlue,
+                contentColorChoice = SmokyBlack,
+            )
+            Spacer(modifier = Modifier.height(32.dp))
         }
     }
 }
