@@ -27,8 +27,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.medicalcareapp.R
 import com.example.medicalcareapp.extesions.toFormattedDateShortString
 import com.example.medicalcareapp.extesions.toFormattedDateString
 import com.example.medicalcareapp.extesions.toFormattedMonthDateString
@@ -183,7 +185,7 @@ fun DateHeader(
                 .weight(1f)
                 .align(Alignment.CenterVertically),
             text = if (data.selectedDate.isToday) {
-                "Today"
+                stringResource(R.string.today)
             } else {
                 data.selectedDate.date.toFormattedMonthDateString()
             },

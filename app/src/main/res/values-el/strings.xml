@@ -89,4 +89,7 @@
     <string name="reminder_submitted_successfully">Υπενθύμιση υποβλήθηκε επιτυχώς</string>
     <string name="calendar">ΗΜΕΡΟΛΟΓΙΟ</string>
     <string name="calendar_lower_case">Ημερολόγιο</string>
+    <string name="today">Σήμερα</string>
+    <string name="medication_break">Διάλειμμα φαρμακευτικής αγωγής</string>
+    <string name="no_medications_scheduled_for_this_date_take_a_break_and_relax">Δεν έχουν προγραμματιστεί φάρμακα για αυτή την ημερομηνία. Κάντε ένα διάλειμμα και χαλαρώστε.</string>
 </resources>

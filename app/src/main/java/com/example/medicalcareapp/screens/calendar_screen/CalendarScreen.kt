@@ -19,9 +19,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.medicalcareapp.R
 import com.example.medicalcareapp.screens.calendar_screen.composables.DatesHeader
 import com.example.medicalcareapp.ui.theme.AliceBlue
 import com.example.medicalcareapp.ui.theme.HookersGreen
@@ -83,13 +85,13 @@ fun MedicationBreakCard(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 Text(
-                    text = "Medication Break",
+                    text = stringResource(R.string.medication_break),
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.titleLarge,
                 )
 
                 Text(
-                    text = "No medications scheduled for this date. Take a break and relax.",
+                    text = stringResource(R.string.no_medications_scheduled_for_this_date_take_a_break_and_relax),
                     style = MaterialTheme.typography.titleSmall,
                 )
             }
