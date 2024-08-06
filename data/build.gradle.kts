@@ -51,6 +51,9 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.androidx.datastore)
 
+    //firebase
+    implementation(libs.firebase.auth)
+
     testImplementation(libs.mockito.core)
 //    testImplementation(libs.mockito.core.kotlin)
     testImplementation(libs.mockk)

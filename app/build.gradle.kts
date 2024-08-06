@@ -2,6 +2,7 @@
 plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -70,6 +71,9 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
     implementation(libs.androidx.compose.runtime.livedata)
+
+    //firebase
+    implementation(platform(libs.firebase))
     implementation(libs.firebase.auth)
 
     testImplementation(libs.junit)

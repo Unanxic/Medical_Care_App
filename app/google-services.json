@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "92096862605",
+    "firebase_url": "https://medical-care-app-thesis-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "medical-care-app-thesis",
+    "storage_bucket": "medical-care-app-thesis.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:92096862605:android:0e0a89f44fcf073f4c85c4",
+        "android_client_info": {
+          "package_name": "com.example.medicalcareapp.development"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwSXjZqWDo5JmxAJuYFguho5OPfz6Bpz8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
