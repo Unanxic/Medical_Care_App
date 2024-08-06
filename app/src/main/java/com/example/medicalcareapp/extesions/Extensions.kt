@@ -5,9 +5,14 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.MotionEvent
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.updateTransition
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,6 +26,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.input.pointer.pointerInteropFilter
 import androidx.compose.ui.unit.Dp
@@ -180,6 +186,44 @@ fun Context.makePhoneCall(phoneNumber: String) {
     intent.data = Uri.parse("tel:$phoneNumber")
     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
     this.startActivity(intent)
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+fun Modifier.bouncingClickable(
+    enabled: Boolean = true,
+    pressScaleFactor: Float = 0.97f,
+    pressAlphaFactor: Float = 0.7f,
+    onLongClick: (() -> Unit)? = null,
+    onDoubleClick: (() -> Unit)? = null,
+    onClick: () -> Unit,
+) = composed {
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
+
+    val animationTransition = updateTransition(isPressed, label = "BouncingClickableTransition")
+    val scaleFactor by animationTransition.animateFloat(
+        targetValueByState = { pressed -> if (pressed) pressScaleFactor else 1f },
+        label = "BouncingClickableScaleFactorTransition",
+    )
+    val opacity by animationTransition.animateFloat(
+        targetValueByState = { pressed -> if (pressed) pressAlphaFactor else 1f },
+        label = "BouncingClickableAlphaTransition",
+    )
+
+    this
+        .graphicsLayer {
+            scaleX = scaleFactor
+            scaleY = scaleFactor
+            alpha = opacity
+        }
+        .combinedClickable(
+            interactionSource = interactionSource,
+            indication = null,
+            enabled = enabled,
+            onClick = onClick,
+            onLongClick = onLongClick,
+            onDoubleClick = onDoubleClick,
+        )
 }
 
 fun Long.toFormattedDateString(): String {

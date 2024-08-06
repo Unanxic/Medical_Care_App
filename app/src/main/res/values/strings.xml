@@ -94,4 +94,5 @@
     <string name="today">Today</string>
     <string name="medication_break">Medication Break</string>
     <string name="no_medications_scheduled_for_this_date_take_a_break_and_relax">No medications scheduled for this date. Take a break and relax.</string>
+    <string name="details">Details</string>
 </resources>
