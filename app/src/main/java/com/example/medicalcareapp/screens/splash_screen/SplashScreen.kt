@@ -26,14 +26,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.domain.utils.GenericFlowState
+import com.example.domain.utils.isLoggedIn
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.navigation.Screens
 import com.example.medicalcareapp.ui.theme.EerieBlack
 import com.example.medicalcareapp.ui.theme.PewterBlue
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen(navController: NavController) {
+fun SplashScreen(navController: NavController, accountState: GenericFlowState<FirebaseUser>) {
 
     var isVisible by remember { mutableStateOf(false) }
     val fadeInTransition = updateTransition(targetState = isVisible, label = "fadeIn")
@@ -41,8 +44,17 @@ fun SplashScreen(navController: NavController) {
     LaunchedEffect(Unit) {
         isVisible = true
         delay(2000)
-        navController.navigate(Screens.Welcome.route) {
-            popUpTo(0)
+        when {
+            accountState.isLoggedIn() -> {
+                navController.navigate(Screens.Home.route) {
+                    popUpTo(0)
+                }
+            }
+            else -> {
+                navController.navigate(Screens.Welcome.route) {
+                    popUpTo(0)
+                }
+            }
         }
     }
     Column(

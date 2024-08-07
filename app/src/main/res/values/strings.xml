@@ -95,4 +95,9 @@
     <string name="medication_break">Medication Break</string>
     <string name="no_medications_scheduled_for_this_date_take_a_break_and_relax">No medications scheduled for this date. Take a break and relax.</string>
     <string name="details">Details</string>
+    <string name="passwords_do_not_match">Passwords do not match</string>
+    <string name="password_length_is_less_than_8">Password must be at least 8 characters</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="registration_was_successful">Registration was successful!</string>
+    <string name="let_s_begin">Let\'s Begin!</string>
 </resources>

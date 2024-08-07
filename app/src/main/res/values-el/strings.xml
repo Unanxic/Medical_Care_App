@@ -93,4 +93,9 @@
     <string name="medication_break">Διάλειμμα φαρμακευτικής αγωγής</string>
     <string name="no_medications_scheduled_for_this_date_take_a_break_and_relax">Δεν έχουν προγραμματιστεί φάρμακα για αυτή την ημερομηνία. Κάντε ένα διάλειμμα και χαλαρώστε.</string>
     <string name="details">Λεπτομέρειες</string>
+    <string name="passwords_do_not_match">Οι κωδικοί δεν ταιριάζουν</string>
+    <string name="password_length_is_less_than_8">Ο κωδικός πρόσβασης πρέπει να είναι τουλάχιστον 8 χαρακτήρες</string>
+    <string name="confirm_password">Επιβεβαίωση κωδικού πρόσβασης</string>
+    <string name="registration_was_successful">Η εγγραφή ήταν επιτυχής!</string>
+    <string name="let_s_begin">Ας ξεκινήσουμε!</string>
 </resources>

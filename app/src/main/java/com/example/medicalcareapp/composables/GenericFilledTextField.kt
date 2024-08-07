@@ -16,14 +16,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,9 +31,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -47,9 +50,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.extesions.setNoRippleClickable
+import com.example.medicalcareapp.ui.theme.ArtyClickRed
 import com.example.medicalcareapp.ui.theme.EerieBlack
 import com.example.medicalcareapp.ui.theme.PewterBlue
-import kotlinx.coroutines.delay
 
 @Composable
 fun GenericFilledTextField(
@@ -60,18 +63,18 @@ fun GenericFilledTextField(
     isTitleBold: Boolean = false,
     keyboardType: KeyboardType = KeyboardType.Text,
     updateText: (String) -> Unit,
-    isError: MutableState<Boolean> = mutableStateOf(false),
     singleLine: Boolean = true,
+    errorMessage: String = "",
     isErrorTextField: Boolean = false,
     showTrailingIcon: Boolean = false,
     imeAction: ImeAction = ImeAction.Next
 ) {
     val isVisible by remember { mutableStateOf(keyboardType != KeyboardType.Password) }
 
-    LaunchedEffect(isError.value) {
-        delay(4000)
-        isError.value = false
-    }
+    val focusRequester = remember { FocusRequester() }
+    var isFocused by remember { mutableStateOf(false) }
+
+    val errorVisible = isErrorTextField && !isFocused
 
     Column(
         modifier = modifier
@@ -98,7 +101,11 @@ fun GenericFilledTextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
-                    .align(Alignment.Center),
+                    .align(Alignment.Center)
+                    .focusRequester(focusRequester)
+                    .onFocusEvent { focusState ->
+                        isFocused = focusState.hasFocus
+                    },
                 textState = value,
                 updateText = {
                     updateText(it)
@@ -107,9 +114,17 @@ fun GenericFilledTextField(
                 keyboardType = keyboardType,
                 singleLine = singleLine,
                 showTrailingIcon = showTrailingIcon,
-                imeAction = imeAction
+                imeAction = imeAction,
             )
         }
+    }
+    if (errorVisible) {
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = errorMessage,
+            color = ArtyClickRed,
+            fontSize = 12.sp
+        )
     }
 }
 
@@ -118,7 +133,7 @@ private fun TextFieldLabel(
     modifier: Modifier = Modifier,
     title: String,
     titleTextSize: TextUnit,
-    isTitleBold: Boolean
+    isTitleBold: Boolean,
 ) {
     Row(
         modifier = modifier,
@@ -153,11 +168,11 @@ private fun BaseFilledTextField(
     keyboardType: KeyboardType,
     singleLine: Boolean,
     showTrailingIcon: Boolean = false,
-    imeAction: ImeAction = ImeAction.Next
+    imeAction: ImeAction = ImeAction.Next,
 ) {
 
     var passwordVisibility by remember { mutableStateOf(isVisible) }
-
+    val focusManager = LocalFocusManager.current
     val interactionSource = remember { MutableInteractionSource() }
 
     BasicTextField(
@@ -170,6 +185,13 @@ private fun BaseFilledTextField(
         keyboardOptions = KeyboardOptions(
             keyboardType = keyboardType,
             imeAction = imeAction
+        ),
+        keyboardActions = KeyboardActions(
+            onDone = {
+                if (imeAction == ImeAction.Done) {
+                    focusManager.clearFocus()
+                }
+            }
         ),
         singleLine = singleLine,
         visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),

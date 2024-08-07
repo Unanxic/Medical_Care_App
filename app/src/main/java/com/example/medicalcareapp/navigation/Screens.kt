@@ -23,6 +23,7 @@ sealed class Screens(
     object SuccessfulAddContacts : Screens("successful_add_contacts")
     object AddReminder : Screens("add_reminder")
     object SuccessfulAddReminder : Screens("successful_add_reminder")
+    object SuccessfulRegistration : Screens("successful_registration")
 
 
 }

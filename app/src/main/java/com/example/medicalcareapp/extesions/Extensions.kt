@@ -32,6 +32,11 @@ import androidx.compose.ui.input.pointer.pointerInteropFilter
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -186,6 +191,16 @@ fun Context.makePhoneCall(phoneNumber: String) {
     intent.data = Uri.parse("tel:$phoneNumber")
     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
     this.startActivity(intent)
+}
+
+fun <T> MutableStateFlow<T>.medicationEmit(scope: CoroutineScope? = null, calculation: () -> T): Job {
+    return scope?.let { coroutineScope ->
+        coroutineScope.launch {
+            this@medicationEmit.emit(calculation())
+        }
+    } ?: CoroutineScope(Dispatchers.IO).launch {
+        this@medicationEmit.emit(calculation())
+    }
 }
 
 @OptIn(ExperimentalFoundationApi::class)

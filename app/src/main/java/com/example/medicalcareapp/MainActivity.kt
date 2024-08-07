@@ -18,15 +18,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.view.WindowCompat
+import com.example.medicalcareapp.di.getActivityKoinModule
 import com.example.medicalcareapp.navigation.MainNavController
 import com.example.medicalcareapp.ui.theme.MedicalAppAndroidTheme
 import com.example.medicalcareapp.utilities.LanguageHelper
 import com.example.medicalcareapp.utilities.LanguageHelperEvents
+import org.koin.core.context.GlobalContext.loadKoinModules
+import org.koin.core.context.GlobalContext.unloadKoinModules
 
 class MainActivity : ComponentActivity() {
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        loadKoinModules(getActivityKoinModule(this))
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             ProvideLocalContext(content = {
@@ -42,6 +47,11 @@ class MainActivity : ComponentActivity() {
                 }
             })
         }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        // Unload Activity specific Koin module
+        unloadKoinModules(getActivityKoinModule(this))
     }
 
     @Composable

@@ -14,6 +14,7 @@ import com.example.medicalcareapp.ui.theme.SmokyBlack
 enum class DialogState {
     NONE,
     INVALID_LOGIN,
+    SOMETHING_WENT_WRONG,
 }
 
 @Composable
@@ -24,6 +25,7 @@ fun AlertDialogs(
     when (showDialog) {
         DialogState.NONE -> return
         DialogState.INVALID_LOGIN -> WrongCredentialsDialog(closeDialog)
+        DialogState.SOMETHING_WENT_WRONG -> SomethingWentWrongDialog(closeDialog)
     }
 }
 
@@ -47,6 +49,38 @@ fun WrongCredentialsDialog(
                 colors = ButtonDefaults.buttonColors(
                         containerColor = Color.Transparent,
                         contentColor = SmokyBlack
+                ),
+                content = {
+                    Text(
+                        text = "Return",
+                        fontSize = 17.sp
+                    )
+                }
+            )
+        }
+    )
+}
+
+@Composable
+fun SomethingWentWrongDialog(
+    closeDialog: () -> Unit
+) {
+    GenericAlertDialog(
+        visibility = true,
+        title = "Something went wrong",
+        text = "Please try again",
+        onClose = {
+            closeDialog()
+        },
+        middleButton = {
+            Button(
+                onClick = {
+                    closeDialog()
+                },
+                modifier = Modifier.padding(vertical = 8.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Transparent,
+                    contentColor = SmokyBlack
                 ),
                 content = {
                     Text(

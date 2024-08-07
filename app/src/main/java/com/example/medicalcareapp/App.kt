@@ -8,6 +8,7 @@ import com.example.medicalcareapp.di.presentationModule
 import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.GlobalContext
 import org.koin.core.context.GlobalContext.startKoin
 
 class App : Application() {
@@ -18,10 +19,18 @@ class App : Application() {
     }
 
     private fun startKoin() {
-        startKoin {
-            androidLogger()
-            androidContext(this@App)
-            modules(presentationModule, dataModule, domainModule)
+        if (GlobalContext.getKoinApplicationOrNull() == null) {
+            startKoin {
+                androidLogger()
+                androidContext(this@App)
+                modules(
+                    listOf(
+                        presentationModule,
+                        dataModule,
+                        domainModule
+                    )
+                )
+            }
         }
     }
 

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -16,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.domain.usecases.account.UserAccountUseCase
 import com.example.medicalcareapp.event_manager.AppEvents
 import com.example.medicalcareapp.event_manager.EventManager
 import com.example.medicalcareapp.navigation.graphs.addContactsNavigation
@@ -29,6 +31,7 @@ import com.example.medicalcareapp.screens.home_screen.HomeScreen
 import com.example.medicalcareapp.screens.login_screen.LoginScreen
 import com.example.medicalcareapp.screens.no_internet_screen.NoInternetScreen
 import com.example.medicalcareapp.screens.register_screen.RegisterScreen
+import com.example.medicalcareapp.screens.register_screen.SuccessfulRegisterScreen
 import com.example.medicalcareapp.screens.reminder_screen.AddReminderScreen
 import com.example.medicalcareapp.screens.reminder_screen.SuccessfulAddReminderScreen
 import com.example.medicalcareapp.screens.splash_screen.SplashScreen
@@ -43,6 +46,8 @@ fun MainNavController(
     val navController = rememberNavController()
     var currentScreen by remember { mutableStateOf<Screens>(Screens.Welcome) }
     var showNoInternetScreen by remember { mutableStateOf(false) }
+    val accountUseCase: UserAccountUseCase = koinInject()
+    val accountState by accountUseCase.authState.collectAsState()
 
     LaunchedEffect(eventManager.currentAppEvent) {
         eventManager.currentAppEvent.collect { event ->
@@ -92,7 +97,7 @@ fun MainNavController(
         ) {
             composable(Screens.Splash.route) {
                 currentScreen = Screens.Splash
-                SplashScreen(navController = navController)
+                SplashScreen(navController = navController, accountState = accountState)
             }
             composable(Screens.Welcome.route) {
                 currentScreen = Screens.Welcome
@@ -137,6 +142,10 @@ fun MainNavController(
             composable(Screens.SuccessfulAddReminder.route) {
                 currentScreen = Screens.SuccessfulAddReminder
                 SuccessfulAddReminderScreen(navController = navController)
+            }
+            composable(Screens.SuccessfulRegistration.route) {
+                currentScreen = Screens.SuccessfulRegistration
+                SuccessfulRegisterScreen(navController = navController)
             }
             registerMedicineNavigation(navController) {
                 currentScreen = it
