@@ -22,9 +22,12 @@ import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,24 +41,70 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.domain.utils.FlowError
+import com.example.domain.utils.FlowLoading
+import com.example.domain.utils.FlowSuccess
+import com.example.domain.utils.isLoggedIn
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
 import com.example.medicalcareapp.composables.GenericFilledTextField
+import com.example.medicalcareapp.composables.alert_dialogs.AlertDialogs
+import com.example.medicalcareapp.composables.alert_dialogs.DialogState
+import com.example.medicalcareapp.extesions.isEmailValid
 import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
 import com.example.medicalcareapp.extesions.setNoRippleClickable
+import com.example.medicalcareapp.managers.LoaderManager
 import com.example.medicalcareapp.navigation.Screens
+import com.example.medicalcareapp.screens.login_screen.viewmodel.LoginViewModel
 import com.example.medicalcareapp.ui.theme.AliceBlue
 import com.example.medicalcareapp.ui.theme.EerieBlack
 import com.example.medicalcareapp.ui.theme.LilacPurple
 import com.example.medicalcareapp.ui.theme.MSUGreen
 import com.example.medicalcareapp.ui.theme.PewterBlue
 import com.example.medicalcareapp.ui.theme.SmokyBlack
+import org.koin.compose.koinInject
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(
+    navController: NavController,
+    loginViewModel: LoginViewModel = koinInject(),
+    loaderManager: LoaderManager = koinInject()
+) {
 
-    var email by remember { mutableStateOf("1234") }
-    var password by remember { mutableStateOf("1234") }
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var showDialog by remember { mutableStateOf(DialogState.NONE) }
+    var isEmailError by rememberSaveable { mutableStateOf(false) }
+    var isPasswordError by rememberSaveable { mutableStateOf(false) }
+
+    val accountState by loginViewModel.authState.collectAsState()
+
+    LaunchedEffect(accountState) {
+        when (val account = accountState) {
+            is FlowError -> {
+                loaderManager.hide()
+                showDialog = DialogState.INVALID_LOGIN
+            }
+
+            is FlowLoading -> {
+                loaderManager.show()
+            }
+
+            is FlowSuccess -> {
+                loaderManager.hide()
+                account.data?.let {
+                    navController.medicineNavigateSingleTop(Screens.Home.route)
+                }
+            }
+        }
+    }
+
+    LaunchedEffect(accountState) {
+        if (accountState.isLoggedIn()) {
+            navController.popBackStack(Screens.Home.route, inclusive = false)
+        }
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -131,7 +180,10 @@ fun LoginScreen(navController: NavController) {
                             title = "",
                             updateText = {
                                 email = it
+                                isEmailError = !it.isEmailValid()
                             },
+                            isErrorTextField = isEmailError,
+                            errorMessage = stringResource(R.string.invalid_email_address)
                         )
                     }
                     Spacer(Modifier.height(20.dp))
@@ -146,7 +198,10 @@ fun LoginScreen(navController: NavController) {
                             title = "",
                             updateText = {
                                 password = it
+                                isPasswordError = it.length < 8
                             },
+                            isErrorTextField = isPasswordError,
+                            errorMessage = stringResource(R.string.password_length_is_less_than_8),
                             keyboardType = KeyboardType.Password,
                             showTrailingIcon = true,
                             imeAction = ImeAction.Done
@@ -155,7 +210,10 @@ fun LoginScreen(navController: NavController) {
                     Spacer(Modifier.height(40.dp))
                     ButtonComponent(
                         onClick = {
-                            navController.medicineNavigateSingleTop(Screens.Home.route)
+                            loginViewModel.loginWithMailAndPass(
+                                username = email,
+                                password = password
+                            )
                         },
                         modifier = Modifier
                             .height(50.dp)
@@ -163,7 +221,7 @@ fun LoginScreen(navController: NavController) {
                             .align(Alignment.CenterHorizontally),
                         text = stringResource(R.string.log_in),
                         isFilled = true,
-                        isDisabled = email.isBlank() || password.isBlank() ,
+                        isDisabled = email.isBlank() || password.isBlank(),
                         fontSize = 16.sp,
                         cornerRadius = 20,
                         fillColorChoice = MSUGreen
@@ -181,6 +239,12 @@ fun LoginScreen(navController: NavController) {
             }
         }
     }
+    AlertDialogs(
+        showDialog = showDialog,
+        closeDialog = {
+            showDialog = DialogState.NONE
+        }
+    )
 }
 
 @Composable
