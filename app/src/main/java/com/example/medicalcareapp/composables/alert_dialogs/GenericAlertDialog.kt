@@ -38,6 +38,7 @@ fun GenericAlertDialog(
     text: String,
     onClose: () -> Unit,
     middleButton: @Composable (() -> Unit)? = null,
+    confirmButton: @Composable (() -> Unit)? = null,
     buttons: @Composable () -> Unit = {},
     textFontSize: TextUnit? = null,
     cornerRadius: Dp = 10.dp,
@@ -94,6 +95,7 @@ fun GenericAlertDialog(
                         ) {
                             buttons()
                             middleButton?.invoke()
+                            confirmButton?.invoke()
                         }
                     }
                 }

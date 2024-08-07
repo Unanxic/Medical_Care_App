@@ -15,11 +15,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,10 +36,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.medicalcareapp.R
+import com.example.medicalcareapp.composables.alert_dialogs.LogoutDialogState
 import com.example.medicalcareapp.event_manager.EventManager
 import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
 import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.navigation.Screens
+import com.example.medicalcareapp.screens.account_screen.viewmodel.AccountViewModel
 import com.example.medicalcareapp.screens.account_settings.viewmodels.SOSContactViewModel
 import com.example.medicalcareapp.ui.theme.AliceBlue
 import com.example.medicalcareapp.ui.theme.DesaturatedCyan
@@ -51,9 +56,11 @@ fun AccountScreen(
     navController: NavController,
     paddingValues: PaddingValues,
     eventManager: EventManager = koinInject(),
-    viewModel: SOSContactViewModel = koinViewModel()
+    sosViewModel: SOSContactViewModel = koinViewModel(),
+    accountViewModel: AccountViewModel = koinViewModel()
 ) {
-    val sosContact by viewModel.sosContact.collectAsState()
+    val sosContact by sosViewModel.sosContact.collectAsState()
+    var dialogState by remember { mutableStateOf(LogoutDialogState.NONE) }
 
     Box(
         Modifier
@@ -131,12 +138,12 @@ fun AccountScreen(
                         contentDescription = null,
                     )
                 }
-                Divider(
-                    color = SmokyBlack,
+                HorizontalDivider(
                     modifier = Modifier
                         .padding(vertical = 1.dp)
                         .fillMaxWidth()
-                        .height(1.dp)
+                        .height(1.dp),
+                    color = SmokyBlack
                 )
                 Row(
                     modifier = Modifier
@@ -157,12 +164,12 @@ fun AccountScreen(
                         contentDescription = null,
                     )
                 }
-                Divider(
-                    color = SmokyBlack,
+                HorizontalDivider(
                     modifier = Modifier
                         .padding(vertical = 1.dp)
                         .fillMaxWidth()
-                        .height(1.dp)
+                        .height(1.dp),
+                    color = SmokyBlack
                 )
                 Row(
                     modifier = Modifier
@@ -183,15 +190,19 @@ fun AccountScreen(
                         contentDescription = null,
                     )
                 }
-                Divider(
-                    color = SmokyBlack,
+                HorizontalDivider(
                     modifier = Modifier
                         .padding(vertical = 1.dp)
                         .fillMaxWidth()
-                        .height(1.dp)
+                        .height(1.dp),
+                    color = SmokyBlack
                 )
                 Row(
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .setNoRippleClickable {
+                            dialogState = LogoutDialogState.LOGOUT
+                        }
                 ) {
                     Text(
                         text = stringResource(R.string.logout),
@@ -208,5 +219,17 @@ fun AccountScreen(
                 }
             }
         }
+        LogoutDialogState(
+            showDialog = dialogState,
+            closeDialog = {
+                dialogState = LogoutDialogState.NONE
+            },
+            onLogout = {
+                accountViewModel.logout()
+                navController.navigate(Screens.Welcome.route) {
+                    popUpTo(0) { inclusive = true }
+                }
+            }
+        )
     }
 }

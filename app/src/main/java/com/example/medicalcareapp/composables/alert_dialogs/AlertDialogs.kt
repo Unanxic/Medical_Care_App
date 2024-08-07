@@ -17,6 +17,11 @@ enum class DialogState {
     SOMETHING_WENT_WRONG,
 }
 
+enum class LogoutDialogState {
+    NONE,
+    LOGOUT
+}
+
 @Composable
 fun AlertDialogs(
     showDialog: DialogState,
@@ -26,6 +31,18 @@ fun AlertDialogs(
         DialogState.NONE -> return
         DialogState.INVALID_LOGIN -> WrongCredentialsDialog(closeDialog)
         DialogState.SOMETHING_WENT_WRONG -> SomethingWentWrongDialog(closeDialog)
+    }
+}
+
+@Composable
+fun LogoutDialogState(
+    showDialog: LogoutDialogState,
+    closeDialog: () -> Unit,
+    onLogout: () -> Unit
+) {
+    when (showDialog) {
+        LogoutDialogState.LOGOUT -> LogoutDialog(closeDialog, onLogout)
+        LogoutDialogState.NONE -> return
     }
 }
 
@@ -47,8 +64,8 @@ fun WrongCredentialsDialog(
                 },
                 modifier = Modifier.padding(vertical = 8.dp),
                 colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Transparent,
-                        contentColor = SmokyBlack
+                    containerColor = Color.Transparent,
+                    contentColor = SmokyBlack
                 ),
                 content = {
                     Text(
@@ -85,6 +102,58 @@ fun SomethingWentWrongDialog(
                 content = {
                     Text(
                         text = "Return",
+                        fontSize = 17.sp
+                    )
+                }
+            )
+        }
+    )
+}
+
+@Composable
+fun LogoutDialog(
+    closeDialog: () -> Unit,
+    onLogout: () -> Unit
+) {
+    GenericAlertDialog(
+        visibility = true,
+        title = "Logout",
+        text = "Are you sure you want to log out?",
+        onClose = {
+            closeDialog()
+        },
+        middleButton = {
+            Button(
+                onClick = {
+                    closeDialog()
+                },
+                modifier = Modifier.padding(vertical = 8.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Transparent,
+                    contentColor = SmokyBlack
+                ),
+                content = {
+                    Text(
+                        text = "Cancel",
+                        fontSize = 17.sp
+                    )
+                }
+            )
+        },
+        confirmButton = {
+            Button(
+                onClick = {
+                    onLogout()
+                    closeDialog()
+                },
+                modifier = Modifier.padding(vertical = 8.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = SmokyBlack,
+                    contentColor = Color.White
+                ),
+                content = {
+                    Text(
+                        text = "Logout",
                         fontSize = 17.sp
                     )
                 }
