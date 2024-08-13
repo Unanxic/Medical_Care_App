@@ -64,14 +64,8 @@ fun ConditionScreen(
     var isNavigationInProgress by remember { mutableStateOf(false) }
     var condition by rememberSaveable { mutableStateOf("") }
 
-//    val medicineName =
-//        navController.previousBackStackEntry?.arguments?.getString("medicineName") ?: ""
-//    val formOfMedicine =
-//        navController.previousBackStackEntry?.arguments?.getString("formOfMedicine") ?: ""
-
     viewModel.setMedicationName(medicationName)
     viewModel.setFormOfMedicine(formOfMedicine)
-
 
     Box(
         modifier = Modifier
