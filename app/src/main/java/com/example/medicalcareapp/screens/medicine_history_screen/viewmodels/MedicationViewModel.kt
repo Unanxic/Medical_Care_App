@@ -13,8 +13,8 @@ class MedicationViewModel(private val repository: FirebaseRepository) : ViewMode
     private val _medications = MutableStateFlow<List<Medication>>(emptyList())
     val medications: StateFlow<List<Medication>> = _medications
 
-    private val _currentMedication = MutableStateFlow(Medication())
-    val currentMedication: StateFlow<Medication> = _currentMedication
+    private val _currentMedication = MutableStateFlow<Medication?>(null)
+    val currentMedication: StateFlow<Medication?> = _currentMedication
 
     private val _isLoading = MutableStateFlow(true)
     val isLoading: StateFlow<Boolean> = _isLoading
@@ -31,26 +31,28 @@ class MedicationViewModel(private val repository: FirebaseRepository) : ViewMode
     }
 
     fun setMedicationName(name: String) {
-        _currentMedication.value = _currentMedication.value.copy(medication = name)
+        _currentMedication.value = _currentMedication.value?.copy(medication = name)
     }
 
     fun setFormOfMedicine(form: String) {
-        _currentMedication.value = _currentMedication.value.copy(formOfMedicine = form)
+        _currentMedication.value = _currentMedication.value?.copy(formOfMedicine = form)
     }
 
     fun setCondition(condition: String) {
-        _currentMedication.value = _currentMedication.value.copy(condition = condition)
+        _currentMedication.value = _currentMedication.value?.copy(condition = condition)
     }
 
     fun saveMedication() {
         viewModelScope.launch {
-            val medicationToSave = if (_currentMedication.value.id.isBlank()) {
-                _currentMedication.value.copy(id = repository.generateMedicationId())
-            } else {
-                _currentMedication.value
-            }
-            repository.saveMedication(medicationToSave)
+            _currentMedication.value?.let { repository.saveMedication(it) }
             resetMedication()
+        }
+    }
+
+    fun loadMedicationById(medicationId: String) {
+        viewModelScope.launch {
+            val medication = repository.getMedicationById(medicationId)
+            _currentMedication.value = medication
         }
     }
 

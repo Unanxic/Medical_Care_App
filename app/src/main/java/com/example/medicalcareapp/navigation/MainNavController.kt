@@ -14,9 +14,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.domain.usecases.account.UserAccountUseCase
 import com.example.medicalcareapp.event_manager.AppEvents
 import com.example.medicalcareapp.event_manager.EventManager
@@ -148,9 +150,12 @@ fun MainNavController(
                 currentScreen = Screens.SuccessfulRegistration
                 SuccessfulRegisterScreen(navController = navController)
             }
-            composable(Screens.MedicineDetails.route) {
-                currentScreen = Screens.MedicineDetails
-                MedicineDetailsScreen(navController = navController)
+            composable(
+                route = "${Screens.MedicineDetails.route}/{medicationId}",
+                arguments = listOf(navArgument("medicationId") { type = NavType.StringType })
+            ) {
+                val medicationId = it.arguments?.getString("medicationId") ?: return@composable
+                MedicineDetailsScreen(navController = navController, medicationId = medicationId)
             }
             registerMedicineNavigation(navController) {
                 currentScreen = it

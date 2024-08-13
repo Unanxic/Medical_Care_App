@@ -66,6 +66,7 @@ fun MedicineHistoryScreen(
                     modifier = Modifier.size(60.dp)
                 )
             }
+
             medications.isEmpty() -> {
                 Column(
                     modifier = Modifier.fillMaxSize(),
@@ -101,6 +102,7 @@ fun MedicineHistoryScreen(
                     )
                 }
             }
+
             else -> {
                 Column(
                     modifier = Modifier

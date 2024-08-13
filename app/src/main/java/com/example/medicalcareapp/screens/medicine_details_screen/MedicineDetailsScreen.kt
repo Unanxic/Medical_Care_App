@@ -27,6 +27,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -50,19 +51,28 @@ import com.example.medicalcareapp.composables.ButtonComponent
 import com.example.medicalcareapp.composables.alert_dialogs.DeleteDialogState
 import com.example.medicalcareapp.extesions.CARD_ELEVATION
 import com.example.medicalcareapp.extesions.setNoRippleClickable
+import com.example.medicalcareapp.screens.medicine_history_screen.viewmodels.MedicationViewModel
 import com.example.medicalcareapp.ui.theme.AliceBlue
 import com.example.medicalcareapp.ui.theme.EerieBlack
 import com.example.medicalcareapp.ui.theme.HookersGreen
 import com.example.medicalcareapp.ui.theme.JetStream
 import com.example.medicalcareapp.ui.theme.MSUGreen
 import com.example.medicalcareapp.ui.theme.SmokyBlack
+import org.koin.compose.koinInject
 
 
 @Composable
 fun MedicineDetailsScreen(
     navController: NavController,
+    medicationId: String,
+    viewModel: MedicationViewModel = koinInject(),
 ) {
 
+    LaunchedEffect(medicationId) {
+        viewModel.loadMedicationById(medicationId)
+    }
+
+    val medication by viewModel.currentMedication.collectAsState()
     var isNavigationInProgress by remember { mutableStateOf(false) }
 
     var deleteDialogState by remember { mutableStateOf(DeleteDialogState.NONE) }
@@ -86,59 +96,61 @@ fun MedicineDetailsScreen(
                 },
             tint = EerieBlack
         )
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .padding(horizontal = 20.dp)
-                .padding(top = 45.dp)
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.pill),
-                contentDescription = "inhaler",
-                modifier = Modifier.size(50.dp)
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = "",
-                color = EerieBlack,
-                fontSize = 22.sp,
-                fontWeight = FontWeight.ExtraBold,
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-            ColoredCard()
-            Spacer(modifier = Modifier.height(60.dp))
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.fillMaxWidth()
+        medication?.let { med ->
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .padding(horizontal = 20.dp)
+                    .padding(top = 45.dp)
             ) {
-                ButtonComponent(
-                    onClick = {
-                        deleteDialogState = DeleteDialogState.DELETE
-                    },
-                    modifier = Modifier
-                        .height(50.dp)
-                        .width(150.dp)
-                        .shadow(
-                            elevation = 4.dp,
-                            shape = CircleShape
-                        ),
-                    text = stringResource(R.string.delete),
-                    isFilled = true,
-                    fontSize = 20.sp,
-                    cornerRadius = 20,
-                    fillColorChoice = JetStream,
-                    contentColorChoice = SmokyBlack
+                Image(
+                    painter = painterResource(id = getIconForMedicationType(med.formOfMedicine)),
+                    contentDescription = "inhaler",
+                    modifier = Modifier.size(50.dp)
                 )
-                Spacer(modifier = Modifier.width(19.dp))
-                AddReminderImageButton(
-                    modifier = Modifier.size(39.dp),
-                    painter = painterResource(id = R.drawable.add_reminder),
-                    contentDescription = "Add Reminder",
-                    onClick = {
-                        //todo
-                    }
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = med.medication,
+                    color = EerieBlack,
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.ExtraBold,
                 )
+                Spacer(modifier = Modifier.height(10.dp))
+                ColoredCard(med.condition, med.formOfMedicine)
+                Spacer(modifier = Modifier.height(60.dp))
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    ButtonComponent(
+                        onClick = {
+                            deleteDialogState = DeleteDialogState.DELETE
+                        },
+                        modifier = Modifier
+                            .height(50.dp)
+                            .width(150.dp)
+                            .shadow(
+                                elevation = 4.dp,
+                                shape = CircleShape
+                            ),
+                        text = stringResource(R.string.delete),
+                        isFilled = true,
+                        fontSize = 20.sp,
+                        cornerRadius = 20,
+                        fillColorChoice = JetStream,
+                        contentColorChoice = SmokyBlack
+                    )
+                    Spacer(modifier = Modifier.width(19.dp))
+                    AddReminderImageButton(
+                        modifier = Modifier.size(39.dp),
+                        painter = painterResource(id = R.drawable.add_reminder),
+                        contentDescription = "Add Reminder",
+                        onClick = {
+                            //todo
+                        }
+                    )
+                }
             }
         }
         Image(
@@ -155,13 +167,14 @@ fun MedicineDetailsScreen(
         showDialog = deleteDialogState,
         closeDialog = { deleteDialogState = DeleteDialogState.NONE },
         onDelete = {
-            //todo
+            viewModel.deleteMedication(medicationId)
+            navController.popBackStack()
         }
     )
 }
 
 @Composable
-fun ColoredCard() {
+fun ColoredCard(condition: String, type: String) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -187,7 +200,7 @@ fun ColoredCard() {
                 textAlign = TextAlign.Center
             )
             Text(
-                text = "asthma",
+                text = condition,
                 color = EerieBlack,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Light,
@@ -202,7 +215,7 @@ fun ColoredCard() {
                 textAlign = TextAlign.Center
             )
             Text(
-                text = "inhaler",
+                text = type,
                 color = EerieBlack,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Light,
@@ -258,11 +271,11 @@ fun AddReminderImageButton(
 
 fun getIconForMedicationType(formOfMedicine: String): Int {
     return when (formOfMedicine) {
-        "PILL" -> R.drawable.pill
-        "INHALER" -> R.drawable.inhaler
-        "SOLUTION" -> R.drawable.solution
-        "DROPS" -> R.drawable.drops
-        "INJECTION" -> R.drawable.injection_icon
+        "Pill" -> R.drawable.pill
+        "Inhaler" -> R.drawable.inhaler
+        "Solution" -> R.drawable.solution
+        "Drops" -> R.drawable.drops
+        "Injection" -> R.drawable.injection_icon
         else -> R.drawable.other
     }
 }
