@@ -30,9 +30,9 @@ import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
 import com.example.medicalcareapp.composables.GenericClickableRowWithIcons
-import com.example.medicalcareapp.composables.IconType
 import com.example.medicalcareapp.event_manager.EventManager
 import com.example.medicalcareapp.extesions.bouncingClickable
+import com.example.medicalcareapp.extesions.getIconType
 import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
 import com.example.medicalcareapp.navigation.Screens
 import com.example.medicalcareapp.screens.medicine_history_screen.viewmodels.MedicationViewModel
@@ -110,11 +110,7 @@ fun MedicineHistoryScreen(
                         .padding(horizontal = 16.dp, vertical = 15.dp)
                 ) {
                     medications.forEach { medication ->
-                        val iconType = try {
-                            IconType.valueOf(medication.formOfMedicine.uppercase())
-                        } catch (e: IllegalArgumentException) {
-                            IconType.OTHER // Default to a known icon type
-                        }
+                        val iconType = getIconType(medication.formOfMedicine)
 
                         GenericClickableRowWithIcons(
                             icon = iconType,

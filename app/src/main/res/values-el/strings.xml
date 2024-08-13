@@ -19,7 +19,7 @@
     <string name="what_form_is_the_medicine">Σε ποια μορφή είναι το φάρμακο;</string>
     <string name="pill">Χάπι</string>
     <string name="solution">Διάλυμα</string>
-    <string name="inhaler">"Εισπνευστήρας "</string>
+    <string name="inhaler">Εισπνευστήρας</string>
     <string name="drops">Σταγόνες</string>
     <string name="injection">Ένεση</string>
     <string name="other">Άλλο</string>

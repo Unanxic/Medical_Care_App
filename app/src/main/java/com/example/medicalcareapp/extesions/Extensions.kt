@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.MotionEvent
+import androidx.annotation.DrawableRes
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.updateTransition
@@ -13,6 +14,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,9 +31,11 @@ import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.input.pointer.pointerInteropFilter
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.medicalcareapp.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -244,4 +248,38 @@ fun Modifier.bouncingClickable(
 fun Long.toFormattedDateString(): String {
     val sdf = SimpleDateFormat("LLLL dd, yyyy", Locale.getDefault())
     return sdf.format(this)
+}
+
+
+
+fun getIconType(formOfMedicine: String): IconType {
+    return when (formOfMedicine) {
+        "Pill", "Χάπι" -> IconType.PILL
+        "Solution", "Διάλυμα" -> IconType.SOLUTION
+        "Inhaler", "Εισπνευστήρας" -> IconType.INHALER
+        "Drops", "Σταγόνες" -> IconType.DROPS
+        "Injection", "Ένεση" -> IconType.INJECTION
+        else -> IconType.OTHER
+    }
+}
+
+enum class IconType(@DrawableRes val medicationIcon: Int) {
+    INHALER(medicationIcon = R.drawable.inhaler),
+    PILL(medicationIcon = R.drawable.pill),
+    SOLUTION(medicationIcon = R.drawable.solution),
+    DROPS(medicationIcon = R.drawable.drops),
+    INJECTION(medicationIcon = R.drawable.injection_icon),
+    OTHER(medicationIcon = R.drawable.other)
+}
+
+@Composable
+fun IconType.getLocalizedName(): String {
+    return when (this) {
+        IconType.INHALER -> stringResource(id = R.string.inhaler)
+        IconType.PILL -> stringResource(id = R.string.pill)
+        IconType.SOLUTION -> stringResource(id = R.string.solution)
+        IconType.DROPS -> stringResource(id = R.string.drops)
+        IconType.INJECTION -> stringResource(id = R.string.injection)
+        IconType.OTHER -> stringResource(id = R.string.other)
+    }
 }

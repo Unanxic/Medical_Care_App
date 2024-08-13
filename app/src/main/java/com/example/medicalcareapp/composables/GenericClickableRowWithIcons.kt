@@ -1,6 +1,5 @@
 package com.example.medicalcareapp.composables
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -27,41 +26,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.medicalcareapp.R
+import com.example.medicalcareapp.extesions.IconType
 import com.example.medicalcareapp.extesions.capitalizeWords
+import com.example.medicalcareapp.extesions.getLocalizedName
 import com.example.medicalcareapp.extesions.onClickWithScaleAnimation
 import com.example.medicalcareapp.ui.theme.AliceBlue
 import com.example.medicalcareapp.ui.theme.EerieBlack
 import com.example.medicalcareapp.ui.theme.SmokyBlack
-
-enum class IconType(
-    @DrawableRes val medicationIcon: Int,
-    val medicationType: String
-) {
-    INHALER(
-        medicationIcon = R.drawable.inhaler,
-        medicationType = "Inhaler"
-    ),
-    PILL(
-        medicationIcon = R.drawable.pill,
-        medicationType = "Pill"
-    ),
-    SOLUTION(
-        medicationIcon = R.drawable.solution,
-        medicationType = "Solution"
-    ),
-    DROPS(
-        medicationIcon = R.drawable.drops,
-        medicationType = "Drops"
-    ),
-    INJECTION(
-        medicationIcon = R.drawable.injection_icon,
-        medicationType = "Injection"
-    ),
-    OTHER(
-        medicationIcon = R.drawable.other,
-        medicationType = "Other"
-    )
-}
 
 @Composable
 fun GenericClickableRowWithIcons(
@@ -104,7 +75,7 @@ fun GenericClickableRowWithIcons(
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = icon.medicationType,
+                    text = icon.getLocalizedName(),
                     color = EerieBlack,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Light,

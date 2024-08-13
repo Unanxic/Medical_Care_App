@@ -50,6 +50,9 @@ import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
 import com.example.medicalcareapp.composables.alert_dialogs.DeleteDialogState
 import com.example.medicalcareapp.extesions.CARD_ELEVATION
+import com.example.medicalcareapp.extesions.IconType
+import com.example.medicalcareapp.extesions.getIconType
+import com.example.medicalcareapp.extesions.getLocalizedName
 import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.screens.medicine_history_screen.viewmodels.MedicationViewModel
 import com.example.medicalcareapp.ui.theme.AliceBlue
@@ -96,18 +99,15 @@ fun MedicineDetailsScreen(
                 },
             tint = EerieBlack
         )
-        medication?.let { med ->
+        medication.let { med ->
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .padding(horizontal = 20.dp)
                     .padding(top = 45.dp)
             ) {
-                Image(
-                    painter = painterResource(id = getIconForMedicationType(med.formOfMedicine)),
-                    contentDescription = "inhaler",
-                    modifier = Modifier.size(50.dp)
-                )
+                val iconType = getIconType(med.formOfMedicine)
+                ImageFunction(iconType)
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = med.medication,
@@ -175,6 +175,7 @@ fun MedicineDetailsScreen(
 
 @Composable
 fun ColoredCard(condition: String, type: String) {
+    val iconType = getIconType(type)
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -215,7 +216,7 @@ fun ColoredCard(condition: String, type: String) {
                 textAlign = TextAlign.Center
             )
             Text(
-                text = type,
+                text = iconType.getLocalizedName(),
                 color = EerieBlack,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Light,
@@ -269,13 +270,11 @@ fun AddReminderImageButton(
     )
 }
 
-fun getIconForMedicationType(formOfMedicine: String): Int {
-    return when (formOfMedicine) {
-        "Pill" -> R.drawable.pill
-        "Inhaler" -> R.drawable.inhaler
-        "Solution" -> R.drawable.solution
-        "Drops" -> R.drawable.drops
-        "Injection" -> R.drawable.injection_icon
-        else -> R.drawable.other
-    }
+@Composable
+fun ImageFunction(icon: IconType) {
+    Image(
+        painter = painterResource(id = icon.medicationIcon),
+        contentDescription = "inhaler",
+        modifier = Modifier.size(50.dp)
+    )
 }
