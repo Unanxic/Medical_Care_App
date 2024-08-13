@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
+import com.example.medicalcareapp.composables.alert_dialogs.DeleteDialogState
 import com.example.medicalcareapp.extesions.CARD_ELEVATION
 import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.ui.theme.AliceBlue
@@ -61,7 +62,10 @@ import com.example.medicalcareapp.ui.theme.SmokyBlack
 fun MedicineDetailsScreen(
     navController: NavController,
 ) {
+
     var isNavigationInProgress by remember { mutableStateOf(false) }
+
+    var deleteDialogState by remember { mutableStateOf(DeleteDialogState.NONE) }
 
     Box(
         Modifier
@@ -89,13 +93,13 @@ fun MedicineDetailsScreen(
                 .padding(top = 45.dp)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.inhaler),
+                painter = painterResource(id = R.drawable.pill),
                 contentDescription = "inhaler",
                 modifier = Modifier.size(50.dp)
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "Aerolin",
+                text = "",
                 color = EerieBlack,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.ExtraBold,
@@ -110,7 +114,7 @@ fun MedicineDetailsScreen(
             ) {
                 ButtonComponent(
                     onClick = {
-                        //todo
+                        deleteDialogState = DeleteDialogState.DELETE
                     },
                     modifier = Modifier
                         .height(50.dp)
@@ -147,6 +151,13 @@ fun MedicineDetailsScreen(
                 .align(Alignment.BottomCenter)
         )
     }
+    DeleteDialogState(
+        showDialog = deleteDialogState,
+        closeDialog = { deleteDialogState = DeleteDialogState.NONE },
+        onDelete = {
+            //todo
+        }
+    )
 }
 
 @Composable
@@ -154,7 +165,7 @@ fun ColoredCard() {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(314.dp),
+            .height(200.dp),
         colors = CardDefaults.cardColors(
             containerColor = AliceBlue
         ),
@@ -164,7 +175,7 @@ fun ColoredCard() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(vertical = 45.dp),
+                .padding(vertical = 20.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -192,21 +203,6 @@ fun ColoredCard() {
             )
             Text(
                 text = "inhaler",
-                color = EerieBlack,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Light,
-                textAlign = TextAlign.Center
-            )
-            Spacer(modifier = Modifier.height(34.dp))
-            Text(
-                text = stringResource(R.string.allergy),
-                color = EerieBlack,
-                fontSize = 22.sp,
-                fontWeight = FontWeight.SemiBold,
-                textAlign = TextAlign.Center
-            )
-            Text(
-                text = stringResource(R.string.yes_no),
                 color = EerieBlack,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Light,
@@ -260,3 +256,13 @@ fun AddReminderImageButton(
     )
 }
 
+fun getIconForMedicationType(formOfMedicine: String): Int {
+    return when (formOfMedicine) {
+        "PILL" -> R.drawable.pill
+        "INHALER" -> R.drawable.inhaler
+        "SOLUTION" -> R.drawable.solution
+        "DROPS" -> R.drawable.drops
+        "INJECTION" -> R.drawable.injection_icon
+        else -> R.drawable.other
+    }
+}

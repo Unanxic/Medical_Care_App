@@ -6,6 +6,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("realm-android")
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -53,6 +54,7 @@ dependencies {
 
     //firebase
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.database)
 
     testImplementation(libs.mockito.core)
 //    testImplementation(libs.mockito.core.kotlin)

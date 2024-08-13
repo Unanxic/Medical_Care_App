@@ -3,6 +3,7 @@ package com.example.data.di
 import com.example.data.database.sources.RealmDataSource
 import com.example.data.database.sources.RealmDataSourceImpl//import com.example.data.database.sources.RealmDataSourceImpl
 import com.example.data.extensions.ContextExtensions
+import com.example.data.repositories.firebase.FirebaseRepository
 import com.example.data.repositories.locale.LocaleRepositoryImpl
 import com.example.data.repositories.sos_contact.SOSContactRepositoryImpl
 import com.example.domain.repositories.locale.LocaleRepository
@@ -20,4 +21,6 @@ val dataModule = module {
     singleOf(::RealmDataSourceImpl) bind RealmDataSource::class
     //SOS
     singleOf(::SOSContactRepositoryImpl) bind SOSContactRepository::class
+    //Firebase
+    singleOf(::FirebaseRepository)
 }

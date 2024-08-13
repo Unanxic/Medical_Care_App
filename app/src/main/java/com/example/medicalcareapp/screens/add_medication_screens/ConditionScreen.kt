@@ -46,18 +46,32 @@ import com.example.medicalcareapp.composables.GenericTextField
 import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
 import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.navigation.Screens
+import com.example.medicalcareapp.screens.medicine_history_screen.viewmodels.MedicationViewModel
 import com.example.medicalcareapp.ui.theme.AliceBlue
 import com.example.medicalcareapp.ui.theme.EerieBlack
 import com.example.medicalcareapp.ui.theme.MSUGreen
 import com.example.medicalcareapp.ui.theme.PewterBlue
+import org.koin.compose.koinInject
 
 @Composable
 fun ConditionScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: MedicationViewModel = koinInject(),
+    medicationName: String,
+    formOfMedicine: String,
 ) {
 
     var isNavigationInProgress by remember { mutableStateOf(false) }
     var condition by rememberSaveable { mutableStateOf("") }
+
+//    val medicineName =
+//        navController.previousBackStackEntry?.arguments?.getString("medicineName") ?: ""
+//    val formOfMedicine =
+//        navController.previousBackStackEntry?.arguments?.getString("formOfMedicine") ?: ""
+
+    viewModel.setMedicationName(medicationName)
+    viewModel.setFormOfMedicine(formOfMedicine)
+
 
     Box(
         modifier = Modifier
@@ -156,7 +170,9 @@ fun ConditionScreen(
                     Spacer(Modifier.height(50.dp))
                     ButtonComponent(
                         onClick = {
-                            navController.medicineNavigateSingleTop(Screens.Allergy.route)
+                            viewModel.setCondition(condition)
+                            viewModel.saveMedication()
+                            navController.medicineNavigateSingleTop(Screens.SuccessfulMedicineRegistration.route)
                         },
                         modifier = Modifier
                             .height(50.dp)

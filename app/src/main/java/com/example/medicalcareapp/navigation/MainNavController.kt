@@ -29,6 +29,7 @@ import com.example.medicalcareapp.screens.account_settings.screens.sos_contact.S
 import com.example.medicalcareapp.screens.account_settings.screens.sos_contact.SuccessfulContactSuccessDeleteScreen
 import com.example.medicalcareapp.screens.home_screen.HomeScreen
 import com.example.medicalcareapp.screens.login_screen.LoginScreen
+import com.example.medicalcareapp.screens.medicine_details_screen.MedicineDetailsScreen
 import com.example.medicalcareapp.screens.no_internet_screen.NoInternetScreen
 import com.example.medicalcareapp.screens.register_screen.RegisterScreen
 import com.example.medicalcareapp.screens.register_screen.SuccessfulRegisterScreen
@@ -146,6 +147,10 @@ fun MainNavController(
             composable(Screens.SuccessfulRegistration.route) {
                 currentScreen = Screens.SuccessfulRegistration
                 SuccessfulRegisterScreen(navController = navController)
+            }
+            composable(Screens.MedicineDetails.route) {
+                currentScreen = Screens.MedicineDetails
+                MedicineDetailsScreen(navController = navController)
             }
             registerMedicineNavigation(navController) {
                 currentScreen = it

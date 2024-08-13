@@ -34,6 +34,7 @@ googleGmsGoogleServices = "4.4.2"
 firebase = "32.6.0"
 auth = "22.3.0"
 playServicesAuth = "21.2.0"
+firebaseDatabase = "21.0.0"
 
 [libraries]
 
@@ -81,6 +82,7 @@ kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", v
 firebase = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase" }
 firebase-auth = { module = "com.google.firebase:firebase-auth", version.ref = "auth" }
 play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "playServicesAuth" }
+firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }

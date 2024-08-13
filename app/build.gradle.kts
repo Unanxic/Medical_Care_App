@@ -75,6 +75,7 @@ dependencies {
     //firebase
     implementation(platform(libs.firebase))
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.database)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

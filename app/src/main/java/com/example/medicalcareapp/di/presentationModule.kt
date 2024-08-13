@@ -7,6 +7,7 @@ import com.example.medicalcareapp.managers.LoaderManager
 import com.example.medicalcareapp.screens.account_screen.viewmodel.AccountViewModel
 import com.example.medicalcareapp.screens.account_settings.viewmodels.SOSContactViewModel
 import com.example.medicalcareapp.screens.login_screen.viewmodel.LoginViewModel
+import com.example.medicalcareapp.screens.medicine_history_screen.viewmodels.MedicationViewModel
 import com.example.medicalcareapp.screens.register_screen.viewmodel.RegisterViewModel
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModelOf
@@ -23,6 +24,7 @@ val presentationModule = module {
     viewModelOf(::LoginViewModel)
     viewModelOf(::RegisterViewModel)
     viewModelOf(::AccountViewModel)
+    viewModelOf(::MedicationViewModel)
 }
 
 fun getActivityKoinModule(activity: Activity) = module {

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.com.android.library)
     alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -42,9 +43,10 @@ dependencies {
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
-    //firebase auth
+    //firebase
     implementation(platform(libs.firebase))
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.database)
 
     implementation(libs.gson)
 

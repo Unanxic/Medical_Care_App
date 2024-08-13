@@ -36,17 +36,30 @@ import com.example.medicalcareapp.composables.ButtonComponent
 import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
 import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.navigation.Screens
+import com.example.medicalcareapp.screens.medicine_history_screen.viewmodels.MedicationViewModel
 import com.example.medicalcareapp.ui.theme.AliceBlue
 import com.example.medicalcareapp.ui.theme.EerieBlack
 import com.example.medicalcareapp.ui.theme.LightBlue
 import com.example.medicalcareapp.ui.theme.PewterBlue
 import com.example.medicalcareapp.ui.theme.SmokyBlack
+import org.koin.compose.koinInject
 
 @Composable
 fun FormOfMedicineScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: MedicationViewModel = koinInject(),
+    medicationName: String,
 ) {
     var isNavigationInProgress by remember { mutableStateOf(false) }
+
+    val medicineName = navController.previousBackStackEntry?.arguments?.getString("medicineName") ?: ""
+
+    val pillString = stringResource(R.string.pill)
+    val solutionString = stringResource(R.string.solution)
+    val inhalerString = stringResource(R.string.inhaler)
+    val dropsString = stringResource(R.string.drops)
+    val injectionString = stringResource(R.string.injection)
+    val otherString = stringResource(R.string.other)
 
     Box(
         modifier = Modifier
@@ -111,7 +124,8 @@ fun FormOfMedicineScreen(
                         onClick = {
                             if (!isNavigationInProgress) {
                                 isNavigationInProgress = true
-                                navController.medicineNavigateSingleTop(Screens.Condition.route)
+                                viewModel.setFormOfMedicine(pillString)
+                                navController.medicineNavigateSingleTop(Screens.Condition.route + "/${medicationName}/$pillString")
                             }
                         },
                         modifier = Modifier
@@ -128,7 +142,13 @@ fun FormOfMedicineScreen(
                     Spacer(modifier = Modifier.height(20.dp))
                     //Solution
                     ButtonComponent(
-                        onClick = { /* todo */ },
+                        onClick = {
+                            if (!isNavigationInProgress) {
+                                isNavigationInProgress = true
+                                viewModel.setFormOfMedicine(solutionString)
+                                navController.medicineNavigateSingleTop(Screens.Condition.route + "/${medicationName}/$solutionString")
+                            }
+                        },
                         modifier = Modifier
                             .height(50.dp)
                             .width(250.dp)
@@ -143,7 +163,13 @@ fun FormOfMedicineScreen(
                     Spacer(modifier = Modifier.height(20.dp))
                     //Inhaler
                     ButtonComponent(
-                        onClick = { /* todo */ },
+                        onClick = {
+                            if (!isNavigationInProgress) {
+                                isNavigationInProgress = true
+                                viewModel.setFormOfMedicine(inhalerString)
+                                navController.medicineNavigateSingleTop(Screens.Condition.route + "/${medicationName}/$inhalerString")
+                            }
+                        },
                         modifier = Modifier
                             .height(50.dp)
                             .width(250.dp)
@@ -158,7 +184,13 @@ fun FormOfMedicineScreen(
                     Spacer(modifier = Modifier.height(20.dp))
                     //Drops
                     ButtonComponent(
-                        onClick = { /* todo */ },
+                        onClick = {
+                            if (!isNavigationInProgress) {
+                                isNavigationInProgress = true
+                                viewModel.setFormOfMedicine(dropsString)
+                                navController.medicineNavigateSingleTop(Screens.Condition.route + "/${medicationName}/$dropsString")
+                            }
+                        },
                         modifier = Modifier
                             .height(50.dp)
                             .width(250.dp)
@@ -173,7 +205,13 @@ fun FormOfMedicineScreen(
                     Spacer(modifier = Modifier.height(20.dp))
                     //Injection
                     ButtonComponent(
-                        onClick = { /* todo */ },
+                        onClick = {
+                            if (!isNavigationInProgress) {
+                                isNavigationInProgress = true
+                                viewModel.setFormOfMedicine(injectionString)
+                                navController.medicineNavigateSingleTop(Screens.Condition.route + "/${medicationName}/$injectionString")
+                            }
+                        },
                         modifier = Modifier
                             .height(50.dp)
                             .width(250.dp)
@@ -188,7 +226,13 @@ fun FormOfMedicineScreen(
                     Spacer(modifier = Modifier.height(20.dp))
                     //Other
                     ButtonComponent(
-                        onClick = { /* todo */ },
+                        onClick = {
+                            if (!isNavigationInProgress) {
+                                isNavigationInProgress = true
+                                viewModel.setFormOfMedicine(otherString)
+                                navController.medicineNavigateSingleTop(Screens.Condition.route + "/${medicationName}/$otherString")
+                            }
+                        },
                         modifier = Modifier
                             .height(50.dp)
                             .width(250.dp)

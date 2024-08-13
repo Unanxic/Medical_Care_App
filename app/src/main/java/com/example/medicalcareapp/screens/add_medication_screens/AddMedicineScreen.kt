@@ -46,14 +46,17 @@ import com.example.medicalcareapp.composables.GenericTextField
 import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
 import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.navigation.Screens
+import com.example.medicalcareapp.screens.medicine_history_screen.viewmodels.MedicationViewModel
 import com.example.medicalcareapp.ui.theme.AliceBlue
 import com.example.medicalcareapp.ui.theme.EerieBlack
 import com.example.medicalcareapp.ui.theme.MSUGreen
 import com.example.medicalcareapp.ui.theme.PewterBlue
+import org.koin.compose.koinInject
 
 @Composable
 fun AddMedicineScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: MedicationViewModel = koinInject(),
 ) {
     var isNavigationInProgress by remember { mutableStateOf(false) }
 
@@ -155,7 +158,8 @@ fun AddMedicineScreen(
                     Spacer(Modifier.height(50.dp))
                     ButtonComponent(
                         onClick = {
-                            navController.medicineNavigateSingleTop(Screens.FormOfMedicine.route)
+                            viewModel.setMedicationName(medicineName)
+                            navController.medicineNavigateSingleTop(Screens.FormOfMedicine.route + "/${medicineName}")
                         },
                         modifier = Modifier
                             .height(50.dp)

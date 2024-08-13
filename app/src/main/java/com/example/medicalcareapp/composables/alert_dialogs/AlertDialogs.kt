@@ -22,6 +22,76 @@ enum class LogoutDialogState {
     LOGOUT
 }
 
+enum class DeleteDialogState {
+    NONE,
+    DELETE
+}
+
+@Composable
+fun DeleteDialogState(
+    showDialog: DeleteDialogState,
+    closeDialog: () -> Unit,
+    onDelete: () -> Unit
+) {
+    when (showDialog) {
+        DeleteDialogState.DELETE -> DeleteDialog(closeDialog, onDelete)
+        DeleteDialogState.NONE -> return
+    }
+}
+
+@Composable
+fun DeleteDialog(
+    closeDialog: () -> Unit,
+    onDelete: () -> Unit
+) {
+    GenericAlertDialog(
+        visibility = true,
+        title = "Delete Medication",
+        text = "Are you sure you want to delete this medication?",
+        onClose = {
+            closeDialog()
+        },
+        middleButton = {
+            Button(
+                onClick = {
+                    closeDialog()
+                },
+                modifier = Modifier.padding(vertical = 8.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Transparent,
+                    contentColor = SmokyBlack
+                ),
+                content = {
+                    Text(
+                        text = "Cancel",
+                        fontSize = 17.sp
+                    )
+                }
+            )
+        },
+        confirmButton = {
+            Button(
+                onClick = {
+                    onDelete()
+                    closeDialog()
+                },
+                modifier = Modifier.padding(vertical = 8.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = SmokyBlack,
+                    contentColor = Color.White
+                ),
+                content = {
+                    Text(
+                        text = "Delete",
+                        fontSize = 17.sp
+                    )
+                }
+            )
+        }
+    )
+}
+
+
 @Composable
 fun AlertDialogs(
     showDialog: DialogState,
