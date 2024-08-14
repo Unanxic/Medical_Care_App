@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -104,12 +106,13 @@ fun MedicineHistoryScreen(
             }
 
             else -> {
-                Column(
+                LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(horizontal = 16.dp, vertical = 15.dp)
+                        .padding(horizontal = 16.dp),
+                    contentPadding = PaddingValues(bottom = 70.dp, top = 16.dp)
                 ) {
-                    medications.forEach { medication ->
+                    items(medications) { medication ->
                         val iconType = getIconType(medication.formOfMedicine)
 
                         GenericClickableRowWithIcons(
