@@ -139,7 +139,7 @@ fun DateItem(
                 containerColor = if (date.isSelected) {
                     MSUGreen
                 } else {
-                    MaterialTheme.colorScheme.surface
+                    Color.White
                 },
                 contentColor = if (date.isSelected) {
                     Color.White
