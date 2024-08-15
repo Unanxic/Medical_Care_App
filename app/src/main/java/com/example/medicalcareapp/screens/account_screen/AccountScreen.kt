@@ -40,6 +40,7 @@ import com.example.medicalcareapp.composables.alert_dialogs.LogoutDialogState
 import com.example.medicalcareapp.event_manager.EventManager
 import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
 import com.example.medicalcareapp.extesions.setNoRippleClickable
+import com.example.medicalcareapp.managers.HomeScreenManager
 import com.example.medicalcareapp.navigation.Screens
 import com.example.medicalcareapp.screens.account_screen.viewmodel.AccountViewModel
 import com.example.medicalcareapp.screens.account_settings.viewmodels.SOSContactViewModel
@@ -57,7 +58,8 @@ fun AccountScreen(
     paddingValues: PaddingValues,
     eventManager: EventManager = koinInject(),
     sosViewModel: SOSContactViewModel = koinViewModel(),
-    accountViewModel: AccountViewModel = koinViewModel()
+    accountViewModel: AccountViewModel = koinViewModel(),
+    homeScreenManager: HomeScreenManager = koinInject()
 ) {
     val sosContact by sosViewModel.sosContact.collectAsState()
     var dialogState by remember { mutableStateOf(LogoutDialogState.NONE) }
@@ -225,9 +227,13 @@ fun AccountScreen(
                 dialogState = LogoutDialogState.NONE
             },
             onLogout = {
-                accountViewModel.logout()
-                navController.navigate(Screens.Welcome.route) {
-                    popUpTo(0) { inclusive = true }
+                // Delete the SOS contact before logging out
+                sosViewModel.deleteSOSContact {
+                    homeScreenManager.reset()
+                    accountViewModel.logout()
+                    navController.navigate(Screens.Welcome.route) {
+                        popUpTo(0) { inclusive = true }
+                    }
                 }
             }
         )

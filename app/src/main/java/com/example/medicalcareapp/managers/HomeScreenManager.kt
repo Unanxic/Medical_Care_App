@@ -52,4 +52,12 @@ class HomeScreenManager(private val ioDispatcher: CoroutineDispatcher) {
             _topBarConfigs.emit(topBarConfigs)
         }
     }
+
+    fun reset() {
+        CoroutineScope(ioDispatcher).launch {
+            _currentHomeScreen.emit(CurrentHomeScreen.HISTORY)
+            _lastSelectedScreen.emit(null)
+            _topBarConfigs.emit(TopBarConfigs(topBarLayout = TopBarLayouts.MEDICAL_HISTORY_TEXT))
+        }
+    }
 }
