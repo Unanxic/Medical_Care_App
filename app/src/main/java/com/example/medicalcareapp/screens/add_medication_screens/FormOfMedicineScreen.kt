@@ -52,8 +52,6 @@ fun FormOfMedicineScreen(
 ) {
     var isNavigationInProgress by remember { mutableStateOf(false) }
 
-    val medicineName = navController.previousBackStackEntry?.arguments?.getString("medicineName") ?: ""
-
     val pillString = stringResource(R.string.pill)
     val solutionString = stringResource(R.string.solution)
     val inhalerString = stringResource(R.string.inhaler)
