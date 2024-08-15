@@ -33,16 +33,21 @@ import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
 import com.example.medicalcareapp.composables.GenericButtonSwitch
 import com.example.medicalcareapp.extesions.isEmailValid
+import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
+import com.example.medicalcareapp.navigation.Screens
 import com.example.medicalcareapp.screens.add_contacts_screen.composables.ExpandableTextInputField
 import com.example.medicalcareapp.screens.add_contacts_screen.composables.GreenRoundedTopBar
 import com.example.medicalcareapp.screens.add_contacts_screen.composables.TextInputField
+import com.example.medicalcareapp.screens.add_contacts_screen.viewmodel.ContactViewModel
 import com.example.medicalcareapp.ui.theme.DesaturatedCyan
 import com.example.medicalcareapp.ui.theme.LightBlue
 import com.example.medicalcareapp.ui.theme.SmokyBlack
+import org.koin.compose.koinInject
 
 @Composable
 fun AddContactsScreen(
     navController: NavController,
+    viewModel: ContactViewModel = koinInject()
 ) {
     var isNavigationInProgress by remember { mutableStateOf(false) }
 
@@ -50,6 +55,9 @@ fun AddContactsScreen(
     var email by remember { mutableStateOf("") }
     var phoneNumberOne by remember { mutableStateOf("") }
     var phoneNumberTwo by remember { mutableStateOf("") }
+    var selectedType by remember { mutableStateOf("") }
+    var doctorsSpecialty by remember { mutableStateOf("") }
+    var caregiverRole by remember { mutableStateOf("") }
 
     var isFieldExpanded by remember { mutableStateOf(false) }
     var isTypeSelectedValid by remember { mutableStateOf(false) }
@@ -57,8 +65,6 @@ fun AddContactsScreen(
     var isEmailError by rememberSaveable { mutableStateOf(false) }
     var isPhoneNumberOneError by rememberSaveable { mutableStateOf(false) }
     var isPhoneNumberTwoError by rememberSaveable { mutableStateOf(false) }
-
-
 
     Column(
         Modifier
@@ -129,14 +135,25 @@ fun AddContactsScreen(
                 textAlign = TextAlign.Start
             )
             TypeOfContactSection(
-                onTypeChange = { isValid ->
+                onTypeChange = { isValid, type, specialty, role ->
                     isTypeSelectedValid = isValid
+                    selectedType = type
+                    doctorsSpecialty = specialty ?: ""
+                    caregiverRole = role ?: ""
                 }
             )
             Spacer(modifier = Modifier.height(12.dp))
             ButtonComponent(
                 onClick = {
-                    //todo
+                    viewModel.setContactName(name)
+                    viewModel.setContactEmail(email)
+                    viewModel.setPhoneNumberOne(phoneNumberOne)
+                    viewModel.setPhoneNumberTwo(phoneNumberTwo.takeIf { it.isNotBlank() })
+                    viewModel.setTypeOfContact(selectedType)
+                    viewModel.setDoctorsSpecialty(doctorsSpecialty.takeIf { it.isNotBlank() })
+                    viewModel.setCaregiverRole(caregiverRole.takeIf { it.isNotBlank() })
+                    viewModel.saveContact()
+                    navController.medicineNavigateSingleTop(Screens.SuccessfulAddContacts.route)
                 },
                 modifier = Modifier
                     .height(50.dp)
@@ -163,7 +180,7 @@ fun AddContactsScreen(
 
 @Composable
 private fun TypeOfContactSection(
-    onTypeChange: (Boolean) -> Unit
+    onTypeChange: (Boolean, String, String?, String?) -> Unit
 ) {
     var dropDownValue by rememberSaveable { mutableStateOf("") }
 
@@ -171,57 +188,64 @@ private fun TypeOfContactSection(
     var secondButtonSelected by rememberSaveable { mutableStateOf(false) }
     var thirdButtonSelected by rememberSaveable { mutableStateOf(false) }
 
+    val doctorString = stringResource(R.string.doctor)
+    val pharmacyString = stringResource(R.string.pharmacy)
+    val caregiverString = stringResource(R.string.caregiver)
+
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
         GenericButtonSwitch(
-            text = stringResource(R.string.doctor),
+            text = doctorString,
             isSelected = firstButtonSelected
         ) {
             firstButtonSelected = !firstButtonSelected
             secondButtonSelected = false
             thirdButtonSelected = false
-            onTypeChange(firstButtonSelected && dropDownValue.isNotBlank())
+            onTypeChange(firstButtonSelected && dropDownValue.isNotBlank(), doctorString, dropDownValue, null)
         }
         GenericButtonSwitch(
-            text = stringResource(R.string.pharmacy),
+            text = pharmacyString,
             isSelected = secondButtonSelected
         ) {
             secondButtonSelected = !secondButtonSelected
             firstButtonSelected = false
             thirdButtonSelected = false
-            onTypeChange(secondButtonSelected)
+            onTypeChange(secondButtonSelected, pharmacyString, null, null)
         }
         GenericButtonSwitch(
-            text = stringResource(R.string.caregiver),
+            text = caregiverString,
             isSelected = thirdButtonSelected
         ) {
             thirdButtonSelected = !thirdButtonSelected
             firstButtonSelected = false
             secondButtonSelected = false
-            onTypeChange(thirdButtonSelected && dropDownValue.isNotBlank())
+            onTypeChange(thirdButtonSelected && dropDownValue.isNotBlank(), caregiverString, null, dropDownValue)
         }
     }
 
     when {
-        firstButtonSelected || secondButtonSelected || thirdButtonSelected -> {
+        firstButtonSelected -> {
             TextInputField(
-                label = when {
-                    firstButtonSelected -> stringResource(R.string.doctors_specialty)
-                    secondButtonSelected -> stringResource(R.string.pharmacy_name)
-                    else -> stringResource(R.string.caregiver_role)
-                },
-                hint = when {
-                    firstButtonSelected -> stringResource(R.string.ex_dentist)
-                    thirdButtonSelected -> stringResource(R.string.ex_parent)
-                    else -> ""
-                },
+                label = stringResource(R.string.doctors_specialty),
+                hint = stringResource(R.string.ex_dentist),
                 text = dropDownValue,
                 onTextChanged = {
                     dropDownValue = it
-                    onTypeChange(dropDownValue.isNotBlank())
+                    onTypeChange(dropDownValue.isNotBlank(), doctorString, dropDownValue, null)
+                }
+            )
+        }
+        thirdButtonSelected -> {
+            TextInputField(
+                label = stringResource(R.string.caregiver_role),
+                hint = stringResource(R.string.ex_parent),
+                text = dropDownValue,
+                onTextChanged = {
+                    dropDownValue = it
+                    onTypeChange(dropDownValue.isNotBlank(), caregiverString, null, dropDownValue)
                 }
             )
         }

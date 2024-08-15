@@ -10,8 +10,8 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.medicalcareapp.composables.ContactIconType
 import com.example.medicalcareapp.composables.EmergencyContactsCard
+import com.example.medicalcareapp.extesions.ContactIconType
 
 
 @Composable

@@ -1,6 +1,5 @@
 package com.example.medicalcareapp.composables
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,30 +25,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.medicalcareapp.R
+import com.example.medicalcareapp.extesions.ContactIconType
 import com.example.medicalcareapp.extesions.bouncingClickable
 import com.example.medicalcareapp.extesions.capitalizeWords
+import com.example.medicalcareapp.extesions.getLocalizedName
 import com.example.medicalcareapp.ui.theme.AliceBlue
 import com.example.medicalcareapp.ui.theme.CoolGrey
 import com.example.medicalcareapp.ui.theme.EerieBlack
 import com.example.medicalcareapp.ui.theme.MSUGreen
-
-enum class ContactIconType(
-    @DrawableRes val contactIcon: Int,
-    val contactType: String
-) {
-    CAREGIVER(
-        contactIcon = R.drawable.person_icon,
-        contactType = "Caregiver"
-    ),
-    PHARMACY(
-        contactIcon = R.drawable.pharmacy_icon,
-        contactType = "Pharmacy"
-    ),
-    DOCTOR(
-        contactIcon = R.drawable.doctor_icon,
-        contactType = "Doctor"
-    ),
-}
 
 @Composable
 fun EmergencyContactsCard(
@@ -94,7 +77,7 @@ fun EmergencyContactsCard(
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = icon.contactType,
+                        text = icon.getLocalizedName(),
                         color = EerieBlack,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Light,

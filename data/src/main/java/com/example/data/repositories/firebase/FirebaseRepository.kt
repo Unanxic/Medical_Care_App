@@ -1,5 +1,6 @@
 package com.example.data.repositories.firebase
 
+import com.example.domain.models.contacts.Contact
 import com.example.domain.models.medication.Medication
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -19,6 +20,8 @@ class FirebaseRepository {
     private val userId: String?
         get() = FirebaseAuth.getInstance().currentUser?.uid
 
+
+    //medication
     suspend fun saveMedication(medication: Medication) {
         userId?.let {
             val myRef = database.getReference("users").child(it).child("medications")
@@ -68,4 +71,53 @@ class FirebaseRepository {
             myRef.removeValue().await()
         }
     }
+
+    //contacts
+    suspend fun saveContact(contact: Contact) {
+        userId?.let {
+            val myRef = database.getReference("users").child(it).child("contacts")
+            val key = myRef.push().key ?: UUID.randomUUID().toString() // Generate a unique key
+            val contactWithId = contact.copy(id = key)
+            myRef.child(key).setValue(contactWithId).await() // Save with the generated id
+        }
+    }
+
+    fun generateContactId(): String {
+        return database.getReference("dummy").push().key ?: UUID.randomUUID().toString()
+    }
+
+    suspend fun getContactById(contactId: String): Contact? {
+        return userId?.let {
+            val myRef = database.getReference("users").child(it).child("contacts").child(contactId)
+            myRef.get().await().getValue(Contact::class.java)
+        }
+    }
+
+    fun getContactsFlow(): Flow<List<Contact>> = callbackFlow {
+        val myRef = database.getReference("users").child(userId!!).child("contacts")
+        val listener = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val contacts = mutableListOf<Contact>()
+                snapshot.children.forEach { dataSnapshot ->
+                    dataSnapshot.getValue(Contact::class.java)?.let { contact ->
+                        contacts.add(contact)
+                    }
+                }
+                trySend(contacts)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                close(error.toException())
+            }
+        }
+        myRef.addValueEventListener(listener)
+        awaitClose { myRef.removeEventListener(listener) }
+    }
+    suspend fun deleteContact(contactId: String) {
+        userId?.let {
+            val myRef = database.getReference("users").child(it).child("contacts").child(contactId)
+            myRef.removeValue().await()
+        }
+    }
+
 }

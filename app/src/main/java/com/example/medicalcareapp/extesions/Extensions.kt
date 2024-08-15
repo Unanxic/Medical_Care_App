@@ -271,6 +271,27 @@ enum class IconType(@DrawableRes val medicationIcon: Int) {
     INJECTION(medicationIcon = R.drawable.injection_icon),
     OTHER(medicationIcon = R.drawable.other)
 }
+fun getContactIconType(contactType: String): ContactIconType {
+    return when (contactType) {
+        "Doctor", "Γιατρός" -> ContactIconType.DOCTOR
+        "Pharmacy", "Φαρμακείο" -> ContactIconType.PHARMACY
+        else -> ContactIconType.CAREGIVER
+    }
+}
+enum class ContactIconType(@DrawableRes val contactIcon: Int, val contactType: String) {
+    PHARMACY(contactIcon = R.drawable.pharmacy_icon, contactType = "Pharmacy"),
+    DOCTOR(contactIcon = R.drawable.doctor_icon, contactType = "Doctor"),
+    CAREGIVER(contactIcon = R.drawable.person_icon, contactType = "Caregiver")
+}
+
+@Composable
+fun ContactIconType.getLocalizedName(): String {
+    return when (this) {
+        ContactIconType.DOCTOR -> stringResource(id = R.string.doctor)
+        ContactIconType.PHARMACY -> stringResource(id = R.string.pharmacy)
+        ContactIconType.CAREGIVER -> stringResource(id = R.string.caregiver)
+    }
+}
 
 @Composable
 fun IconType.getLocalizedName(): String {
