@@ -137,7 +137,7 @@ fun MedicineHistoryScreen(
 }
 
 @Composable
-fun AddMoreButton(
+private fun AddMoreButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
