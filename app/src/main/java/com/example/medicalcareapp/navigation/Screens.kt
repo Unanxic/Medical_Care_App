@@ -25,5 +25,6 @@ sealed class Screens(
     object SuccessfulAddReminder : Screens("successful_add_reminder")
     object SuccessfulRegistration : Screens("successful_registration")
     object MedicineDetails  : Screens("medicine_details")
+    object ContactDetails  : Screens("contact_details")
 
 }

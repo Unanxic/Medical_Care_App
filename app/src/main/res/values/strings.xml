@@ -55,6 +55,8 @@
     <string name="name">Full name</string>
     <string name="email_uppercase" translatable="false">Email</string>
     <string name="phone_number">Phone Number</string>
+    <string name="phone_number_1">Phone Number (1)</string>
+    <string name="phone_number_two">Phone Number (2)</string>
     <string name="phone_number_2">Phone Number 2</string>
     <string name="select_the_type_of_the_contact">Select the type of the contact:</string>
     <string name="caregiver">Caregiver</string>

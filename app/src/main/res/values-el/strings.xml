@@ -98,4 +98,6 @@
     <string name="confirm_password">Επιβεβαίωση κωδικού πρόσβασης</string>
     <string name="registration_was_successful">Η εγγραφή ήταν επιτυχής!</string>
     <string name="let_s_begin">Ας ξεκινήσουμε!</string>
+    <string name="phone_number_1">Αριθμός Τηλεφώνου (1)</string>
+    <string name="phone_number_two">Αριθμός Τηλεφώνου (2)</string>
 </resources>

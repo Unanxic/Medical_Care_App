@@ -24,7 +24,8 @@ enum class LogoutDialogState {
 
 enum class DeleteDialogState {
     NONE,
-    DELETE
+    DELETE,
+    DELETE_CONTACT
 }
 
 @Composable
@@ -36,6 +37,7 @@ fun DeleteDialogState(
     when (showDialog) {
         DeleteDialogState.DELETE -> DeleteDialog(closeDialog, onDelete)
         DeleteDialogState.NONE -> return
+        DeleteDialogState.DELETE_CONTACT -> DeleteContactDialog(closeDialog, onDelete)
     }
 }
 
@@ -48,6 +50,58 @@ fun DeleteDialog(
         visibility = true,
         title = "Delete Medication",
         text = "Are you sure you want to delete this medication?",
+        onClose = {
+            closeDialog()
+        },
+        middleButton = {
+            Button(
+                onClick = {
+                    closeDialog()
+                },
+                modifier = Modifier.padding(vertical = 8.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Transparent,
+                    contentColor = SmokyBlack
+                ),
+                content = {
+                    Text(
+                        text = "Cancel",
+                        fontSize = 17.sp
+                    )
+                }
+            )
+        },
+        confirmButton = {
+            Button(
+                onClick = {
+                    onDelete()
+                    closeDialog()
+                },
+                modifier = Modifier.padding(vertical = 8.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = SmokyBlack,
+                    contentColor = Color.White
+                ),
+                content = {
+                    Text(
+                        text = "Delete",
+                        fontSize = 17.sp
+                    )
+                }
+            )
+        }
+    )
+}
+
+@Composable
+fun DeleteContactDialog(
+    closeDialog: () -> Unit,
+    onDelete: () -> Unit
+) {
+    GenericAlertDialog(
+        visibility = true,
+        title = "Delete Contact",
+        text = "Are you sure you want to delete this contact?",
         onClose = {
             closeDialog()
         },

@@ -29,6 +29,7 @@ import com.example.medicalcareapp.screens.account_settings.screens.change_langua
 import com.example.medicalcareapp.screens.account_settings.screens.sos_contact.SOSContactScreen
 import com.example.medicalcareapp.screens.account_settings.screens.sos_contact.SuccessfulContactSubmitScreen
 import com.example.medicalcareapp.screens.account_settings.screens.sos_contact.SuccessfulContactSuccessDeleteScreen
+import com.example.medicalcareapp.screens.contact_details_screen.ContactDetailsScreen
 import com.example.medicalcareapp.screens.home_screen.HomeScreen
 import com.example.medicalcareapp.screens.login_screen.LoginScreen
 import com.example.medicalcareapp.screens.medicine_details_screen.MedicineDetailsScreen
@@ -156,6 +157,13 @@ fun MainNavController(
             ) {
                 val medicationId = it.arguments?.getString("medicationId") ?: return@composable
                 MedicineDetailsScreen(navController = navController, medicationId = medicationId)
+            }
+            composable(
+                route = "${Screens.ContactDetails.route}/{contactId}",
+                arguments = listOf(navArgument("contactId") { type = NavType.StringType })
+            ) {
+                val contactId = it.arguments?.getString("contactId") ?: return@composable
+                ContactDetailsScreen(navController = navController, contactId = contactId)
             }
             registerMedicineNavigation(navController) {
                 currentScreen = it

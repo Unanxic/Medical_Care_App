@@ -123,7 +123,7 @@ fun EmergencyContactsScreen(
                                 context.makePhoneCall(phoneNumber)
                             },
                             onDetailsClick = {
-                                // Handle details click, maybe navigate to details screen
+                                 navController.medicineNavigateSingleTop("${Screens.ContactDetails.route}/${contact.id}")
                             }
                         )
                         Spacer(modifier = Modifier.height(16.dp))

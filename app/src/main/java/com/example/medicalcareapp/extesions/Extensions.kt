@@ -197,6 +197,14 @@ fun Context.makePhoneCall(phoneNumber: String) {
     this.startActivity(intent)
 }
 
+fun Context.sendEmail(emailAddress: String) {
+    val intent = Intent(Intent.ACTION_SENDTO).apply {
+        data = Uri.parse("mailto:$emailAddress")
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK
+    }
+    this.startActivity(intent)
+}
+
 fun <T> MutableStateFlow<T>.medicationEmit(scope: CoroutineScope? = null, calculation: () -> T): Job {
     return scope?.let { coroutineScope ->
         coroutineScope.launch {
