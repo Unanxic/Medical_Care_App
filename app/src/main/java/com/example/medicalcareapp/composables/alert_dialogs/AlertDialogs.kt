@@ -7,8 +7,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.medicalcareapp.R
 import com.example.medicalcareapp.ui.theme.SmokyBlack
 
 enum class DialogState {
@@ -48,8 +50,8 @@ fun DeleteDialog(
 ) {
     GenericAlertDialog(
         visibility = true,
-        title = "Delete Medication",
-        text = "Are you sure you want to delete this medication?",
+        title = stringResource(R.string.delete_medication),
+        text = stringResource(R.string.are_you_sure_you_want_to_delete_this_medication),
         onClose = {
             closeDialog()
         },
@@ -65,7 +67,7 @@ fun DeleteDialog(
                 ),
                 content = {
                     Text(
-                        text = "Cancel",
+                        text = stringResource(R.string.cancel_uppercase),
                         fontSize = 17.sp
                     )
                 }
@@ -84,7 +86,7 @@ fun DeleteDialog(
                 ),
                 content = {
                     Text(
-                        text = "Delete",
+                        text = stringResource(R.string.delete_uppercase),
                         fontSize = 17.sp
                     )
                 }
@@ -100,8 +102,8 @@ fun DeleteContactDialog(
 ) {
     GenericAlertDialog(
         visibility = true,
-        title = "Delete Contact",
-        text = "Are you sure you want to delete this contact?",
+        title = stringResource(R.string.delete_contact),
+        text = stringResource(R.string.are_you_sure_you_want_to_delete_this_contact),
         onClose = {
             closeDialog()
         },
@@ -117,7 +119,7 @@ fun DeleteContactDialog(
                 ),
                 content = {
                     Text(
-                        text = "Cancel",
+                        text = stringResource(R.string.cancel_uppercase),
                         fontSize = 17.sp
                     )
                 }
@@ -136,7 +138,7 @@ fun DeleteContactDialog(
                 ),
                 content = {
                     Text(
-                        text = "Delete",
+                        text = stringResource(R.string.delete_uppercase),
                         fontSize = 17.sp
                     )
                 }
@@ -176,8 +178,8 @@ fun WrongCredentialsDialog(
 ) {
     GenericAlertDialog(
         visibility = true,
-        title = "Incorrect Credentials",
-        text = "You have submitted the incorrect credentials",
+        title = stringResource(R.string.incorrect_credentials),
+        text = stringResource(R.string.you_have_submitted_the_incorrect_credentials),
         onClose = {
             closeDialog()
         },
@@ -193,7 +195,7 @@ fun WrongCredentialsDialog(
                 ),
                 content = {
                     Text(
-                        text = "Return",
+                        text = stringResource(R.string.return_uppercase),
                         fontSize = 17.sp
                     )
                 }
@@ -208,8 +210,8 @@ fun SomethingWentWrongDialog(
 ) {
     GenericAlertDialog(
         visibility = true,
-        title = "Something went wrong",
-        text = "Please try again",
+        title = stringResource(R.string.something_went_wrong),
+        text = stringResource(R.string.please_try_again),
         onClose = {
             closeDialog()
         },
@@ -225,7 +227,7 @@ fun SomethingWentWrongDialog(
                 ),
                 content = {
                     Text(
-                        text = "Return",
+                        text = stringResource(R.string.return_uppercase),
                         fontSize = 17.sp
                     )
                 }
@@ -241,8 +243,8 @@ fun LogoutDialog(
 ) {
     GenericAlertDialog(
         visibility = true,
-        title = "Logout",
-        text = "Are you sure you want to log out?",
+        title = stringResource(R.string.logout_uppercase),
+        text = stringResource(R.string.are_you_sure_you_want_to_log_out),
         onClose = {
             closeDialog()
         },
@@ -258,7 +260,7 @@ fun LogoutDialog(
                 ),
                 content = {
                     Text(
-                        text = "Cancel",
+                        text = stringResource(R.string.cancel),
                         fontSize = 17.sp
                     )
                 }
@@ -277,7 +279,7 @@ fun LogoutDialog(
                 ),
                 content = {
                     Text(
-                        text = "Logout",
+                        text = stringResource(R.string.logout_uppercase),
                         fontSize = 17.sp
                     )
                 }

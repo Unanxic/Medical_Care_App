@@ -102,4 +102,18 @@
     <string name="confirm_password">Confirm password</string>
     <string name="registration_was_successful">Registration was successful!</string>
     <string name="let_s_begin">Let\'s Begin!</string>
+    <string name="delete_medication">Delete Medication</string>
+    <string name="are_you_sure_you_want_to_delete_this_medication">Are you sure you want to delete this medication?</string>
+    <string name="delete_contact">Delete Contact</string>
+    <string name="are_you_sure_you_want_to_delete_this_contact">Are you sure you want to delete this contact?</string>
+    <string name="incorrect_credentials">Incorrect Credentials</string>
+    <string name="you_have_submitted_the_incorrect_credentials">You have submitted the incorrect credentials</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="please_try_again">Please try again</string>
+    <string name="logout_uppercase">Logout</string>
+    <string name="are_you_sure_you_want_to_log_out">Are you sure you want to log out?</string>
+    <string name="cancel">Cancel</string>
+    <string name="return_uppercase">Return</string>
+    <string name="delete_uppercase">Delete</string>
+    <string name="cancel_uppercase">Cancel</string>
 </resources>

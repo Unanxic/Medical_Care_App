@@ -100,4 +100,18 @@
     <string name="let_s_begin">Ας ξεκινήσουμε!</string>
     <string name="phone_number_1">Αριθμός Τηλεφώνου (1)</string>
     <string name="phone_number_two">Αριθμός Τηλεφώνου (2)</string>
+    <string name="delete_medication">Διαγραφή Φαρμάκου</string>
+    <string name="are_you_sure_you_want_to_delete_this_medication">Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτό το φάρμακο;</string>
+    <string name="delete_contact">Διαγραφή Επαφής</string>
+    <string name="are_you_sure_you_want_to_delete_this_contact">Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτή την επαφή;</string>
+    <string name="incorrect_credentials">Λανθασμένα Στοιχεία</string>
+    <string name="you_have_submitted_the_incorrect_credentials">Έχετε υποβάλει λανθασμένα στοιχεία σύνδεσης</string>
+    <string name="something_went_wrong">Κάτι πήγε στραβά</string>
+    <string name="please_try_again">Παρακαλώ δοκιμάστε ξανά</string>
+    <string name="logout_uppercase">Αποσύνδεση</string>
+    <string name="are_you_sure_you_want_to_log_out">Είστε βέβαιοι ότι θέλετε να αποσυνδεθείτε;</string>
+    <string name="cancel">Ακύρωση</string>
+    <string name="return_uppercase">Επιστροφή</string>
+    <string name="delete_uppercase">Διαγραφή</string>
+    <string name="cancel_uppercase">Ακύρωση</string>
 </resources>
