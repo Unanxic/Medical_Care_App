@@ -72,13 +72,21 @@ fun SOSContactScreen(
     LaunchedEffect(sosContact) {
         sosContact?.phoneNumber?.let {
             sosPhoneNumber = TextFieldValue(it, selection = TextRange(it.length))
-            buttonText = "Edit Number"
             isEnabled = false
         } ?: run {
             sosPhoneNumber = TextFieldValue("", selection = TextRange(0))
-            buttonText = "Add Number"
             isEnabled = false
         }
+    }
+
+    val buttonTextResId = when {
+        isEnabled && sosPhoneNumber.text.isEmpty() -> {
+            if (sosContact != null) R.string.delete_uppercase else R.string.cancel_uppercase
+        }
+
+        sosPhoneNumber.text.isEmpty() -> R.string.add_number
+        isEnabled -> R.string.save
+        else -> R.string.edit_number
     }
 
     Box(
@@ -115,6 +123,7 @@ fun SOSContactScreen(
                             isEnabled && sosPhoneNumber.text.isEmpty() -> {
                                 if (sosContact != null) "Delete" else "Cancel"
                             }
+
                             sosPhoneNumber.text.isEmpty() -> "Add Number"
                             isEnabled -> "Save"
                             else -> "Edit Number"
@@ -130,38 +139,38 @@ fun SOSContactScreen(
                 Spacer(modifier = Modifier.height(20.dp))
                 ButtonComponent(
                     onClick = {
-                        when (buttonText) {
-                            "Add Number" -> {
+                        when (buttonTextResId) {
+                            R.string.add_number -> {
                                 isEnabled = true
-                                buttonText = if (sosPhoneNumber.text.isEmpty()) "Cancel" else "Save"
                             }
 
-                            "Edit Number" -> {
+                            R.string.edit_number -> {
                                 isEnabled = true
-                                buttonText = if (sosPhoneNumber.text.isEmpty()) "Delete" else "Save"
                             }
 
-                            "Save" -> {
+                            R.string.save -> {
                                 if (sosPhoneNumber.text.length == 10) {
                                     viewModel.saveSOSContact(sosPhoneNumber.text) {
                                         isEnabled = false
-                                        buttonText = "Edit Number"
-                                        navController.medicineNavigateSingleTopWithSecondParameter(Screens.SOSContactSuccess.route)
+                                        navController.medicineNavigateSingleTopWithSecondParameter(
+                                            Screens.SOSContactSuccess.route
+                                        )
                                     }
                                 }
                             }
-                            "Cancel" -> {
+
+                            R.string.cancel_uppercase -> {
                                 isEnabled = false
-                                buttonText = "Add Number"
                                 sosPhoneNumber = TextFieldValue(sosContact?.phoneNumber ?: "")
                             }
 
-                            "Delete" -> {
+                            R.string.delete_uppercase -> {
                                 viewModel.deleteSOSContact {
                                     isEnabled = false
-                                    buttonText = "Add Number"
                                     sosPhoneNumber = TextFieldValue("")
-                                    navController.medicineNavigateSingleTopWithSecondParameter(Screens.SOSContactSuccessDelete.route)
+                                    navController.medicineNavigateSingleTopWithSecondParameter(
+                                        Screens.SOSContactSuccessDelete.route
+                                    )
                                 }
                             }
                         }
@@ -170,19 +179,19 @@ fun SOSContactScreen(
                         .height(50.dp)
                         .width(250.dp)
                         .align(Alignment.CenterHorizontally),
-                    text = buttonText,
+                    text = stringResource(id = buttonTextResId),
                     isFilled = true,
                     fontSize = 20.sp,
                     cornerRadius = 20,
                     fillColorChoice = LightBlue,
                     contentColorChoice = SmokyBlack,
-                    isDisabled = buttonText == "Save" && sosPhoneNumber.text.length != 10
+                    isDisabled = buttonTextResId == R.string.save && sosPhoneNumber.text.length != 10
                 )
                 Spacer(modifier = Modifier.height(114.dp))
             }
         }
     }
-    if (buttonText == "Cancel" || buttonText == "Save" || buttonText == "Delete") {
+    if (buttonTextResId == R.string.cancel_uppercase || buttonTextResId == R.string.save || buttonTextResId == R.string.delete_uppercase) {
         DisposableEffect(Unit) {
             focusRequester.requestFocus()
             onDispose { }
@@ -191,7 +200,7 @@ fun SOSContactScreen(
 }
 
 
-@Composable
+    @Composable
 fun InputField(
     label: String = "",
     hint: String = "",

@@ -114,4 +114,7 @@
     <string name="return_uppercase">Επιστροφή</string>
     <string name="delete_uppercase">Διαγραφή</string>
     <string name="cancel_uppercase">Ακύρωση</string>
+    <string name="add_number">Προσθήκη Αριθμού</string>
+    <string name="edit_number">Επεξεργασία Aριθμού</string>
+    <string name="save">Αποθήκευση</string>
 </resources>

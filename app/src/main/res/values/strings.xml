@@ -116,4 +116,7 @@
     <string name="return_uppercase">Return</string>
     <string name="delete_uppercase">Delete</string>
     <string name="cancel_uppercase">Cancel</string>
+    <string name="add_number">Add Number</string>
+    <string name="edit_number">Edit Number</string>
+    <string name="save">Save</string>
 </resources>
