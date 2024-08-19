@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -79,18 +80,24 @@ fun LoginScreen(
 
     val accountState by loginViewModel.authState.collectAsState()
 
+    var isLoading by remember { mutableStateOf(false) }
+
+
     LaunchedEffect(accountState) {
         when (val account = accountState) {
             is FlowError -> {
+                isLoading = false
                 loaderManager.hide()
                 showDialog = DialogState.INVALID_LOGIN
             }
 
             is FlowLoading -> {
+                isLoading = true
                 loaderManager.show()
             }
 
             is FlowSuccess -> {
+                isLoading = false
                 loaderManager.hide()
                 account.data?.let {
                     navController.medicineNavigateSingleTop(Screens.Home.route)
@@ -238,6 +245,16 @@ fun LoginScreen(
                 }
             }
         }
+        if (isLoading) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = 0.3f)),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(color = MSUGreen)
+            }
+        }
     }
     AlertDialogs(
         showDialog = showDialog,
@@ -246,6 +263,7 @@ fun LoginScreen(
         }
     )
 }
+
 
 @Composable
 fun RegisterLink(navController: NavController) {

@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -81,18 +82,23 @@ fun RegisterScreen(
     var isPasswordError by rememberSaveable { mutableStateOf(false) }
     var isConfirmPasswordError by rememberSaveable { mutableStateOf(false) }
 
+    var isLoading by remember { mutableStateOf(false) }
+
     LaunchedEffect(accountState) {
         when (val account = accountState) {
             is FlowError -> {
+                isLoading = false
                 loaderManager.hide()
                 showDialog = DialogState.SOMETHING_WENT_WRONG
             }
 
             is FlowLoading -> {
+                isLoading = true
                 loaderManager.show()
             }
 
             is FlowSuccess -> {
+                isLoading = false
                 loaderManager.hide()
                 account.data?.let {
                     navController.medicineNavigateSingleTop(Screens.SuccessfulRegistration.route)
@@ -264,6 +270,16 @@ fun RegisterScreen(
                         Spacer(modifier = Modifier.height(16.dp))
                     }
                 }
+            }
+        }
+        if (isLoading) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = 0.3f)),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(color = MSUGreen)
             }
         }
     }
