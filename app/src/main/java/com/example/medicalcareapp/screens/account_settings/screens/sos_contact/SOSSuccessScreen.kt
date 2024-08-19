@@ -73,7 +73,7 @@ fun SuccessfulContactSubmitScreen(
             ButtonComponent(
                 onClick = {
                     navController.navigate(Screens.Home.route) {
-                        popUpTo(Screens.Home.route) {
+                        popUpTo(0) {
                             inclusive = true
                         }
                     }

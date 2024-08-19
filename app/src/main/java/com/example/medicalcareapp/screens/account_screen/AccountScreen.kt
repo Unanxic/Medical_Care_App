@@ -43,6 +43,7 @@ import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.managers.HomeScreenManager
 import com.example.medicalcareapp.navigation.Screens
 import com.example.medicalcareapp.screens.account_screen.viewmodel.AccountViewModel
+import com.example.medicalcareapp.screens.account_settings.screens.account_details.viewmodel.AccountDetailsViewModel
 import com.example.medicalcareapp.screens.account_settings.viewmodels.SOSContactViewModel
 import com.example.medicalcareapp.ui.theme.AliceBlue
 import com.example.medicalcareapp.ui.theme.DesaturatedCyan
@@ -59,10 +60,12 @@ fun AccountScreen(
     eventManager: EventManager = koinInject(),
     sosViewModel: SOSContactViewModel = koinViewModel(),
     accountViewModel: AccountViewModel = koinViewModel(),
+    userDetailsViewModel: AccountDetailsViewModel = koinViewModel(),
     homeScreenManager: HomeScreenManager = koinInject()
 ) {
     val sosContact by sosViewModel.sosContact.collectAsState()
     var dialogState by remember { mutableStateOf(LogoutDialogState.NONE) }
+    val userDetails by userDetailsViewModel.userDetails.collectAsState()
 
     Box(
         Modifier
@@ -130,7 +133,7 @@ fun AccountScreen(
                 ) {
                     Text(
                         text = stringResource(R.string.my_account),
-                        color = SmokyBlack,
+                        color = if (userDetails != null) SmokyBlack else Color.Red,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.SemiBold
                     )

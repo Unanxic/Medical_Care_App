@@ -18,6 +18,8 @@ sealed class Screens(
     object AddContacts : Screens("add_contacts")
     object SOSContact : Screens("sos_contact")
     object SOSContactSuccess : Screens("sos_contact_success")
+    object DetailsSuccess : Screens("details_success")
+    object DetailsSuccessDelete : Screens("details_success_delete")
     object SOSContactSuccessDelete : Screens("sos_contact_success_delete")
     object AccountDetails : Screens("account_details")
     object SuccessfulAddContacts : Screens("successful_add_contacts")

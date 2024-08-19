@@ -44,8 +44,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
-import com.example.medicalcareapp.composables.GenericOutlinedTextFieldWithValue
-import com.example.medicalcareapp.extesions.medicineNavigateSingleTopWithSecondParameter
+import com.example.medicalcareapp.composables.GenericOutlinedTextFieldWithValueSOS
 import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.navigation.Screens
 import com.example.medicalcareapp.screens.account_settings.viewmodels.SOSContactViewModel
@@ -152,9 +151,9 @@ fun SOSContactScreen(
                                 if (sosPhoneNumber.text.length == 10) {
                                     viewModel.saveSOSContact(sosPhoneNumber.text) {
                                         isEnabled = false
-                                        navController.medicineNavigateSingleTopWithSecondParameter(
-                                            Screens.SOSContactSuccess.route
-                                        )
+                                        navController.navigate(Screens.SOSContactSuccess.route) {
+                                            popUpTo(0) { inclusive = true }
+                                        }
                                     }
                                 }
                             }
@@ -168,9 +167,9 @@ fun SOSContactScreen(
                                 viewModel.deleteSOSContact {
                                     isEnabled = false
                                     sosPhoneNumber = TextFieldValue("")
-                                    navController.medicineNavigateSingleTopWithSecondParameter(
-                                        Screens.SOSContactSuccessDelete.route
-                                    )
+                                    navController.navigate(Screens.SOSContactSuccessDelete.route) {
+                                        popUpTo(0) { inclusive = true }
+                                    }
                                 }
                             }
                         }
@@ -220,7 +219,7 @@ fun InputField(
             textAlign = TextAlign.Start
         )
         Spacer(modifier = Modifier.height(6.dp))
-        GenericOutlinedTextFieldWithValue(
+        GenericOutlinedTextFieldWithValueSOS(
             modifier = Modifier
                 .fillMaxWidth()
                 .focusRequester(focusRequester),

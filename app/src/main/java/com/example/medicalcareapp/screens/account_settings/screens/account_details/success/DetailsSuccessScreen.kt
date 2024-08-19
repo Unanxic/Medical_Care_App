@@ -1,4 +1,4 @@
-package com.example.medicalcareapp.screens.account_settings.screens.sos_contact
+package com.example.medicalcareapp.screens.account_settings.screens.account_details.success
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -33,7 +33,7 @@ import com.example.medicalcareapp.ui.theme.MSUGreen
 import com.example.medicalcareapp.ui.theme.PewterBlue
 
 @Composable
-fun SuccessfulContactSuccessDeleteScreen(
+fun DetailsSuccessScreen(
     navController: NavController,
 ) {
     Box(
@@ -54,7 +54,7 @@ fun SuccessfulContactSuccessDeleteScreen(
                     .size(200.dp)
             )
             Text(
-                text = stringResource( R.string.sos_contact_deleted_successfully),
+                text = stringResource(R.string.account_information_updated_successfully),
                 color = EerieBlack,
                 fontSize = 30.sp,
                 textAlign = TextAlign.Center,

@@ -5,6 +5,7 @@ import com.example.medicalcareapp.event_manager.EventManager
 import com.example.medicalcareapp.managers.HomeScreenManager
 import com.example.medicalcareapp.managers.LoaderManager
 import com.example.medicalcareapp.screens.account_screen.viewmodel.AccountViewModel
+import com.example.medicalcareapp.screens.account_settings.screens.account_details.viewmodel.AccountDetailsViewModel
 import com.example.medicalcareapp.screens.account_settings.viewmodels.SOSContactViewModel
 import com.example.medicalcareapp.screens.add_contacts_screen.viewmodel.ContactViewModel
 import com.example.medicalcareapp.screens.login_screen.viewmodel.LoginViewModel
@@ -27,6 +28,7 @@ val presentationModule = module {
     viewModelOf(::AccountViewModel)
     viewModelOf(::MedicationViewModel)
     viewModelOf(::ContactViewModel)
+    viewModelOf(::AccountDetailsViewModel)
 }
 
 fun getActivityKoinModule(activity: Activity) = module {

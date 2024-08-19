@@ -2,6 +2,7 @@ package com.example.data.repositories.firebase
 
 import com.example.domain.models.contacts.Contact
 import com.example.domain.models.medication.Medication
+import com.example.domain.models.user_details.UserDetails
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -116,6 +117,28 @@ class FirebaseRepository {
     suspend fun deleteContact(contactId: String) {
         userId?.let {
             val myRef = database.getReference("users").child(it).child("contacts").child(contactId)
+            myRef.removeValue().await()
+        }
+    }
+
+    //user
+    suspend fun saveUserDetails(userDetails: UserDetails) {
+        userId?.let {
+            val myRef = database.getReference("users").child(it).child("accountDetails")
+            myRef.setValue(userDetails).await()
+        }
+    }
+
+    suspend fun getUserDetails(): UserDetails? {
+        return userId?.let {
+            val myRef = database.getReference("users").child(it).child("accountDetails")
+            myRef.get().await().getValue(UserDetails::class.java)
+        }
+    }
+
+    suspend fun deleteUserDetails() {
+        userId?.let {
+            val myRef = database.getReference("users").child(it).child("accountDetails")
             myRef.removeValue().await()
         }
     }

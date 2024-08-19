@@ -119,4 +119,15 @@
     <string name="add_number">Add Number</string>
     <string name="edit_number">Edit Number</string>
     <string name="save">Save</string>
+    <string name="add_details">Add Details</string>
+    <string name="edit_details">Edit Details</string>
+    <string name="first_name">First Name</string>
+    <string name="enter_first_name">Enter First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="enter_last_name">Enter Last Name</string>
+    <string name="enter_phone_number">Enter Phone Number</string>
+    <string name="first_name_empty_error">First Name cannot be empty</string>
+    <string name="last_name_empty_error">Last Name cannot be empty</string>
+    <string name="account_information_updated_successfully">Account Information Updated Successfully</string>
+    <string name="account_information_deleted_successfully">Account Information Deleted Successfully</string>
 </resources>

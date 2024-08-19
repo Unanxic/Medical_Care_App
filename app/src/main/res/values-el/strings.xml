@@ -117,4 +117,15 @@
     <string name="add_number">Προσθήκη Αριθμού</string>
     <string name="edit_number">Επεξεργασία Aριθμού</string>
     <string name="save">Αποθήκευση</string>
+    <string name="add_details">Προσθήκη Στοιχείων</string>
+    <string name="edit_details">Επεξεργασία Στοιχείων</string>
+    <string name="first_name">Όνομα</string>
+    <string name="enter_first_name">Εισάγετε Όνομα</string>
+    <string name="last_name">Επώνυμο</string>
+    <string name="enter_last_name">Εισάγετε Επώνυμο</string>
+    <string name="enter_phone_number">Εισάγετε Αριθμό Τηλεφώνου</string>
+    <string name="first_name_empty_error">Το όνομα δεν μπορεί να είναι κενό</string>
+    <string name="last_name_empty_error">Το επώνυμο δεν μπορεί να είναι κενό</string>
+    <string name="account_information_updated_successfully">"Ενημέρωση πληροφοριών λογαριασμού με επιτυχία "</string>
+    <string name="account_information_deleted_successfully">Πληροφορίες λογαριασμού διαγράφηκαν επιτυχώς</string>
 </resources>
