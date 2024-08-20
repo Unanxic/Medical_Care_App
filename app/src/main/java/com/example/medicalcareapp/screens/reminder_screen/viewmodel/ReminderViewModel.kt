@@ -104,4 +104,44 @@ class ReminderViewModel(private val repository: FirebaseRepository) : ViewModel(
         return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
                 cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)
     }
+
+    fun loadReminderById(reminderId: String, medicationName: String) {
+        viewModelScope.launch {
+            val reminder = repository.getReminderById(reminderId, medicationName)
+            if (reminder != null) {
+                _currentReminder.value = reminder
+            }
+        }
+    }
+
+    fun updateReminderStatus(reminderId: String, selectedTime: String, isTaken: Boolean, isSkipped: Boolean = false) {
+        viewModelScope.launch {
+            val updatedReminders = _reminders.value.map { reminder ->
+                if (reminder.reminderId == reminderId) {
+                    val formattedTime = selectedTime.toFormattedTimeString()
+                    val updatedReminder = when {
+                        isTaken -> reminder.copy(isTaken = true, isSkipped = false, takenTime = formattedTime)
+                        isSkipped -> reminder.copy(isTaken = false, isSkipped = true, takenTime = null)
+                        else -> reminder // No change if neither isTaken nor isSkipped
+                    }
+                    repository.saveReminder(updatedReminder, updatedReminder.medicineName)
+                    updatedReminder
+                } else {
+                    reminder
+                }
+            }
+            _reminders.value = updatedReminders
+        }
+    }
+
+    private fun String.toFormattedTimeString(): String {
+        return try {
+            val inputFormat = java.text.SimpleDateFormat("HH:mm:ss.SSS", java.util.Locale.getDefault())
+            val date = inputFormat.parse(this)
+            val outputFormat = java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault())
+            date?.let { outputFormat.format(it) } ?: this
+        } catch (e: Exception) {
+            this
+        }
+    }
 }

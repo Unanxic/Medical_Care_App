@@ -41,7 +41,8 @@ class FirebaseRepository {
 
     suspend fun getMedicationById(medicationId: String): Medication? {
         return userId?.let {
-            val myRef = database.getReference("users").child(it).child("medications").child(medicationId)
+            val myRef =
+                database.getReference("users").child(it).child("medications").child(medicationId)
             myRef.get().await().getValue(Medication::class.java)
         }
     }
@@ -69,7 +70,8 @@ class FirebaseRepository {
 
     suspend fun deleteMedication(medicationId: String) {
         userId?.let {
-            val myRef = database.getReference("users").child(it).child("medications").child(medicationId)
+            val myRef =
+                database.getReference("users").child(it).child("medications").child(medicationId)
             myRef.removeValue().await()
         }
     }
@@ -115,6 +117,7 @@ class FirebaseRepository {
         myRef.addValueEventListener(listener)
         awaitClose { myRef.removeEventListener(listener) }
     }
+
     suspend fun deleteContact(contactId: String) {
         userId?.let {
             val myRef = database.getReference("users").child(it).child("contacts").child(contactId)
@@ -149,15 +152,29 @@ class FirebaseRepository {
     suspend fun saveReminder(reminder: Reminder, medicationName: String) {
         userId?.let {
             val myRef = database.getReference("users").child(it).child("reminders").child(medicationName)
-            val key = generateReminderId()  // Use the new generateReminderId method
-            val reminderWithId = reminder.copy(reminderId = key)
-            myRef.child(key).setValue(reminderWithId).await()
+
+            // If the reminder already has an ID, use it to update the reminder, otherwise generate a new ID
+            val reminderId = reminder.reminderId.ifEmpty {
+                generateReminderId()
+            }
+
+            // Save or update the reminder with the correct ID
+            val reminderWithId = reminder.copy(reminderId = reminderId)
+            myRef.child(reminderId).setValue(reminderWithId).await()
         }
     }
 
     fun generateReminderId(): String {
         return database.getReference("dummy").push().key ?: UUID.randomUUID().toString()
     }
+
+    suspend fun getReminderById(reminderId: String, medicationName: String): Reminder? {
+        return userId?.let {
+            val myRef = database.getReference("users").child(it).child("reminders").child(medicationName).child(reminderId)
+            myRef.get().await().getValue(Reminder::class.java)
+        }
+    }
+
 
     fun getRemindersFlow(): Flow<List<Reminder>> = callbackFlow {
         userId?.let { userId ->
@@ -191,7 +208,9 @@ class FirebaseRepository {
 
     suspend fun deleteReminder(reminderId: String, medicationName: String) {
         userId?.let {
-            val myRef = database.getReference("users").child(it).child("reminders").child(medicationName).child(reminderId)
+            val myRef =
+                database.getReference("users").child(it).child("reminders").child(medicationName)
+                    .child(reminderId)
             myRef.removeValue().await()
         }
     }

@@ -38,6 +38,7 @@ import com.example.medicalcareapp.screens.medicine_details_screen.MedicineDetail
 import com.example.medicalcareapp.screens.no_internet_screen.NoInternetScreen
 import com.example.medicalcareapp.screens.register_screen.RegisterScreen
 import com.example.medicalcareapp.screens.register_screen.SuccessfulRegisterScreen
+import com.example.medicalcareapp.screens.reminder_details_screen.ReminderScreen
 import com.example.medicalcareapp.screens.reminder_screen.AddReminderScreen
 import com.example.medicalcareapp.screens.reminder_screen.SuccessfulAddReminderScreen
 import com.example.medicalcareapp.screens.splash_screen.SplashScreen
@@ -177,6 +178,25 @@ fun MainNavController(
             ) {
                 val contactId = it.arguments?.getString("contactId") ?: return@composable
                 ContactDetailsScreen(navController = navController, contactId = contactId)
+            }
+            composable(
+                route = "${Screens.ReminderDetails.route}/{reminderId}/{medicationName}/{selectedTime}",
+                arguments = listOf(
+                    navArgument("reminderId") { type = NavType.StringType },
+                    navArgument("medicationName") { type = NavType.StringType },
+                    navArgument("selectedTime") { type = NavType.StringType } // New argument for selectedTime
+                )
+            ) { backStackEntry ->
+                val reminderId = backStackEntry.arguments?.getString("reminderId") ?: return@composable
+                val medicationName = backStackEntry.arguments?.getString("medicationName") ?: return@composable
+                val selectedTime = backStackEntry.arguments?.getString("selectedTime") ?: return@composable
+
+                ReminderScreen(
+                    navController = navController,
+                    reminderId = reminderId,
+                    medicationName = medicationName,
+                    selectedTime = selectedTime // Pass the selectedTime to the ReminderScreen
+                )
             }
             registerMedicineNavigation(navController) {
                 currentScreen = it

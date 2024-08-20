@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -84,7 +86,7 @@ fun CalendarScreen(
                             MedicationBreakCard() // Show this card if there are no reminders for the selected date
                         }
                     } else {
-                        ReminderList(reminders = filteredReminders) // Show reminders if there are any
+                        ReminderList(reminders = filteredReminders, navController = navController) // Show reminders if there are any
                     }
                 }
             }
@@ -93,8 +95,8 @@ fun CalendarScreen(
 }
 
 @Composable
-fun ReminderList(reminders: List<Reminder>) {
-    Column(
+fun ReminderList(navController: NavController, reminders: List<Reminder>) {
+    LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
@@ -102,19 +104,28 @@ fun ReminderList(reminders: List<Reminder>) {
     ) {
         reminders.forEach { reminder ->
             val times = listOfNotNull(reminder.timeOne, reminder.timeTwo, reminder.timeThree, reminder.timeFour)
-            times.forEach { time ->
+            items(times) { time ->
                 val formattedTime = formatTime(time)
+
+                // Determine the status for the current time slot
+                val statusText = when {
+                    reminder.isSkipped -> "Skipped"
+                    reminder.isTaken && reminder.takenTime == formattedTime -> "Taken at ${reminder.takenTime}"
+                    else -> "Scheduled at $formattedTime"
+                }
+
                 GenericClickableRowWithoutIcons(
                     text = reminder.medicineName,
-                    status = "Scheduled at $formattedTime",
+                    status = statusText,
                     onClick = {
-                        // Handle reminder click
+                        //todo
                     }
                 )
             }
         }
     }
 }
+
 fun formatTime(time: String): String {
     return try {
         // Input format based on the example provided

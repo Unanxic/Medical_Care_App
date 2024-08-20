@@ -12,7 +12,6 @@ sealed class Screens(
     object AddMedicine : Screens("add_medicine")
     object FormOfMedicine : Screens("form_of_medicine")
     object Condition : Screens("condition")
-    object Allergy : Screens("allergy")
     object SuccessfulMedicineRegistration : Screens("successful_medicine_registration")
     object ChangeLanguage : Screens("change_language")
     object AddContacts : Screens("add_contacts")
@@ -28,5 +27,6 @@ sealed class Screens(
     object SuccessfulRegistration : Screens("successful_registration")
     object MedicineDetails  : Screens("medicine_details")
     object ContactDetails  : Screens("contact_details")
+    object ReminderDetails  : Screens("reminder_details")
 
 }
