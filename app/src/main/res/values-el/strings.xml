@@ -128,4 +128,6 @@
     <string name="last_name_empty_error">Το επώνυμο δεν μπορεί να είναι κενό</string>
     <string name="account_information_updated_successfully">"Ενημέρωση πληροφοριών λογαριασμού με επιτυχία "</string>
     <string name="account_information_deleted_successfully">Πληροφορίες λογαριασμού διαγράφηκαν επιτυχώς</string>
+    <string name="add_time">Προσθήκη ώρας</string>
+    <string name="confirm">Επιβεβαίωση</string>
 </resources>

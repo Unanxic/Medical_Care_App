@@ -45,11 +45,14 @@ import com.example.medicalcareapp.composables.DateTextField
 import com.example.medicalcareapp.composables.DropDownField
 import com.example.medicalcareapp.composables.TimerTextField
 import com.example.medicalcareapp.extesions.setNoRippleClickable
+import com.example.medicalcareapp.navigation.Screens
+import com.example.medicalcareapp.screens.reminder_screen.viewmodel.ReminderViewModel
 import com.example.medicalcareapp.ui.theme.BlackOlive
 import com.example.medicalcareapp.ui.theme.HookersGreen
 import com.example.medicalcareapp.ui.theme.LightBlue
 import com.example.medicalcareapp.ui.theme.SmokyBlack
 import com.example.medicalcareapp.utilities.Recurrence
+import org.koin.compose.koinInject
 import java.time.LocalTime
 import java.util.Date
 
@@ -57,10 +60,13 @@ import java.util.Date
 @Composable
 fun AddReminderScreen(
     navController: NavController,
+    medicationName: String,
+    viewModel: ReminderViewModel = koinInject()
 ) {
     var isNavigationInProgress by remember { mutableStateOf(false) }
 
     var recurrence by rememberSaveable { mutableStateOf(Recurrence.Daily.name) }
+    var startDate by rememberSaveable { mutableLongStateOf(Date().time) }
     var endDate by rememberSaveable { mutableLongStateOf(Date().time) }
 
     var selectedTime by rememberSaveable { mutableStateOf(LocalTime.now()) }
@@ -108,8 +114,8 @@ fun AddReminderScreen(
             )
             Spacer(modifier = Modifier.height(6.dp))
             DateTextField(
-                initialDate = endDate,
-                onDateSelected = { endDate = it }
+                initialDate = startDate,
+                onDateSelected = { startDate = it }
             )
             Spacer(modifier = Modifier.height(12.dp))
             Text(
@@ -150,7 +156,7 @@ fun AddReminderScreen(
             }
             if (additionalTimes.size < 3) {
                 AddMoreButton(
-                    text = "Add Time",
+                    text = stringResource(R.string.add_time),
                     onClick = { additionalTimes = additionalTimes + LocalTime.now() },
                     iconResourceId = R.drawable.add
                 )
@@ -159,13 +165,32 @@ fun AddReminderScreen(
             Spacer(modifier = Modifier.height(12.dp))
             ButtonComponent(
                 onClick = {
-                    //todo
+                    val timeOne = selectedTime.toString()
+                    val timeTwo = additionalTimes.getOrNull(0)?.toString()
+                    val timeThree = additionalTimes.getOrNull(1)?.toString()
+                    val timeFour = additionalTimes.getOrNull(2)?.toString()
+
+                    viewModel.setReminderData(
+                        medicineName = medicationName,
+                        recurrence = recurrence,
+                        startDate = startDate,
+                        endDate = endDate,
+                        timeOne = timeOne,
+                        timeTwo = timeTwo,
+                        timeThree = timeThree,
+                        timeFour = timeFour
+                    )
+
+                    viewModel.saveReminder()
+                    navController.navigate(Screens.SuccessfulAddReminder.route) {
+                        popUpTo(0)
+                    }
                 },
                 modifier = Modifier
                     .height(50.dp)
                     .width(250.dp)
                     .align(Alignment.CenterHorizontally),
-                text = stringResource(R.string.add_contact),
+                text = stringResource(R.string.add_reminder),
                 isFilled = true,
                 fontSize = 20.sp,
                 cornerRadius = 20,

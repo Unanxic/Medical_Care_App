@@ -27,8 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
-import com.example.medicalcareapp.extesions.navigateToHomeScreen
-import com.example.medicalcareapp.managers.CurrentHomeScreen
+import com.example.medicalcareapp.navigation.Screens
 import com.example.medicalcareapp.ui.theme.EerieBlack
 import com.example.medicalcareapp.ui.theme.MSUGreen
 import com.example.medicalcareapp.ui.theme.PewterBlue
@@ -73,7 +72,9 @@ fun SuccessfulAddReminderScreen(
             Spacer(modifier = Modifier.height(50.dp))
             ButtonComponent(
                 onClick = {
-                    navController.navigateToHomeScreen(CurrentHomeScreen.CONTACTS)
+                    navController.navigate(Screens.Home.route){
+                        popUpTo(0)
+                    }
                 },
                 modifier = Modifier
                     .height(60.dp)

@@ -32,7 +32,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.extesions.toFormattedDateShortString
-import com.example.medicalcareapp.extesions.toFormattedDateString
 import com.example.medicalcareapp.extesions.toFormattedMonthDateString
 import com.example.medicalcareapp.screens.calendar_screen.data.CalendarDataSource
 import com.example.medicalcareapp.screens.calendar_screen.models.CalendarModel
@@ -41,7 +40,6 @@ import com.example.medicalcareapp.ui.theme.MSUGreen
 import com.example.medicalcareapp.ui.theme.SmokyBlack
 import java.util.Calendar
 import java.util.Date
-
 
 
 @Composable
@@ -58,11 +56,8 @@ fun DatesHeader(
         DateHeader(
             data = calendarModel,
             onPrevClickListener = { startDate ->
-                // refresh the CalendarModel with new data
-                // by get data with new Start Date (which is the startDate-1 from the visibleDates)
                 val calendar = Calendar.getInstance()
                 calendar.time = startDate
-
                 calendar.add(Calendar.DAY_OF_YEAR, -2) // Subtract one day from startDate
                 val finalStartDate = calendar.time
 
@@ -72,11 +67,8 @@ fun DatesHeader(
                 )
             },
             onNextClickListener = { endDate ->
-                // refresh the CalendarModel with new data
-                // by get data with new Start Date (which is the endDate+2 from the visibleDates)
                 val calendar = Calendar.getInstance()
                 calendar.time = endDate
-
                 calendar.add(Calendar.DAY_OF_YEAR, 2)
                 val finalStartDate = calendar.time
 
@@ -92,12 +84,10 @@ fun DatesHeader(
                 calendarModel = calendarModel.copy(
                     selectedDate = date,
                     visibleDates = calendarModel.visibleDates.map {
-                        it.copy(
-                            isSelected = it.date.toFormattedDateString() == date.date.toFormattedDateString()
-                        )
+                        it.copy(isSelected = it == date)
                     }
                 )
-                onDateSelected(date)
+                onDateSelected(date) // Pass the selected CalendarModel.DateModel object directly
             }
         )
     }

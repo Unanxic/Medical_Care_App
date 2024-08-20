@@ -11,6 +11,7 @@ import com.example.medicalcareapp.screens.add_contacts_screen.viewmodel.ContactV
 import com.example.medicalcareapp.screens.login_screen.viewmodel.LoginViewModel
 import com.example.medicalcareapp.screens.medicine_history_screen.viewmodels.MedicationViewModel
 import com.example.medicalcareapp.screens.register_screen.viewmodel.RegisterViewModel
+import com.example.medicalcareapp.screens.reminder_screen.viewmodel.ReminderViewModel
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.singleOf
@@ -29,6 +30,7 @@ val presentationModule = module {
     viewModelOf(::MedicationViewModel)
     viewModelOf(::ContactViewModel)
     viewModelOf(::AccountDetailsViewModel)
+    viewModelOf(::ReminderViewModel)
 }
 
 fun getActivityKoinModule(activity: Activity) = module {

@@ -53,6 +53,7 @@ import com.example.medicalcareapp.extesions.CARD_ELEVATION
 import com.example.medicalcareapp.extesions.IconType
 import com.example.medicalcareapp.extesions.getIconType
 import com.example.medicalcareapp.extesions.getLocalizedName
+import com.example.medicalcareapp.extesions.medicineNavigateSingleTop
 import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.screens.medicine_history_screen.viewmodels.MedicationViewModel
 import com.example.medicalcareapp.ui.theme.AliceBlue
@@ -147,7 +148,7 @@ fun MedicineDetailsScreen(
                         painter = painterResource(id = R.drawable.add_reminder),
                         contentDescription = "Add Reminder",
                         onClick = {
-                            //todo
+                            navController.medicineNavigateSingleTop("Screens.AddReminder.route/${med.medication}")
                         }
                     )
                 }

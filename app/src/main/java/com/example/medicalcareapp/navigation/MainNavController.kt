@@ -149,9 +149,12 @@ fun MainNavController(
                 currentScreen = Screens.AccountDetails
                 AccountDetailsScreen(navController = navController)
             }
-            composable(Screens.AddReminder.route) {
-                currentScreen = Screens.AddReminder
-                AddReminderScreen(navController = navController)
+            composable(
+                route = "Screens.AddReminder.route/{medicationName}",
+                arguments = listOf(navArgument("medicationName") { type = NavType.StringType })
+            ) { backStackEntry ->
+                val medicationName = backStackEntry.arguments?.getString("medicationName")
+                AddReminderScreen(navController = navController, medicationName = medicationName ?: "")
             }
             composable(Screens.SuccessfulAddReminder.route) {
                 currentScreen = Screens.SuccessfulAddReminder

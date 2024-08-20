@@ -130,4 +130,6 @@
     <string name="last_name_empty_error">Last Name cannot be empty</string>
     <string name="account_information_updated_successfully">Account Information Updated Successfully</string>
     <string name="account_information_deleted_successfully">Account Information Deleted Successfully</string>
+    <string name="add_time">Add Time</string>
+    <string name="confirm">Confirm</string>
 </resources>

@@ -2,6 +2,7 @@ package com.example.data.repositories.firebase
 
 import com.example.domain.models.contacts.Contact
 import com.example.domain.models.medication.Medication
+import com.example.domain.models.reminder.Reminder
 import com.example.domain.models.user_details.UserDetails
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -143,4 +144,55 @@ class FirebaseRepository {
         }
     }
 
+    //reminder
+    // Reminder-related methods
+    suspend fun saveReminder(reminder: Reminder, medicationName: String) {
+        userId?.let {
+            val myRef = database.getReference("users").child(it).child("reminders").child(medicationName)
+            val key = generateReminderId()  // Use the new generateReminderId method
+            val reminderWithId = reminder.copy(reminderId = key)
+            myRef.child(key).setValue(reminderWithId).await()
+        }
+    }
+
+    fun generateReminderId(): String {
+        return database.getReference("dummy").push().key ?: UUID.randomUUID().toString()
+    }
+
+    fun getRemindersFlow(): Flow<List<Reminder>> = callbackFlow {
+        userId?.let { userId ->
+            val myRef = database.getReference("users").child(userId).child("reminders")
+            val listener = object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val reminders = mutableListOf<Reminder>()
+                    snapshot.children.forEach { medicationSnapshot ->
+                        medicationSnapshot.children.forEach { reminderSnapshot ->
+                            val reminder = reminderSnapshot.getValue(Reminder::class.java)
+                            if (reminder != null) {
+                                reminders.add(reminder)
+                            } else {
+                                println("Reminder is null, failed to parse snapshot.")
+                            }
+                        }
+                    }
+                    println("Fetched Reminders: ${reminders.size}")
+                    trySend(reminders)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    println("Firebase error: ${error.message}")
+                    close(error.toException())
+                }
+            }
+            myRef.addValueEventListener(listener)
+            awaitClose { myRef.removeEventListener(listener) }
+        } ?: close(IllegalStateException("User ID is null"))
+    }
+
+    suspend fun deleteReminder(reminderId: String, medicationName: String) {
+        userId?.let {
+            val myRef = database.getReference("users").child(it).child("reminders").child(medicationName).child(reminderId)
+            myRef.removeValue().await()
+        }
+    }
 }
