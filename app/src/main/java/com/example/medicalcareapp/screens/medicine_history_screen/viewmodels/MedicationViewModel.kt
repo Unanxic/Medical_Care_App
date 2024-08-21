@@ -65,6 +65,14 @@ class MedicationViewModel(private val repository: FirebaseRepository) : ViewMode
 
     fun deleteMedication(medicationId: String) {
         viewModelScope.launch {
+            // Load the medication to get the name, which we'll use to delete reminders
+            val medication = repository.getMedicationById(medicationId)
+            if (medication != null) {
+                // Delete associated reminders
+                repository.deleteRemindersForMedication(medication.medication)
+            }
+
+            // Delete the medication itself
             repository.deleteMedication(medicationId)
         }
     }

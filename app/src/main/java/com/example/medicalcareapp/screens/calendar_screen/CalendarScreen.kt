@@ -102,6 +102,7 @@ fun ReminderList(reminders: List<Reminder>) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
+        contentPadding = PaddingValues(bottom = 70.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         reminders.forEach { reminder ->

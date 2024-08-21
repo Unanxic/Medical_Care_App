@@ -78,6 +78,13 @@ class FirebaseRepository {
         }
     }
 
+    suspend fun deleteRemindersForMedication(medicationName: String) {
+        userId?.let {
+            val myRef = database.getReference("users").child(it).child("reminders").child(medicationName)
+            myRef.removeValue().await()
+        }
+    }
+
     //contacts
     suspend fun saveContact(contact: Contact) {
         userId?.let {
