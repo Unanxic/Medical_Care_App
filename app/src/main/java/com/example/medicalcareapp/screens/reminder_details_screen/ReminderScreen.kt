@@ -136,12 +136,6 @@ fun ReminderScreen(
                     if (selectedAction != null) {
                         val isTaken = selectedAction == "Taken"
                         val isSkipped = selectedAction == "Skipped"
-                        viewModel.updateReminderStatus(
-                            reminderId = reminderId,
-                            selectedTime = selectedTime,
-                            isTaken = isTaken,
-                            isSkipped = isSkipped
-                        ) // Pass the selectedTime
                         navController.popBackStack()
                     }
                 }

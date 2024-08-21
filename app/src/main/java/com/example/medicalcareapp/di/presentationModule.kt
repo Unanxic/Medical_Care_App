@@ -1,6 +1,7 @@
 package com.example.medicalcareapp.di
 
 import android.app.Activity
+import com.example.medicalcareapp.MedicationNotificationService
 import com.example.medicalcareapp.event_manager.EventManager
 import com.example.medicalcareapp.managers.HomeScreenManager
 import com.example.medicalcareapp.managers.LoaderManager
@@ -31,6 +32,7 @@ val presentationModule = module {
     viewModelOf(::ContactViewModel)
     viewModelOf(::AccountDetailsViewModel)
     viewModelOf(::ReminderViewModel)
+    singleOf(::MedicationNotificationService)
 }
 
 fun getActivityKoinModule(activity: Activity) = module {
