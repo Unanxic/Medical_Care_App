@@ -111,10 +111,7 @@ fun ReminderList(navController: NavController, reminders: List<Reminder>) {
 
                 GenericClickableRowWithoutIcons(
                     text = reminder.medicineName,
-                    status = statusText,
-                    onClick = {
-                        //todo
-                    }
+                    status = statusText
                 )
             }
         }
