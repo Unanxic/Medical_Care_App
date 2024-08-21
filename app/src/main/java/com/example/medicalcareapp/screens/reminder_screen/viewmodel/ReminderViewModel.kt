@@ -50,15 +50,6 @@ class ReminderViewModel(private val repository: FirebaseRepository) : ViewModel(
             timeFour = timeFour
         )
     }
-
-//    fun saveReminder() {
-//        viewModelScope.launch {
-//            val reminderToSave = _currentReminder.value.copy(reminderId = repository.generateReminderId())
-//            repository.saveReminder(reminderToSave, reminderToSave.medicineName)
-//            resetReminder()
-//        }
-//    }
-//
     private fun resetReminder() {
         _currentReminder.value = Reminder()
     }
