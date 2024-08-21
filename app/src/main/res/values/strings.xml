@@ -135,4 +135,5 @@
     <string name="medication_reminder">Medication Reminder</string>
     <string name="medication_reminder_time">Time to take your medication: %1$s</string>
     <string name="notifications_for_medication_reminder">Notifications for medication reminder</string>
+    <string name="scheduled_at">Scheduled at %1$s</string>
 </resources>
