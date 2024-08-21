@@ -1,7 +1,12 @@
 package com.example.medicalcareapp
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
@@ -17,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.WindowCompat
 import com.example.medicalcareapp.di.getActivityKoinModule
 import com.example.medicalcareapp.navigation.MainNavController
@@ -33,6 +39,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         loadKoinModules(getActivityKoinModule(this))
         WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        if (!isNotificationPermissionGranted(applicationContext)) {
+            requestNotificationPermission(this)
+        }
+
         setContent {
             ProvideLocalContext(content = {
                 MedicalAppAndroidTheme {
@@ -47,11 +58,46 @@ class MainActivity : ComponentActivity() {
                 }
             })
         }
+        parseIntent(intent)
     }
     override fun onDestroy() {
         super.onDestroy()
         // Unload Activity specific Koin module
         unloadKoinModules(getActivityKoinModule(this))
+    }
+
+    private fun isNotificationPermissionGranted(context: Context): Boolean {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return NotificationManagerCompat.from(context).areNotificationsEnabled()
+        }
+        return true
+    }
+
+    private fun requestNotificationPermission(activity: Activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Prompt user to open settings manually
+            val builder = AlertDialog.Builder(activity)
+            builder.setTitle("Notification Permission")
+                .setMessage("Notification permission is required. Please enable it in settings.")
+                .setPositiveButton("Open Settings") { dialog, _ ->
+                    val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                    intent.putExtra(Settings.EXTRA_APP_PACKAGE, activity.packageName)
+                    activity.startActivity(intent)
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .create()
+                .show()
+        }
+    }
+
+    private fun parseIntent(intent: Intent?) {
+        val isMedicationNotification = intent?.getBooleanExtra(MEDICATION_NOTIFICATION, false) ?: false
+        if (isMedicationNotification) {
+            //todo
+        }
     }
 
     @Composable

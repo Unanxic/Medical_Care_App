@@ -26,6 +26,7 @@ import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -96,6 +97,7 @@ fun CalendarScreen(
 
 @Composable
 fun ReminderList(navController: NavController, reminders: List<Reminder>) {
+    val context = LocalContext.current
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
@@ -107,19 +109,11 @@ fun ReminderList(navController: NavController, reminders: List<Reminder>) {
             items(times) { time ->
                 val formattedTime = formatTime(time)
 
-                // Determine the status for the current time slot
-                val statusText = when {
-                    reminder.isSkipped -> "Skipped"
-                    reminder.isTaken && reminder.takenTime == formattedTime -> "Taken at ${reminder.takenTime}"
-                    else -> "Scheduled at $formattedTime"
-                }
+                val statusText = context.getString(R.string.scheduled_at, formattedTime)
 
                 GenericClickableRowWithoutIcons(
                     text = reminder.medicineName,
-                    status = statusText,
-                    onClick = {
-                        //todo
-                    }
+                    status = statusText
                 )
             }
         }
@@ -145,22 +139,6 @@ fun formatTime(time: String): String {
     }
 }
 
-
-
-fun formatDayTitle(timeInMillis: Long): String {
-    val calendar = Calendar.getInstance()
-    calendar.timeInMillis = timeInMillis // Set the timeInMillis directly
-
-    val dateFormat = SimpleDateFormat("EEEE, MMMM dd", Locale.getDefault())
-    val today = Calendar.getInstance()
-
-    return if (calendar.get(Calendar.YEAR) == today.get(Calendar.YEAR) &&
-        calendar.get(Calendar.DAY_OF_YEAR) == today.get(Calendar.DAY_OF_YEAR)) {
-        "Today - ${dateFormat.format(calendar.time)}"
-    } else {
-        dateFormat.format(calendar.time)
-    }
-}
 
 @Composable
 fun MedicationBreakCard(

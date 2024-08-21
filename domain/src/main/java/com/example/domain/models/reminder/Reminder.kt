@@ -10,7 +10,4 @@ data class Reminder(
     val timeTwo: String? = null,
     val timeThree: String? = null,
     val timeFour: String? = null,
-    val isTaken: Boolean = false,
-    val takenTime: String? = null,
-    val isSkipped: Boolean = false,
 )

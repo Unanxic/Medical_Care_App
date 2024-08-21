@@ -31,6 +31,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -63,6 +64,7 @@ fun AddReminderScreen(
     medicationName: String,
     viewModel: ReminderViewModel = koinInject()
 ) {
+    val context = LocalContext.current
     var isNavigationInProgress by remember { mutableStateOf(false) }
 
     var recurrence by rememberSaveable { mutableStateOf(Recurrence.Daily.name) }
@@ -181,7 +183,7 @@ fun AddReminderScreen(
                         timeFour = timeFour
                     )
 
-                    viewModel.saveReminder()
+                    viewModel.saveReminder(context)
                     navController.navigate(Screens.SuccessfulAddReminder.route) {
                         popUpTo(0)
                     }

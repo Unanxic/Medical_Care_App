@@ -21,7 +21,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.medicalcareapp.extesions.capitalizeWords
-import com.example.medicalcareapp.extesions.onClickWithScaleAnimation
 import com.example.medicalcareapp.ui.theme.AliceBlue
 import com.example.medicalcareapp.ui.theme.EerieBlack
 import com.example.medicalcareapp.ui.theme.SmokyBlack
@@ -30,15 +29,13 @@ import com.example.medicalcareapp.ui.theme.SmokyBlack
 fun GenericClickableRowWithoutIcons(
     text: String = "",
     status: String = "Skipped",
-    onClick: () -> Unit
 ) {
     val capitalizedText = text.capitalizeWords()
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(80.dp)
-            .onClickWithScaleAnimation(scaleFactor = 0.99f) { onClick() },
+            .height(80.dp),
         colors = CardDefaults.cardColors(
             containerColor = AliceBlue
         ),
@@ -88,7 +85,6 @@ private fun PreviewGenericClickableRowWithoutIcons() {
         GenericClickableRowWithoutIcons(
             text = "Aspirin",
             status = "Taken at 08:00 AM",
-            onClick = { /* Example click action */ }
         )
     }
 }

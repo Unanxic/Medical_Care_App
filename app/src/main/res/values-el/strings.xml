@@ -130,4 +130,8 @@
     <string name="account_information_deleted_successfully">Πληροφορίες λογαριασμού διαγράφηκαν επιτυχώς</string>
     <string name="add_time">Προσθήκη ώρας</string>
     <string name="confirm">Επιβεβαίωση</string>
+    <string name="medication_reminder">Υπενθύμιση φαρμάκων</string>
+    <string name="medication_reminder_time">Ηρθε η ώρα να πάρετε το φάρμακό σας</string>
+    <string name="notifications_for_medication_reminder">Ειδοποιήσεις για την υπενθύμιση φαρμάκων</string>
+    <string name="scheduled_at">Προγραμματισμένο στις %1$s</string>
 </resources>

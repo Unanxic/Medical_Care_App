@@ -132,4 +132,8 @@
     <string name="account_information_deleted_successfully">Account Information Deleted Successfully</string>
     <string name="add_time">Add Time</string>
     <string name="confirm">Confirm</string>
+    <string name="medication_reminder">Medication Reminder</string>
+    <string name="medication_reminder_time">Time to take your medication: %1$s</string>
+    <string name="notifications_for_medication_reminder">Notifications for medication reminder</string>
+    <string name="scheduled_at">Scheduled at %1$s</string>
 </resources>

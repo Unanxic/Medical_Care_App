@@ -1,9 +1,12 @@
 package com.example.medicalcareapp.screens.reminder_screen.viewmodel
 
+import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.repositories.firebase.FirebaseRepository
 import com.example.domain.models.reminder.Reminder
+import com.example.medicalcareapp.MedicationNotificationService
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -48,14 +51,14 @@ class ReminderViewModel(private val repository: FirebaseRepository) : ViewModel(
         )
     }
 
-    fun saveReminder() {
-        viewModelScope.launch {
-            val reminderToSave = _currentReminder.value.copy(reminderId = repository.generateReminderId())
-            repository.saveReminder(reminderToSave, reminderToSave.medicineName)
-            resetReminder()
-        }
-    }
-
+//    fun saveReminder() {
+//        viewModelScope.launch {
+//            val reminderToSave = _currentReminder.value.copy(reminderId = repository.generateReminderId())
+//            repository.saveReminder(reminderToSave, reminderToSave.medicineName)
+//            resetReminder()
+//        }
+//    }
+//
     private fun resetReminder() {
         _currentReminder.value = Reminder()
     }
@@ -113,35 +116,68 @@ class ReminderViewModel(private val repository: FirebaseRepository) : ViewModel(
             }
         }
     }
-
-    fun updateReminderStatus(reminderId: String, selectedTime: String, isTaken: Boolean, isSkipped: Boolean = false) {
+    fun saveReminder(context: Context) {
         viewModelScope.launch {
-            val updatedReminders = _reminders.value.map { reminder ->
-                if (reminder.reminderId == reminderId) {
-                    val formattedTime = selectedTime.toFormattedTimeString()
-                    val updatedReminder = when {
-                        isTaken -> reminder.copy(isTaken = true, isSkipped = false, takenTime = formattedTime)
-                        isSkipped -> reminder.copy(isTaken = false, isSkipped = true, takenTime = null)
-                        else -> reminder // No change if neither isTaken nor isSkipped
-                    }
-                    repository.saveReminder(updatedReminder, updatedReminder.medicineName)
-                    updatedReminder
-                } else {
-                    reminder
-                }
-            }
-            _reminders.value = updatedReminders
+            val reminderToSave = _currentReminder.value.copy(reminderId = repository.generateReminderId())
+            repository.saveReminder(reminderToSave, reminderToSave.medicineName)
+            Log.d("ReminderViewModel", "Reminder saved: $reminderToSave")
+            scheduleNotifications(reminderToSave, context)
+            resetReminder()
         }
     }
 
-    private fun String.toFormattedTimeString(): String {
-        return try {
-            val inputFormat = java.text.SimpleDateFormat("HH:mm:ss.SSS", java.util.Locale.getDefault())
-            val date = inputFormat.parse(this)
-            val outputFormat = java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault())
-            date?.let { outputFormat.format(it) } ?: this
-        } catch (e: Exception) {
-            this
+    private fun scheduleNotifications(reminder: Reminder, context: Context) {
+        val notificationService = MedicationNotificationService(context)
+        val calendar = Calendar.getInstance()
+
+        when (reminder.recurrence) {
+            "Daily" -> {
+                var currentDate = reminder.startDate
+                while (currentDate <= reminder.endDate) {
+                    Log.d("ReminderViewModel", "Scheduling daily reminder for date: $currentDate")
+                    scheduleTimesForDate(reminder, currentDate, notificationService)
+                    currentDate += 24 * 60 * 60 * 1000 // Increment by one day in milliseconds
+                }
+            }
+            "Weekly" -> {
+                var currentDate = reminder.startDate
+                calendar.timeInMillis = reminder.startDate
+                while (currentDate <= reminder.endDate) {
+                    Log.d("ReminderViewModel", "Scheduling weekly reminder for date: $currentDate")
+                    scheduleTimesForDate(reminder, currentDate, notificationService)
+                    calendar.add(Calendar.WEEK_OF_YEAR, 1) // Increment by one week
+                    currentDate = calendar.timeInMillis
+                }
+            }
+            "Monthly" -> {
+                var currentDate = reminder.startDate
+                calendar.timeInMillis = reminder.startDate
+                while (currentDate <= reminder.endDate) {
+                    Log.d("ReminderViewModel", "Scheduling monthly reminder for date: $currentDate")
+                    scheduleTimesForDate(reminder, currentDate, notificationService)
+                    calendar.add(Calendar.MONTH, 1) // Increment by one month
+                    currentDate = calendar.timeInMillis
+                }
+            }
+        }
+    }
+
+    private fun scheduleTimesForDate(reminder: Reminder, dateInMillis: Long, notificationService: MedicationNotificationService) {
+        reminder.timeOne.let {
+            Log.d("ReminderViewModel", "Scheduling timeOne: $it for date: $dateInMillis")
+            notificationService.scheduleNotification(reminder.copy(startDate = dateInMillis, timeOne = it))
+        }
+        reminder.timeTwo?.let {
+            Log.d("ReminderViewModel", "Scheduling timeTwo: $it for date: $dateInMillis")
+            notificationService.scheduleNotification(reminder.copy(startDate = dateInMillis, timeOne = it))
+        }
+        reminder.timeThree?.let {
+            Log.d("ReminderViewModel", "Scheduling timeThree: $it for date: $dateInMillis")
+            notificationService.scheduleNotification(reminder.copy(startDate = dateInMillis, timeOne = it))
+        }
+        reminder.timeFour?.let {
+            Log.d("ReminderViewModel", "Scheduling timeFour: $it for date: $dateInMillis")
+            notificationService.scheduleNotification(reminder.copy(startDate = dateInMillis, timeOne = it))
         }
     }
 }
