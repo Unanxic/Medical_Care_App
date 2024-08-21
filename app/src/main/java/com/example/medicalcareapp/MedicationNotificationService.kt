@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.example.domain.models.reminder.Reminder
+import com.example.domain.models.reminder.ReminderTime
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -14,24 +15,25 @@ class MedicationNotificationService(
     private val context: Context
 ) {
 
-    fun scheduleNotification(reminder: Reminder) {
+    fun scheduleNotification(reminder: Reminder, reminderTime: ReminderTime, dateInMillis: Long) {
         // Create the Intent for the BroadcastReceiver
         val intent = Intent(context, MedicationAppBroadcastReceiver::class.java).apply {
             action = "com.example.medicalcareapp.ACTION_REMINDER"
             putExtra(MEDICATION_INTENT_ID, reminder.reminderId)
-            putExtra("MEDICATION_NAME", reminder.medicineName) // Add this if you need it in the receiver
+            putExtra("MEDICATION_NAME", reminder.medicineName)
+            putExtra("REMINDER_TIME_ID", reminderTime.timeId)
         }
 
         // Create the PendingIntent to trigger the BroadcastReceiver
         val pendingIntent = PendingIntent.getBroadcast(
             context,
-            reminder.reminderId.hashCode(),
+            reminderTime.timeId.hashCode(),
             intent,
             PendingIntent.FLAG_IMMUTABLE
         )
 
         // Convert the reminder's time and date to milliseconds
-        val timeInMillis = convertTimeToMillis(reminder.timeOne, reminder.startDate)
+        val timeInMillis = convertTimeToMillis(reminderTime.time, dateInMillis)
 
         // Get the AlarmManager service
         val alarmService = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -73,9 +75,5 @@ class MedicationNotificationService(
             e.printStackTrace()
             null
         }
-    }
-
-    companion object {
-        const val MEDICATION_CHANNEL_ID = "medication_channel"
     }
 }

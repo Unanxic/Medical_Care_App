@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.repositories.firebase.FirebaseRepository
 import com.example.domain.models.reminder.Reminder
+import com.example.domain.models.reminder.ReminderTime
 import com.example.medicalcareapp.MedicationNotificationService
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -38,18 +39,26 @@ class ReminderViewModel(private val repository: FirebaseRepository) : ViewModel(
         }
     }
 
-    fun setReminderData(medicineName: String, recurrence: String, startDate: Long, endDate: Long, timeOne: String, timeTwo: String? = null, timeThree: String? = null, timeFour: String? = null) {
+    fun setReminderData(
+        medicineName: String,
+        recurrence: String,
+        startDate: Long,
+        endDate: Long,
+        times: List<String>
+    ) {
+        val reminderTimes = times.map { time ->
+            ReminderTime(timeId = repository.generateReminderId(), time = time)
+        }
+
         _currentReminder.value = Reminder(
             medicineName = medicineName,
             recurrence = recurrence,
             startDate = startDate,
             endDate = endDate,
-            timeOne = timeOne,
-            timeTwo = timeTwo,
-            timeThree = timeThree,
-            timeFour = timeFour
+            times = reminderTimes
         )
     }
+
     private fun resetReminder() {
         _currentReminder.value = Reminder()
     }
@@ -112,12 +121,14 @@ class ReminderViewModel(private val repository: FirebaseRepository) : ViewModel(
             val reminderToSave = _currentReminder.value.copy(reminderId = repository.generateReminderId())
             repository.saveReminder(reminderToSave, reminderToSave.medicineName)
             Log.d("ReminderViewModel", "Reminder saved: $reminderToSave")
-            scheduleNotifications(reminderToSave, context)
+            reminderToSave.times.forEach { reminderTime ->
+                scheduleNotification(reminderToSave, reminderTime, context)
+            }
             resetReminder()
         }
     }
 
-    private fun scheduleNotifications(reminder: Reminder, context: Context) {
+    private fun scheduleNotification(reminder: Reminder, reminderTime: ReminderTime, context: Context) {
         val notificationService = MedicationNotificationService(context)
         val calendar = Calendar.getInstance()
 
@@ -125,7 +136,7 @@ class ReminderViewModel(private val repository: FirebaseRepository) : ViewModel(
             "Daily" -> {
                 var currentDate = reminder.startDate
                 while (currentDate <= reminder.endDate) {
-                    Log.d("ReminderViewModel", "Scheduling daily reminder for date: $currentDate")
+                    Log.d("ReminderViewModel", "Scheduling daily reminder for date: $currentDate, time: ${reminderTime.time}")
                     scheduleTimesForDate(reminder, currentDate, notificationService)
                     currentDate += 24 * 60 * 60 * 1000 // Increment by one day in milliseconds
                 }
@@ -134,7 +145,7 @@ class ReminderViewModel(private val repository: FirebaseRepository) : ViewModel(
                 var currentDate = reminder.startDate
                 calendar.timeInMillis = reminder.startDate
                 while (currentDate <= reminder.endDate) {
-                    Log.d("ReminderViewModel", "Scheduling weekly reminder for date: $currentDate")
+                    Log.d("ReminderViewModel", "Scheduling weekly reminder for date: $currentDate, time: ${reminderTime.time}")
                     scheduleTimesForDate(reminder, currentDate, notificationService)
                     calendar.add(Calendar.WEEK_OF_YEAR, 1) // Increment by one week
                     currentDate = calendar.timeInMillis
@@ -144,7 +155,7 @@ class ReminderViewModel(private val repository: FirebaseRepository) : ViewModel(
                 var currentDate = reminder.startDate
                 calendar.timeInMillis = reminder.startDate
                 while (currentDate <= reminder.endDate) {
-                    Log.d("ReminderViewModel", "Scheduling monthly reminder for date: $currentDate")
+                    Log.d("ReminderViewModel", "Scheduling monthly reminder for date: $currentDate, time: ${reminderTime.time}")
                     scheduleTimesForDate(reminder, currentDate, notificationService)
                     calendar.add(Calendar.MONTH, 1) // Increment by one month
                     currentDate = calendar.timeInMillis
@@ -154,21 +165,9 @@ class ReminderViewModel(private val repository: FirebaseRepository) : ViewModel(
     }
 
     private fun scheduleTimesForDate(reminder: Reminder, dateInMillis: Long, notificationService: MedicationNotificationService) {
-        reminder.timeOne.let {
-            Log.d("ReminderViewModel", "Scheduling timeOne: $it for date: $dateInMillis")
-            notificationService.scheduleNotification(reminder.copy(startDate = dateInMillis, timeOne = it))
-        }
-        reminder.timeTwo?.let {
-            Log.d("ReminderViewModel", "Scheduling timeTwo: $it for date: $dateInMillis")
-            notificationService.scheduleNotification(reminder.copy(startDate = dateInMillis, timeOne = it))
-        }
-        reminder.timeThree?.let {
-            Log.d("ReminderViewModel", "Scheduling timeThree: $it for date: $dateInMillis")
-            notificationService.scheduleNotification(reminder.copy(startDate = dateInMillis, timeOne = it))
-        }
-        reminder.timeFour?.let {
-            Log.d("ReminderViewModel", "Scheduling timeFour: $it for date: $dateInMillis")
-            notificationService.scheduleNotification(reminder.copy(startDate = dateInMillis, timeOne = it))
+        reminder.times.forEach { reminderTime ->
+            Log.d("ReminderViewModel", "Scheduling time: ${reminderTime.time} for date: $dateInMillis")
+            notificationService.scheduleNotification(reminder, reminderTime, dateInMillis)
         }
     }
 }

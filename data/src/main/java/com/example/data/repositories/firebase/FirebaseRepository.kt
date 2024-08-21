@@ -1,8 +1,10 @@
 package com.example.data.repositories.firebase
 
+import android.util.Log
 import com.example.domain.models.contacts.Contact
 import com.example.domain.models.medication.Medication
 import com.example.domain.models.reminder.Reminder
+import com.example.domain.models.reminder.ReminderTime
 import com.example.domain.models.user_details.UserDetails
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -177,33 +179,58 @@ class FirebaseRepository {
 
 
     fun getRemindersFlow(): Flow<List<Reminder>> = callbackFlow {
-        userId?.let { userId ->
-            val myRef = database.getReference("users").child(userId).child("reminders")
-            val listener = object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val reminders = mutableListOf<Reminder>()
-                    snapshot.children.forEach { medicationSnapshot ->
-                        medicationSnapshot.children.forEach { reminderSnapshot ->
-                            val reminder = reminderSnapshot.getValue(Reminder::class.java)
-                            if (reminder != null) {
-                                reminders.add(reminder)
-                            } else {
-                                println("Reminder is null, failed to parse snapshot.")
+        val myRef = database.getReference("users").child(userId!!).child("reminders")
+        val listener = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val reminders = mutableListOf<Reminder>()
+                snapshot.children.forEach { medicationSnapshot ->
+                    medicationSnapshot.children.forEach { reminderSnapshot ->
+                        try {
+                            // Debug: Log the snapshot to check its structure
+                            Log.d("FirebaseRepository", "Snapshot data: ${reminderSnapshot.value}")
+
+                            // Manually mapping the data
+                            val reminderId = reminderSnapshot.child("reminderId").getValue(String::class.java) ?: ""
+                            val medicineName = reminderSnapshot.child("medicineName").getValue(String::class.java) ?: ""
+                            val recurrence = reminderSnapshot.child("recurrence").getValue(String::class.java) ?: ""
+                            val startDate = reminderSnapshot.child("startDate").getValue(Long::class.java) ?: 0L
+                            val endDate = reminderSnapshot.child("endDate").getValue(Long::class.java) ?: 0L
+                            val times = mutableListOf<ReminderTime>()
+
+                            // Handle the list of times
+                            reminderSnapshot.child("times").children.forEach { timeSnapshot ->
+                                val timeId = timeSnapshot.child("timeId").getValue(String::class.java) ?: ""
+                                val time = timeSnapshot.child("time").getValue(String::class.java) ?: ""
+                                times.add(ReminderTime(timeId = timeId, time = time))
                             }
+
+                            // Construct the Reminder object
+                            val reminder = Reminder(
+                                reminderId = reminderId,
+                                medicineName = medicineName,
+                                recurrence = recurrence,
+                                startDate = startDate,
+                                endDate = endDate,
+                                times = times
+                            )
+
+                            reminders.add(reminder)
+
+                        } catch (e: Exception) {
+                            Log.e("FirebaseRepository", "Error parsing reminder: ${e.message}", e)
                         }
                     }
-                    println("Fetched Reminders: ${reminders.size}")
-                    trySend(reminders)
                 }
-
-                override fun onCancelled(error: DatabaseError) {
-                    println("Firebase error: ${error.message}")
-                    close(error.toException())
-                }
+                trySend(reminders)
             }
-            myRef.addValueEventListener(listener)
-            awaitClose { myRef.removeEventListener(listener) }
-        } ?: close(IllegalStateException("User ID is null"))
+
+            override fun onCancelled(error: DatabaseError) {
+                println("Firebase error: ${error.message}")
+                close(error.toException())
+            }
+        }
+        myRef.addValueEventListener(listener)
+        awaitClose { myRef.removeEventListener(listener) }
     }
 
     suspend fun deleteReminder(reminderId: String, medicationName: String) {

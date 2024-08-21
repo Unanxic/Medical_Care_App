@@ -87,7 +87,7 @@ fun CalendarScreen(
                             MedicationBreakCard() // Show this card if there are no reminders for the selected date
                         }
                     } else {
-                        ReminderList(reminders = filteredReminders, navController = navController) // Show reminders if there are any
+                        ReminderList(reminders = filteredReminders) // Show reminders if there are any
                     }
                 }
             }
@@ -96,7 +96,7 @@ fun CalendarScreen(
 }
 
 @Composable
-fun ReminderList(navController: NavController, reminders: List<Reminder>) {
+fun ReminderList(reminders: List<Reminder>) {
     val context = LocalContext.current
     LazyColumn(
         modifier = Modifier
@@ -105,9 +105,8 @@ fun ReminderList(navController: NavController, reminders: List<Reminder>) {
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         reminders.forEach { reminder ->
-            val times = listOfNotNull(reminder.timeOne, reminder.timeTwo, reminder.timeThree, reminder.timeFour)
-            items(times) { time ->
-                val formattedTime = formatTime(time)
+            items(reminder.times) { reminderTime ->
+                val formattedTime = formatTime(reminderTime.time)
 
                 val statusText = context.getString(R.string.scheduled_at, formattedTime)
 

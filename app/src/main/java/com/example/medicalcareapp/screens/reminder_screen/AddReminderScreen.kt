@@ -167,20 +167,14 @@ fun AddReminderScreen(
             Spacer(modifier = Modifier.height(12.dp))
             ButtonComponent(
                 onClick = {
-                    val timeOne = selectedTime.toString()
-                    val timeTwo = additionalTimes.getOrNull(0)?.toString()
-                    val timeThree = additionalTimes.getOrNull(1)?.toString()
-                    val timeFour = additionalTimes.getOrNull(2)?.toString()
+                    val times = listOf(selectedTime.toString()) + additionalTimes.map { it.toString() }
 
                     viewModel.setReminderData(
                         medicineName = medicationName,
                         recurrence = recurrence,
                         startDate = startDate,
                         endDate = endDate,
-                        timeOne = timeOne,
-                        timeTwo = timeTwo,
-                        timeThree = timeThree,
-                        timeFour = timeFour
+                        times = times
                     )
 
                     viewModel.saveReminder(context)
