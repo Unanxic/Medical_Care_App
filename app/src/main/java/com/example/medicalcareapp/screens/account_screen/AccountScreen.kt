@@ -230,13 +230,10 @@ fun AccountScreen(
                 dialogState = LogoutDialogState.NONE
             },
             onLogout = {
-                // Delete the SOS contact before logging out
-                sosViewModel.deleteSOSContact {
-                    homeScreenManager.reset()
-                    accountViewModel.logout()
-                    navController.navigate(Screens.Welcome.route) {
-                        popUpTo(0) { inclusive = true }
-                    }
+                homeScreenManager.reset()
+                accountViewModel.logout()
+                navController.navigate(Screens.Welcome.route) {
+                    popUpTo(0) { inclusive = true }
                 }
             }
         )

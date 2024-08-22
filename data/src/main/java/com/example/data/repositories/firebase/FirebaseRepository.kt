@@ -5,6 +5,7 @@ import com.example.domain.models.contacts.Contact
 import com.example.domain.models.medication.Medication
 import com.example.domain.models.reminder.Reminder
 import com.example.domain.models.reminder.ReminderTime
+import com.example.domain.models.sos_contact.SOSContact
 import com.example.domain.models.user_details.UserDetails
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -240,12 +241,25 @@ class FirebaseRepository {
         awaitClose { myRef.removeEventListener(listener) }
     }
 
-    suspend fun deleteReminder(reminderId: String, medicationName: String) {
+    //sos contact
+    suspend fun saveSOSContact(sosContact: SOSContact) {
         userId?.let {
-            val myRef =
-                database.getReference("users").child(it).child("reminders").child(medicationName)
-                    .child(reminderId)
-            myRef.removeValue().await()
+            val ref = database.getReference("users").child(it).child("sos_contact")
+            ref.setValue(sosContact).await()
+        }
+    }
+
+    suspend fun loadSOSContact(): SOSContact? {
+        return userId?.let {
+            val ref = database.getReference("users").child(it).child("sos_contact")
+            ref.get().await().getValue(SOSContact::class.java)
+        }
+    }
+
+    suspend fun deleteSOSContact() {
+        userId?.let {
+            val ref = database.getReference("users").child(it).child("sos_contact")
+            ref.removeValue().await()
         }
     }
 }
