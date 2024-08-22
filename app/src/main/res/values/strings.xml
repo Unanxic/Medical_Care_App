@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Vitalis App</string>
+    <string name="app_name" translatable="false">Vitalis</string>
     <string name="password">Password</string>
     <string name="email" translatable="false">Email</string>
     <string name="let_s_sign_you_in">Let\'s Sign You in</string>
