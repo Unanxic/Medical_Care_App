@@ -228,7 +228,7 @@ fun LoginScreen(
                             .align(Alignment.CenterHorizontally),
                         text = stringResource(R.string.log_in),
                         isFilled = true,
-                        isDisabled = email.isBlank() || password.isBlank(),
+                        isDisabled = email.isBlank() || password.isBlank() || isEmailError || isPasswordError,
                         fontSize = 16.sp,
                         cornerRadius = 20,
                         fillColorChoice = MSUGreen
