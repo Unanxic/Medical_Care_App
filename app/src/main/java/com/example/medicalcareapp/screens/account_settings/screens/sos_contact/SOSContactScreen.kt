@@ -34,17 +34,15 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.medicalcareapp.R
 import com.example.medicalcareapp.composables.ButtonComponent
-import com.example.medicalcareapp.composables.GenericOutlinedTextFieldWithValueSOS
+import com.example.medicalcareapp.composables.GenericOutlinedTextFieldWithValue
 import com.example.medicalcareapp.extesions.setNoRippleClickable
 import com.example.medicalcareapp.navigation.Screens
 import com.example.medicalcareapp.screens.account_settings.viewmodels.SOSContactViewModel
@@ -62,7 +60,7 @@ fun SOSContactScreen(
 ) {
     var isNavigationInProgress by remember { mutableStateOf(false) }
     val sosContact by viewModel.sosContact.collectAsState()
-    var sosPhoneNumber by remember { mutableStateOf(TextFieldValue(sosContact?.phoneNumber ?: "")) }
+    var sosPhoneNumber by remember { mutableStateOf(sosContact?.phoneNumber ?: "") }
     var isEnabled by remember { mutableStateOf(false) }
     var buttonText by remember { mutableStateOf("Edit Number") }
     var isErrorPhoneNumber by remember { mutableStateOf(false) }
@@ -70,20 +68,20 @@ fun SOSContactScreen(
 
     LaunchedEffect(sosContact) {
         sosContact?.phoneNumber?.let {
-            sosPhoneNumber = TextFieldValue(it, selection = TextRange(it.length))
+            sosPhoneNumber = it
             isEnabled = false
         } ?: run {
-            sosPhoneNumber = TextFieldValue("", selection = TextRange(0))
+            sosPhoneNumber = ""
             isEnabled = false
         }
     }
 
     val buttonTextResId = when {
-        isEnabled && sosPhoneNumber.text.isEmpty() -> {
+        isEnabled && sosPhoneNumber.isEmpty() -> {
             if (sosContact != null) R.string.delete_uppercase else R.string.cancel_uppercase
         }
 
-        sosPhoneNumber.text.isEmpty() -> R.string.add_number
+        sosPhoneNumber.isEmpty() -> R.string.add_number
         isEnabled -> R.string.save
         else -> R.string.edit_number
     }
@@ -117,13 +115,13 @@ fun SOSContactScreen(
                     text = sosPhoneNumber,
                     onTextChanged = {
                         sosPhoneNumber = it
-                        isErrorPhoneNumber = it.text.length != 10
+                        isErrorPhoneNumber = it.length != 10
                         buttonText = when {
-                            isEnabled && sosPhoneNumber.text.isEmpty() -> {
+                            isEnabled && sosPhoneNumber.isEmpty() -> {
                                 if (sosContact != null) "Delete" else "Cancel"
                             }
 
-                            sosPhoneNumber.text.isEmpty() -> "Add Number"
+                            sosPhoneNumber.isEmpty() -> "Add Number"
                             isEnabled -> "Save"
                             else -> "Edit Number"
                         }
@@ -148,8 +146,8 @@ fun SOSContactScreen(
                             }
 
                             R.string.save -> {
-                                if (sosPhoneNumber.text.length == 10) {
-                                    viewModel.saveSOSContact(sosPhoneNumber.text) {
+                                if (sosPhoneNumber.length == 10) {
+                                    viewModel.saveSOSContact(sosPhoneNumber) {
                                         isEnabled = false
                                         navController.navigate(Screens.SOSContactSuccess.route) {
                                             popUpTo(0) { inclusive = true }
@@ -160,13 +158,13 @@ fun SOSContactScreen(
 
                             R.string.cancel_uppercase -> {
                                 isEnabled = false
-                                sosPhoneNumber = TextFieldValue(sosContact?.phoneNumber ?: "")
+                                sosPhoneNumber = sosContact?.phoneNumber ?: ""
                             }
 
                             R.string.delete_uppercase -> {
                                 viewModel.deleteSOSContact {
                                     isEnabled = false
-                                    sosPhoneNumber = TextFieldValue("")
+                                    sosPhoneNumber = ""
                                     navController.navigate(Screens.SOSContactSuccessDelete.route) {
                                         popUpTo(0) { inclusive = true }
                                     }
@@ -184,7 +182,7 @@ fun SOSContactScreen(
                     cornerRadius = 20,
                     fillColorChoice = LightBlue,
                     contentColorChoice = SmokyBlack,
-                    isDisabled = buttonTextResId == R.string.save && sosPhoneNumber.text.length != 10
+                    isDisabled = buttonTextResId == R.string.save && sosPhoneNumber.length != 10
                 )
                 Spacer(modifier = Modifier.height(114.dp))
             }
@@ -203,8 +201,8 @@ fun SOSContactScreen(
 fun InputField(
     label: String = "",
     hint: String = "",
-    text: TextFieldValue,
-    onTextChanged: (TextFieldValue) -> Unit,
+    text: String,
+    onTextChanged: (String) -> Unit,
     imeAction: ImeAction = ImeAction.Next,
     isEnabled: Boolean = true,
     errorMessage: String = "",
@@ -219,7 +217,7 @@ fun InputField(
             textAlign = TextAlign.Start
         )
         Spacer(modifier = Modifier.height(6.dp))
-        GenericOutlinedTextFieldWithValueSOS(
+        GenericOutlinedTextFieldWithValue(
             modifier = Modifier
                 .fillMaxWidth()
                 .focusRequester(focusRequester),
