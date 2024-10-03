@@ -1,5 +1,6 @@
 package com.example.medicalcareapp
 
+import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
@@ -15,6 +16,7 @@ class MedicationNotificationService(
     private val context: Context
 ) {
 
+    @SuppressLint("ScheduleExactAlarm")
     fun scheduleNotification(reminder: Reminder, reminderTime: ReminderTime, dateInMillis: Long) {
         // Create the Intent for the BroadcastReceiver
         val intent = Intent(context, MedicationAppBroadcastReceiver::class.java).apply {
@@ -22,14 +24,15 @@ class MedicationNotificationService(
             putExtra(MEDICATION_INTENT_ID, reminder.reminderId)
             putExtra("MEDICATION_NAME", reminder.medicineName)
             putExtra("REMINDER_TIME_ID", reminderTime.timeId)
+            putExtra("REMINDER_DATE", dateInMillis)
         }
 
         // Create the PendingIntent to trigger the BroadcastReceiver
         val pendingIntent = PendingIntent.getBroadcast(
             context,
-            reminderTime.timeId.hashCode(),
+            (reminder.reminderId.hashCode() + dateInMillis.hashCode() + reminderTime.time.hashCode()),
             intent,
-            PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
         // Convert the reminder's time and date to milliseconds
@@ -37,6 +40,12 @@ class MedicationNotificationService(
 
         // Get the AlarmManager service
         val alarmService = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        alarmService.setExactAndAllowWhileIdle(
+            AlarmManager.RTC_WAKEUP,
+            dateInMillis, // Pass the exact date and time for the reminder
+            pendingIntent
+        )
 
         if (timeInMillis != null) {
             try {
